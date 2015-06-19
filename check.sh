@@ -999,7 +999,7 @@ output "V-38522" $?
 ##RHEL-06-000169
 ##The audit system must be configured to audit all attempts to alter system time through stime.
 ##32-bit system only
-if [ "$(uname -m)" = "i686"];then
+if [ "$(uname -m)" = "i686" ];then
 grep -w "stime" /etc/audit/audit.rules >/dev/null 2>&1 &
 fi
 spinner $!

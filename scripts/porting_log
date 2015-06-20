@@ -1,4 +1,6 @@
 
+######CHANGE#######
+
 #RHEL-06-000008: Vendor-provided cryptographic certificates must be installed to verify the integrity of system software.
 #Change corresponding gpg key check to Debian compatible.
 
@@ -24,8 +26,13 @@
 #RHEL-06-000068:The system boot loader must require authentication.
 #Change grub-crypt --sha-512 to grub-mkpasswd-pbkdf2 
 
+####DEPRECATED#####
+#RHEL-06-000009:The Red Hat Network Service (rhnsd) service must not be running, unless using RHN or an RHN Satellite.
+#DEPRECATED
+
 #RHEL-06-000069:The system must require authentication upon booting into single-user and maintenance modes.
-#DEPRECATED.Debian and therefore Ubuntu both require root password when booting into single user mode or recovery mode. RHEL and CentOS allows access from the console into single user mode without a password.
+#DEPRECATED.
+#Debian and therefore Ubuntu both require root password when booting into single user mode or recovery mode. RHEL and CentOS allows access from the console into single user mode without a password.
 
 #RHEL-06-000070:The system must not permit interactive boot.
 #DEPRECATED.Don't find any interactive boot option in debian yet.
@@ -34,6 +41,7 @@
 #DEPRECATED
 
 #RHEL-06-000079:The system must limit the ability of processes to have simultaneous write and execute access to memory.
+#DEPRECATED
 #In debian 8 amd64, system enabled NX by default,and debian 8 i386 system use PAE by default
 
 #RHEL-06-000098:The IPv6 protocol handler must not be bound to the network stack unless needed.
@@ -56,10 +64,22 @@
 #Using 'service --status-all | grep "xinetd" ' instead of chkconfig
 
 #RHEL-06-000211:The telnet daemon must not be running.
-#Using 'service --status-all | grep "telnetd" ' instead of chkconfig
+#In Debian telnet service using inetd. You could disable it by comment the telnet line in the /etc/inetd.conf
 
 #RHEL-06-000214:The rshd service must not be running.
-#The rshd service in debian using xinetd, so use "xinetd" to check if service is running
+#In Debian rshd service using inetd. You could disable it by comment the rshd line in the /etc/inetd.conf
+
+#RHEL-06-000216:The rexecd service must not be running.
+#In Debian rexecd service using inetd. You could disable it by comment the rexecd line in the /etc/inetd.conf
+
+#RHEL-06-000218:The rlogind service must not be running.
+#In Debian rlogind service using inetd. You could disable it by comment the rlogind line in the /etc/inetd.conf
+
+#RHEL-06-000220:The ypserv package must not be installed.
+#In Debian using nis package instead of ypserv package.
+
+#RHEL-06-000221:The ypbind service must not be running.
+#In Debian using nis service instead of ypbind service.
 
 #RHEL-06-000240:The SSH daemon must be configured with the Department of Defense (DoD) login banner.
 #DEPRECATED
@@ -74,11 +94,15 @@
 #DEPRECATED.
 #Didn't find abrtd-like  tool in debian yet
 
+#RHEL-06-000265:The ntpdate service must not be running.
+#DEPRECATED
+#In Debian there's no running service "ntpdate", some of ntpdate's function is include in "ntp" so  DEPRECATED.
+
 #RHEL-06-000266:The oddjobd service must not be running.
 #DEPRECATED.Debian don't have oddjob service or package
 
 #RHEL-06-000267:The qpidd service must not be running.
-#Debian don't have qpidd service by default
+#Debian don't have qpidd service by default, in RHEL this service is selected by "base" package.
 
 #RHEL-06-000268:The rdisc service must not be running.
 #Debian don't have rdisc service by default

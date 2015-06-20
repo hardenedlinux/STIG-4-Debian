@@ -1,0 +1,12 @@
+RHEL-06-000013:The system package management tool must cryptographically verify the authenticity of system software packages during installation.
+RHEL-06-000015:The system package management tool must cryptographically verify the authenticity of all software packages during installation.
+RHEL-06-000020:The system must use a Linux Security Module configured to enforce limits on system services.
+RHEL-06-000023:The system must use a Linux Security Module configured to limit the privileges of system services.
+RHEL-06-000025:All device files must be monitored by the system Linux Security Module.
+
+RHEL-06-000252:If the system is using LDAP for authentication or account information, the system must use a TLS connection using FIPS 140-2 approved cryptographic algorithms.
+RHEL-06-000253:The LDAP client must use a TLS connection using trust certificates signed by the site CA.
+RHEL-06-000257:The graphical desktop environment must set the idle timeout to no more than 15 minutes.
+RHEL-06-000258:The graphical desktop environment must automatically lock after 15 minutes of inactivity and the system must require user reauthentication to unlock the environment.
+RHEL-06-000259:The graphical desktop environment must have automatic lock enabled.
+RHEL-06-000260:The system must display a publicly-viewable pattern during a graphical desktop environment session lock.

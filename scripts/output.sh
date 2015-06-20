@@ -582,7 +582,7 @@ system administrator(s) to any modifications. Any unexpected users, groups, or m
                   printf '\n######################\n\nSTIG-ID:RHEL-06-000188\n\nVulnerability Discussion: The changing of file permissions could indicate that a user is attempting to gain access to information that would otherwise be disallowed. Auditing DAC modifications can facilitate the identification of patterns of abuse among both authorized and unauthorized users.\n\nFix text: At a minimum, the audit system should collect file permission changes for all users and root. Add the following to "/etc/audit/audit.rules":\n\n-a always,exit -F arch=b32 -S fchown -F auid>=500 -F auid!=4294967295 -k perm_mod\n-a always,exit -F arch=b32 -S fchown -F auid=0 -k perm_mod\n\nIf the system is 64-bit, then also add the following:-a always,exit -F arch=b64 -S fchown -F auid>=500 -F auid!=4294967295 -k perm_mod\n-a always,exit -F arch=b64 -S fchown -F auid=0 -k perm_mod  \n\n######################\n\n' >> $LOG
               fi
               ;;
-    V-38554)  log_msg $2 ' The audit system must be configured to audit all discretionary access control permission modifications using fchownat.' 
+    V-38554)  log_msg $2 'The audit system must be configured to audit all discretionary access control permission modifications using fchownat.' 
               if [ $2 -ne 0 ];then 
                   printf '\n######################\n\nSTIG-ID:RHEL-06-000189\n\nVulnerability Discussion: The changing of file permissions could indicate that a user is attempting to gain access to information that would otherwise be disallowed. Auditing DAC modifications can facilitate the identification of patterns of abuse among both authorized and unauthorized users\n\nFix text: At a minimum, the audit system should collect file permission changes for all users and root. Add the following to "/etc/audit/audit.rules":\n\n-a always,exit -F arch=b32 -S fchownat -F auid>=500 -F auid!=4294967295 -k perm_mod\n-a always,exit -F arch=b32 -S fchownat -F auid=0 -k perm_mod\n\nIf the system is 64-bit, then also add the following:\n\n-a always,exit -F arch=b64 -S fchownat -F auid>=500 -F auid!=4294967295 -k perm_mod\n-a always,exit -F arch=b64 -S fchownat -F auid=0 -k perm_mod\n\n######################\n\n' >> $LOG
               fi
@@ -645,6 +645,208 @@ system administrator(s) to any modifications. Any unexpected users, groups, or m
     V-38578)  log_msg $2 'The audit system must be configured to audit changes to the /etc/sudoers file.' 
               if [ $2 -ne 0 ];then 
                   printf '\n######################\n\nSTIG-ID:RHEL-06-000201\n\nVulnerability Discussion: The actions taken by system administrators should be audited to keep a record of what was executed on the system, as well as, for accountability purposes.\n\nFix text: At a minimum, the audit system should collect administrator actions for all users and root. Add the following to "/etc/audit/audit.rules":\n-w /etc/sudoers -p wa -k actions\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38580)  log_msg $2 'The audit system must be configured to audit the loading and unloading of dynamic kernel modules.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000202\n\nVulnerability Discussion: The addition/removal of kernel modules can be used to alter the behavior of the kernel and potentially introduce malicious code into kernel space. It is important to have an audit trail of modules that have been introduced into the kernel.\n\nFix text: Add the following to "/etc/audit/audit.rules" in order to capture kernel module loading and unloading events, setting ARCH to either b32 or b64 as appropriate for your system:\n\n-w /sbin/insmod -p x -k modules\n-w /sbin/rmmod -p x -k modules\n-w /sbin/modprobe -p x -k modules\n-a always,exit -F arch=[ARCH] -S init_module -S delete_module -k modules  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38582)  log_msg $2 'The xinetd service must be disabled if no network services utilizing it are enabled.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000203\n\nVulnerability Discussion: The xinetd service provides a dedicated listener service for some programs, which is no longer necessary for commonly-used network services. Disabling it ensures that these uncommonservices are not running, and also prevents attacks against xinetd itself.\n\nFix text: The "xinetd" service can be disabled with the following commands:\n\n#update-rc.d xinetd remove\nservice xinetd stop\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38584)  log_msg $2 'The xinetd service must be uninstalled if no network services utilizing it are enabled.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000204\n\nVulnerability Discussion: Removing the "xinetd" package decreases the risk of the xinetd service\047s accidental (or intentional) activation.\n\nFix text: The "xinetd" package can be uninstalled with the following command:\n\n#apt-get purge xinetd\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38587)  log_msg $2 'The telnet-server package must not be installed.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000206\n\nVulnerability Discussion: Removing the "telnetd" package decreases the risk of the unencrypted telnet service\047s accidental (or intentional) activation.\n\nFix text: The "telnetd" package can be uninstalled with the following command:\n\n#apt-get purge telnetd\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38589)  log_msg $2 'The telnet daemon must not be running.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000211\n\nVulnerability Discussion: The telnet protocol uses unencrypted network communication, which means that data from the login session, including passwords and all other information transmitted during the session, can be stolen by eavesdroppers on the network. The telnet protocol is also subject to man-in-the-middle attacks.\n\nMitigation: If an enabled telnet daemon is configured to only allow encrypted sessions, such as with Kerberos or the use of encrypted network tunnels, the risk of exposing sensitive information is mitigated.\n\nFix text: In Debian telnet server using inetd\n\nCheck following line in the "/etc/inetd.conf":\n\ntelnet		stream	tcp	nowait	telnetd	/usr/sbin/tcpd	/usr/sbin/in.telnetd\n\nYou can disable telnet server by comment above line.\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38591)  log_msg $2 'The rsh-server package must not be installed.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000213\n\nVulnerability Discussion: The "rsh-server" package provides several obsolete and insecure network services.Removing it decreases the risk of those services\047 accidental (or intentional) activation.\n\nFix text: The "rsh-server" package can be uninstalled with the following command:\n\n#apt-get purge rsh-server\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38594)  log_msg $2 'The rshd service must not be running.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000214\n\nVulnerability Discussion: The rsh service uses unencrypted network communications, which means that data from the login session, including passwords and all other information transmitted during the session, can be stolen by eavesdroppers on the network.\n\nFix text: The "rshd" service, which is available with the "rsh-server" package and runs as a service through inetd, should be disabled.You could disabled rshd in "/etc/inetd.conf" by comment or remove following line:\n\nshell		stream	tcp	nowait	root	/usr/sbin/tcpd	/usr/sbin/in.rshd\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38598)  log_msg $2 'The rexecd service must not be running.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000216\n\nVulnerability Discussion: The rexec service uses unencrypted network communications, which means that data from the login session, including passwords and all other information transmitted during the session, can be stolen by eavesdroppers on the network.\n\nFix text: The "rexecd" service, which is available with the "rsh-server" package and runs as a service through inetd, should be disabled.You could disabled rexecd in "/etc/inetd.conf" by comment or remove following line:\n\nexec		stream	tcp	nowait	root	/usr/sbin/tcpd	/usr/sbin/in.rexecd\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38602)  log_msg $2 'The rlogind service must not be running.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000218\n\nVulnerability Discussion: The rlogin service uses unencrypted network communications, which means that data from the login session, including passwords and all other information transmitted during the session, can be stolen by eavesdroppers on the network.\n\nFix text: The "rlogind" service, which is available with the "rsh-server" package and runs as a service through inetd, should be disabled.You could disabled rlogind in "/etc/inetd.conf" by comment or remove following line:\n\nlogin		stream	tcp	nowait	root	/usr/sbin/tcpd	/usr/sbin/in.rlogind\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38603)  log_msg $2 'The nis(ypserv) package must not be installed.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000220\n\nVulnerability Discussion: Removing the "nis" package decreases the risk of the accidental (or intentional) activation of NIS or NIS+ services.\n\nFix text: The "nis" package can be uninstalled with the following command:\n\n#apt-get purge nis\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38604)  log_msg $2 'The nis(ypbind) service must not be running.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000221\n\nVulnerability Discussion: Disabling the "nis" service ensures the system is not acting as a client in a NIS or NIS+ domain.\n\nFix text: The "nis" service, which allows the system to act as a client in a NIS or NIS+ domain, should be
+disabled. The "nis" service can be disabled with the following commands:\n\n#update-rc.d nis remove\nservice nis stop\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38606)  log_msg $2 'The tftp-server package must not be installed unless required.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000222\n\nVulnerability Discussion: Removing the "tftp-server" package decreases the risk of the accidental (or intentional) activation of tftp services.\n\nFix text: The "tftp-server" package can be removed with the following command:\n\n#apt-get purge tftpd\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38609)  log_msg $2 'The TFTP service must not be running.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000223\n\nVulnerability Discussion: Disabling the "tftp" service ensures the system is not acting as a tftp server, which does not provide encryption or authentication.\n\nFix text: The "tftp" service, which is available with the "tftpd" package and runs as a service through inetd, should be disabled.You could disabled tftp in "/etc/inetd.conf" by comment or remove following line:\n\ntftp		dgram	udp	wait	nobody	/usr/sbin/tcpd	/usr/sbin/in.tftpd /srv/tftp\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38605)  log_msg $2 'The cron service must be running.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000224\n\nVulnerability Discussion: Due to its usage for maintenance and security-supporting tasks, enabling the cron daemon is essential.\n\nFix text: The "crond" service is used to execute commands at preconfigured times. It is required by almost all systems to perform necessary maintenance tasks, such as notifying root of system activity. The "crond" service can be enabled with the following commands:\n\n#update-rc.d cron defaults\nservice cron start\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38607)  log_msg $2 'The SSH daemon must be configured to use only the SSHv2 protocol.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000227\n\nVulnerability Discussion: SSH protocol version 1 suffers from design flaws that result in security vulnerabilities and should not be used.\n\nFix text: Only SSH protocol version 2 connections should be permitted. The default setting in "/etc/ssh/sshd_config" is correct, and can be verified by ensuring that the following line appears:\n\nProtocol 2\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38608)  log_msg $2 'The SSH daemon must set a timeout interval on idle sessions.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000230\n\nVulnerability Discussion: Causing idle users to be automatically logged out guards against compromises one system leading trivially to compromises on another.\n\nFix text: SSH allows administrators to set an idle timeout interval. After this interval has passed, the idle user will be automatically logged out.\n\nTo set an idle timeout interval, edit the following line in "/etc/ssh/sshd_config" as follows:\n\nClientAliveInterval [interval]\n\nThe timeout [interval] is given in seconds. To have a timeout of 15 minutes, set [interval] to 900.\n\nIf a shorter timeout has already been set for the login shell, that value will preempt any SSH setting made here.Keep in mind that some processes may stop SSH from correctly detecting that the user is idle.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38610)  log_msg $2 'The SSH daemon must set a timeout count on idle sessions.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000231\n\nVulnerability Discussion: This ensures a user login will be terminated as soon as the "ClientAliveCountMax" is reached.\n\nFix text: To ensure the SSH idle timeout occurs precisely when the "ClientAliveCountMax" is set, edit "/etc/ssh/sshd_config" as follows:\n\nClientAliveCountMax 0\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38611)  log_msg $2 'The SSH daemon must ignore .rhosts files.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000234\n\nVulnerability Discussion: SSH trust relationships mean a compromise on one host can allow an attacker to move trivially to other hosts.\n\nFix text:  SSH can emulate the behavior of the obsolete rsh command in allowing users to enable insecure access to their accounts via ".rhosts" files.\n\nTo ensure this behavior is disabled, add or correct the following line in "/etc/ssh/sshd_config":\n\nIgnoreRhosts yes  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38612)  log_msg $2 'The SSH daemon must not allow host-based authentication.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000236\n\nVulnerability Discussion: SSH trust relationships mean a compromise on one host can allow an attacker to move trivially to other hosts.\n\nFix text: SSH\047s cryptographic host-based authentication is more secure than ".rhosts" authentication, since hosts are cryptographically authenticated. However, it is not recommended that hosts unilaterally trust one another, even within an organization.\n\nTo disable host-based authentication, add or correct the following line in "/etc/ssh/sshd_config":\n\nHostbasedAuthentication no  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38613)  log_msg $2 'The system must not permit root logins using remote access programs such as ssh.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000237\n\nVulnerability Discussion: Permitting direct root login reduces auditable information about who ran privileged commands on the system and also allows direct attack attempts on root\047s password.\n\nFix text: The root user should never be allowed to log in to a system directly over a network. To disable root login via SSH, add or correct the following line in "/etc/ssh/sshd_config":\n\nPermitRootLogin no\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38614)  log_msg $2 'The SSH daemon must not allow authentication using an empty password.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000239\n\nVulnerability Discussion: Configuring this setting for the SSH daemon provides additional assurance that remote login via SSH will require a password, even in the event of misconfiguration elsewhere.\n\nFix text: To explicitly disallow remote login from accounts with empty passwords, add or correct the following line in "/etc/ssh/sshd_config":\n\nPermitEmptyPasswords no\n\nAny accounts with empty passwords should be disabled immediately, and PAM configuration should prevent users from being able to assign themselves empty passwords.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38616)  log_msg $2 'The SSH daemon must not permit user environment settings.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000241\n\nVulnerability Discussion: SSH environment options potentially allow users to bypass access restriction in some configurations.\n\nFix text: To ensure users are not able to present environment options to the SSH daemon, add or correct the following line in "/etc/ssh/sshd_config":\n\nPermitUserEnvironment no\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+     V-38617)  log_msg $2 'The SSH daemon must be configured to use only FIPS 140-2 approved ciphers.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000243\n\nVulnerability Discussion: Approved algorithms should impart some level of confidence in their implementation. These are also required for compliance.\n\nFix text: Limit the ciphers to those algorithms which are FIPS-approved. Counter (CTR) mode is also preferred over cipher-block chaining (CBC) mode. The following line in "/etc/ssh/sshd_config" demonstrates use of FIPS-approved ciphers:\n\nCiphers aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc\n\nThe man page "sshd_config(5)" contains a list of supported ciphers.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38618)  log_msg $2 'The avahi service must be disabled.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000246\n\nVulnerability Discussion: Because the Avahi daemon service keeps an open network port, it is subject to network attacks. Its functionality is convenient but is only appropriate if the local network can be trusted.\n\nFix text: The "avahi-daemon" service can be disabled with the following commands:\n\n#update-rc.d avahi-daemon remove\nservice avahi-daemon stop\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38620)  log_msg $2 'The system clock must be synchronized continuously, or at least daily.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000247\n\nVulnerability Discussion: Enabling the "ntp" service ensures that the "ntp" service will be running and that the system will synchronize its time to any servers specified. This is important whether the system is configured to be a client (and synchronize only its own clock) or it is also acting as an NTP server to other systems. Synchronizing time is essential for authentication services such as Kerberos, but it is also important for maintaining accurate logs and auditing possible security breaches.\n\nFix text: The "ntp" service can be enabled with the following command:\n\nupdate-rc.d ntp defaults\nservice ntp start\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38621)  log_msg $2 'The system clock must be synchronized to an authoritative trusted time source.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000248\n\nVulnerability Discussion: Synchronizing with an NTP server makes it possible to collate system logs from multiple sources or correlate computer events with real time events. Using a trusted NTP server provided by your organization is recommended.\n\nFix text: To specify a remote NTP server for time synchronization, edit the file "/etc/ntp.conf". Add or correct the following lines, substituting the IP or hostname of a remote NTP server for ntpserver.\n\nserver [ntpserver]\n\nThis instructs the NTP software to contact that remote server to obtain time data. \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38622)  log_msg $2 'Mail relaying must be restricted.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000249\n\nVulnerability Discussion: This ensures "postfix" accepts mail messages (such as cron job reports) from the local system only, and not from the network, which protects it from network attack.\n\nFix text: Edit the file "/etc/postfix/main.cf" to ensure that only the following "inet_interfaces" line appears:\n\ninet_interfaces = localhost  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38625)  log_msg $2 'If the system is using LDAP for authentication or account information, the system must use a TLS connection using FIPS 140-2 approved cryptographic algorithms.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000252\n\nVulnerability Discussion: The ssl directive specifies whether to use ssl or not. If not specified it will default to "no". It should be set to "start_tls" rather than doing LDAP over SSL.\n\nFix text: Configure LDAP to enforce TLS use. First, edit the file "/etc/pam_ldap.conf", and add or correct the following lines:\n\nssl start_tls\n\nThen review the LDAP server and ensure TLS has been configured.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38626)  log_msg $2 'The LDAP client must use a TLS connection using trust certificates signed by the site CA.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000253\n\nVulnerability Discussion: The tls_cacertdir or tls_cacertfile directives are required when tls_checkpeer is configured (which is the default for openldap versions 2.1 and up). These directives define the path to the trust certificates signed by the site CA.\n\nFix text: Ensure a copy of the site\047s CA certificate has been placed in the file "/etc/pki/tls/CA/cacert.pem". Configure LDAP to enforce TLS use and to trust certificates signed by the site\047s CA. First, edit the file "/etc/pam_ldap.conf", and add or correct either of the following lines:\n\ntls_cacertdir /etc/pki/tls/CA\n\nor\n\ntls_cacertfile /etc/pki/tls/CA/cacert.pem\n\nThen review the LDAP server and ensure TLS has been configured.\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38627)  log_msg $2 'The openldap-servers package must not be installed unless required.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000256\n\nVulnerability Discussion: Unnecessary packages should not be installed to decrease the attack surface of the
+system.\n\nFix text: The "sldap" package should be removed if not in use. Is this machine the OpenLDAP server? If not, remove the package.\n\n#apt-get purge sldap\n\nThe openldap-servers RPM is not installed by default on RHEL6 machines. It is needed only by the OpenLDAP server, not by the clients which use LDAP for authentication. If the system is not intended for use as an LDAP Server it should be removed.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38629)  log_msg $2 'The graphical desktop environment must set the idle timeout to no more than 15 minutes.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000257\n\nVulnerability Discussion: Setting the idle delay controls when the screensaver will start, and can be combined with screen locking to prevent access from passersby.\n\nFix text: Run the following command to set the idle time-out value for inactivity in the GNOME desktop to 15 minutes:\n\n# gconftool-2 \\\n--direct \\\n--config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory \\\n--type int \\\n--set /apps/gnome-screensaver/idle_delay 15  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38630)  log_msg $2 'The graphical desktop environment must automatically lock after 15 minutes of inactivity and the system must require user reauthentication to unlock the environment.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000258\n\nVulnerability Discussion: Enabling idle activation of the screen saver ensures the screensaver will be activated after the idle delay. Applications requiring continuous, real-time screen display (such as network management products) require the login session does not have administrator rights and the display station is located in a controlled-access area.\n\nFix text: Run the following command to activate the screensaver in the GNOME desktop after a period of inactivity:\n\n# gconftool-2 --direct \\\n--config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory \\\n--type bool \\\n--set /apps/gnome-screensaver/idle_activation_enabled true\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38638)  log_msg $2 'The graphical desktop environment must have automatic lock enabled.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000259\n\nVulnerability Discussion: Enabling the activation of the screen lock after an idle period ensures password entry will be required in order to access the system, preventing access by passersby.\n\nFix text: Run the following command to activate locking of the screensaver in the GNOME desktop when it is activated:\n\n# gconftool-2 --direct \\\n--config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory \\\n--type bool \\\n--set /apps/gnome-screensaver/lock_enabled true  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38639)  log_msg $2 'The system must display a publicly-viewable pattern during a graphical desktop environment session lock.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000260\n\nVulnerability Discussion: Setting the screensaver mode to blank-only conceals the contents of the display from passersby.\n\nFix text: Run the following command to set the screensaver mode in the GNOME desktop to a blank screen:\n\n# gconftool-2 \\\n--direct \--config-source xml:readwrite:/etc/gconf/gconf.xml.mandatory \\\n--type string \\\n--set /apps/gnome-screensaver/mode blank-only\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38641)  log_msg $2 'The atd service must be disabled.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000262\n\nVulnerability Discussion: The "atd" service could be used by an unsophisticated insider to carry out activities outside of a normal login session, which could complicate accountability. Furthermore, the need to schedule tasks with "at" or "batch" is not common.\n\nFix text: The "at" and "batch" commands can be used to schedule tasks that are meant to be executed only once. This allows delayed execution in a manner similar to cron, except that it is not recurring. The daemon "atd" keeps track of tasks scheduled via "at" and "batch", and executes them at the specified time. The "atd" service can be disabled with the following commands:\n\nupdate-rc.d atd remove\nservice atd stop\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38652)  log_msg $2 'Remote file systems must be mounted with the nodev option.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000266\n\nVulnerability Discussion: Legitimate device files should only exist in the /dev directory. NFS mounts should not present device files to users.\n\nFix text: Add the "nodev" option to the fourth column of "/etc/fstab" for the line which controls mounting of any NFS mounts.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38654)  log_msg $2 'Remote file systems must be mounted with the nosuid option.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000270\n\nVulnerability Discussion: NFS mounts should not present suid binaries to users. Only vendor-supplied suid executables should be installed to their default location on the local filesystem.\n\nFix text: Add the "nosuid" option to the fourth column of "/etc/fstab" for the line which controls mounting of any NFS mounts.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38655)  log_msg $2 'The noexec option must be added to removable media partitions.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000271\n\nVulnerability Discussion: Allowing users to execute binaries from removable media such as USB keys exposes the system to potential compromise.\n\nFix text: The "noexec" mount option prevents the direct execution of binaries on the mounted filesystem. Users should not be allowed to execute binaries that exist on partitions mounted from removable media (such as a USB key). The "noexec" option prevents code from being executed directly from the media itself, and may therefore provide a line of defense against certain types of worms or malicious code. Add the "noexec" ption to the fourth column of "/etc/fstab" for the line which controls mounting of any removable media partitions.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38656)  log_msg $2 'The system must use SMB client signing for connecting to samba servers using smbclient' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000272\n\nVulnerability Discussion: Packet signing can prevent man-in-the-middle attacks which modify SMB packets in transit.\n\nFix text: To require samba clients running "smbclient" to use packet signing, add the following to the "[global]" section of the Samba configuration file in "/etc/samba/smb.conf":\n\nclient signing = mandatory\n\nRequiring samba clients such as "smbclient" to use packet signing ensures they can only communicate with servers that support packet signing.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38657)  log_msg $2 'The system must use SMB client signing for connecting to samba servers using mount.cifs.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000273\n\nVulnerability Discussion: Packet signing can prevent man-in-the-middle attacks which modify SMB packets in transit.\n\nFix text: Require packet signing of clients who mount Samba shares using the "mount.cifs" program (e.g., those who specify shares in "/etc/fstab"). To do so, ensure signing options (either "sec=krb5i" or "sec=ntlmv2i") are used.\n\nSee the "mount.cifs(8)" man page for more information. A Samba client should only communicate with servers who can support SMB packet signing.\n\n######################\n\n' >> $LOG
               fi
               ;;
 

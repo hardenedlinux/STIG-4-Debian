@@ -1,6 +1,17 @@
 #!/bin/bash
 
 case $1 in
+        space_left_action)
+                EXIST=$(sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/audit/auditd.conf | sed -e 's/\ //'g | grep $1)
+                if [ $? -eq 0 ];then
+                        ACTION=$(sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/audit/auditd.conf | sed -e 's/\ //'g | grep $1 | awk -F '=' '{print $2}')
+                        if [ "${ACTION,,}" != "email" ];then
+                            exit 1
+                        fi
+                else
+                        exit 1
+                fi
+            ;;
         num_logs)
                 EXIST=$(sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/audit/auditd.conf | sed -e 's/\ //'g | grep $1)
                 if [ $? -eq 0 ];then

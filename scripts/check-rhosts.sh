@@ -1,5 +1,3 @@
-#!/bin/bash
-
 HOSTS="/etc/hosts.equiv"
 
 if [ -f "$HOSTS" ];then
@@ -21,5 +19,5 @@ for i in $(awk -F':' '{ if ( $3 >= 500 ) print $1 }' /etc/passwd);do
                 exit 1
         else
                 echo ".rhosts no found in $HOMEDIR"
-        fi
+        fi 
 done

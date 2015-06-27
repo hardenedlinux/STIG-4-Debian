@@ -28,4 +28,5 @@ Port DISA RHEL 6 STIG V1R7 for Debian
 
 ##Project Work
 
-* Up to RHEL-06-272 and still working on what's left
+* First version of "walk-through" is done, but there is something should working on.
+* More detial in "script/porting_log"

@@ -708,7 +708,7 @@ disabled. The "nis" service can be disabled with the following commands:\n\n#upd
                   printf '\n######################\n\nSTIG-ID:RHEL-06-000222\n\nVulnerability Discussion: Removing the "tftp-server" package decreases the risk of the accidental (or intentional) activation of tftp services.\n\nFix text: The "tftp-server" package can be removed with the following command:\n\n#apt-get purge tftpd\n\n######################\n\n' >> $LOG
               fi
               ;;
-    V-38609)  log_msg $2 'The TFTP service must not be running.' 
+    V-38609)  log_msg $2 'The tftp service must not be running.' 
               if [ $2 -ne 0 ];then 
                   printf '\n######################\n\nSTIG-ID:RHEL-06-000223\n\nVulnerability Discussion: Disabling the "tftp" service ensures the system is not acting as a tftp server, which does not provide encryption or authentication.\n\nFix text: The "tftp" service, which is available with the "tftpd" package and runs as a service through inetd, should be disabled.You could disabled tftp in "/etc/inetd.conf" by comment or remove following line:\n\ntftp		dgram	udp	wait	nobody	/usr/sbin/tcpd	/usr/sbin/in.tftpd /srv/tftp\n\n######################\n\n' >> $LOG
               fi
@@ -847,6 +847,284 @@ system.\n\nFix text: The "sldap" package should be removed if not in use. Is thi
     V-38657)  log_msg $2 'The system must use SMB client signing for connecting to samba servers using mount.cifs.' 
               if [ $2 -ne 0 ];then 
                   printf '\n######################\n\nSTIG-ID:RHEL-06-000273\n\nVulnerability Discussion: Packet signing can prevent man-in-the-middle attacks which modify SMB packets in transit.\n\nFix text: Require packet signing of clients who mount Samba shares using the "mount.cifs" program (e.g., those who specify shares in "/etc/fstab"). To do so, ensure signing options (either "sec=krb5i" or "sec=ntlmv2i") are used.\n\nSee the "mount.cifs(8)" man page for more information. A Samba client should only communicate with servers who can support SMB packet signing.\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38658)  log_msg $2 'The system must prohibit the reuse of passwords within twenty-four iterations.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000274\n\nVulnerability Discussion: Preventing reuse of previous passwords helps ensure that a compromised password is not reused by a user.\n\nFix text: Do not allow users to reuse recent passwords. This can be accomplished by using the "remember" option for the "pam_unix" PAM module. In the file "/etc/pam.d/common-auth", append "remember=24" to the line which refers to the "pam_unix.so" module, as shown:\n\npassword sufficient pam_unix.so [existing_options] remember=24\n\nThe DoD requirement is 24 passwords.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38659)  log_msg $2 'The operating system must employ cryptographic mechanisms to protect information in storage.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000275\n\nVulnerability Discussion: The risk of a system\047s physical compromise, particularly mobile systems such as laptops, places its data at risk of compromise. Encrypting this data mitigates the risk of its loss if the system is lost.\n\nFix text: Debian 8 natively supports partition encryption through the Linux Unified Key Setup-on-disk-format (LUKS) technology. The easiest way to encrypt a partition is during installation time. \n\nFor manual installations, select the "Encrypt" checkbox during partition creation to encrypt the partition. When this option is selected the system will prompt for a passphrase to use in decrypting the partition. The passphrase will subsequently need to be entered manually every time the system boots.\n\nFor automated/unattended installations, it is possible to use Kickstart by adding the "--encrypted" and "-- passphrase=" options to the definition of each partition to be encrypted. For example, the following line would encrypt the root partition:\n\npart / --fstype=ext3 --size=100 --onpart=hda1 --encrypted --passphrase=[PASSPHRASE]\n\nAny [PASSPHRASE] is stored in the Kickstart in plaintext, and the Kickstart must then be protected accordingly. Omitting the "--passphrase=" option from the partition definition will cause the installer to pause and interactively ask for the passphrase during installation.\n\nDetailed information on encrypting partitions using LUKS can be found on the Red Had Documentation web
+site:\nhttps://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Security_Guide/sect-Security_Guide-LUKS_Disk_Encryption.html  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38661)  log_msg $2 'The operating system must protect the confidentiality and integrity of data at rest.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000276\n\nVulnerability Discussion: The risk of a system\047s physical compromise, particularly mobile systems such as laptops, places its data at risk of compromise. Encrypting this data mitigates the risk of its loss if the system is lost.\n\nFix text: Debian 8 natively supports partition encryption through the Linux Unified Key Setup-on-disk-format (LUKS) technology. The easiest way to encrypt a partition is during installation time. \n\nFor manual installations, select the "Encrypt" checkbox during partition creation to encrypt the partition. When this option is selected the system will prompt for a passphrase to use in decrypting the partition. The passphrase will subsequently need to be entered manually every time the system boots.\n\nFor automated/unattended installations, it is possible to use Kickstart by adding the "--encrypted" and "-- passphrase=" options to the definition of each partition to be encrypted. For example, the following line would encrypt the root partition:\n\npart / --fstype=ext3 --size=100 --onpart=hda1 --encrypted --passphrase=[PASSPHRASE]\n\nAny [PASSPHRASE] is stored in the Kickstart in plaintext, and the Kickstart must then be protected accordingly. Omitting the "--passphrase=" option from the partition definition will cause the installer to pause and interactively ask for the passphrase during installation.\n\nDetailed information on encrypting partitions using LUKS can be found on the Red Had Documentation web
+site:\nhttps://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Security_Guide/sect-Security_Guide-LUKS_Disk_Encryption.html  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38662)  log_msg $2 'The operating system must employ cryptographic mechanisms to prevent unauthorized disclosure of data at rest unless otherwise protected by alternative physical measures.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000277\n\nVulnerability Discussion: The risk of a system\047s physical compromise, particularly mobile systems such as laptops, places its data at risk of compromise. Encrypting this data mitigates the risk of its loss if the system is lost.\n\nFix text: Debian 8 natively supports partition encryption through the Linux Unified Key Setup-on-disk-format (LUKS) technology. The easiest way to encrypt a partition is during installation time. \n\nFor manual installations, select the "Encrypt" checkbox during partition creation to encrypt the partition. When this option is selected the system will prompt for a passphrase to use in decrypting the partition. The passphrase will subsequently need to be entered manually every time the system boots.\n\nFor automated/unattended installations, it is possible to use Kickstart by adding the "--encrypted" and "-- passphrase=" options to the definition of each partition to be encrypted. For example, the following line would encrypt the root partition:\n\npart / --fstype=ext3 --size=100 --onpart=hda1 --encrypted --passphrase=[PASSPHRASE]\n\nAny [PASSPHRASE] is stored in the Kickstart in plaintext, and the Kickstart must then be protected accordingly. Omitting the "--passphrase=" option from the partition definition will cause the installer to pause and interactively ask for the passphrase during installation.\n\nDetailed information on encrypting partitions using LUKS can be found on the Red Had Documentation web
+site:\nhttps://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Security_Guide/sect-Security_Guide-LUKS_Disk_Encryption.html  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38663)  log_msg $2 'The system package management tool must verify permissions on all files and directories associated with the audit package.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000278\n\nVulnerability Discussion: Permissions on audit binaries and configuration files that are too generous could allow an unauthorized user to gain privileges that they should not have. The permissions set by the vendor should be maintained. Any deviations from this baseline should be investigated.\n\nFix text: In Debian there is directly way to get the package\047s permission and change it.\n\nThere\047s one way to use :\n\n#aptitude download auditd\n\nTo dowanload the package\047s file and use dpkg -c <package.deb> to extract it and get the permission and change it manually\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38664)  log_msg $2 'The system package management tool must verify ownership on all files and directories associated with the audit package.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000279\n\nVulnerability Discussion: Ownership of audit binaries and configuration files that is incorrect could allow an unauthorized user to gain privileges that they should not have. The ownership set by the vendor should be maintained. Any deviations from this baseline should be investigated.\n\nFix text: In Debian there is directly way to get the package\047s ownership and change it.\n\nThere\047s one way to use :\n\n#aptitude download auditd\n\nTo dowanload the package\047s file and use dpkg -c <package.deb> to extract it and get the ownership and change it manually\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38665)  log_msg $2 'The system package management tool must verify group-ownership on all files and directories associated with the audit package.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000280\n\nVulnerability Discussion: Group-ownership of audit binaries and configuration files that is incorrect could allow an unauthorized user to gain privileges that they should not have. The group-ownership set by the vendor should be maintained. Any deviations from this baseline should be investigated.\n\nFix text: In Debian there is directly way to get the package\047s group-ownership and change it.\n\nThere\047s one way to use :\n\n#aptitude download auditd\n\nTo dowanload the package\047s file and use dpkg -c <package.deb> to extract it and get the group-ownership and change it manually\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38637)  log_msg $2 'The system package management tool must verify contents of all files associated with the audit package.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000281\n\nVulnerability Discussion: The hash on important files like audit system executables should match the information given by the packages. Audit executables with erroneous hashes could be a sign of nefarious activity on the system.\n\nFix text: In Debian there is directly way to get the package\047s hash and change it.\n\nThere\047s one way to use :\n\n#aptitude download auditd\n\nTo dowanload the package\047s file and use dpkg -c <package.deb> to extract it and use sha512sum to get the origin hash and compare with the current hash and change it manually\n\n' >> $LOG
+              fi
+              ;;
+    V-38643)  log_msg $2 'There must be no world-writable files on the system.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000282\n\nVulnerability Discussion: Data in world-writable files can be modified by any user on the system. In almost all circumstances, files can be configured using a combination of user and group permissions to support whatever legitimate access is needed without the risk caused by world-writable files.\n\nFix text: It is generally a good idea to remove global (other) write access to a file when it is discovered. However, check with documentation for specific applications before making changes. Also, monitor for recurring world-writable files, as these may be symptoms of a misconfigured application or user account.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38668)  log_msg $2 'The x86 Ctrl-Alt-Delete key sequence must be disabled.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000286\n\nVulnerability Discussion: A locally logged-in user who presses Ctrl-Alt-Delete, when at the console, can reboot the system. If accidentally pressed, as could happen in the case of mixed OS environment, this can create the risk of short-term loss of availability of systems due to unintentional reboot. In the GNOME graphical environment, risk of unintentional reboot from the Ctrl-Alt-Delete sequence is reduced because the user will be prompted before any action is taken.\n\nFix text: By default, Debian 8 using systemd. You could use following command to disable Ctrl+Alt+Delete\n\nsystemctl mask ctrl-alt-del.target\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38669)  log_msg $2 'The postfix service must be enabled for mail delivery.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000287\n\nVulnerability Discussion: Local mail delivery is essential to some system maintenance and notification tasks.\n\nFix text: The Postfix mail transfer agent is used for local mail delivery within the system. The default configuration only listens for connections to the default SMTP port (port 25) on the loopback interface (127.0.0.1). It is recommended to leave this service enabled for local mail delivery. The "postfix" service can be enabled with the following command:\n\n#update-rc.d postfix defaults\n#service postfix start\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38671)  log_msg $2 'The sendmail package must be removed.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000288\n\nVulnerability Discussion: The sendmail software was not developed with security in mind and its design prevents it from being effectively contained by SELinux. Postfix should be used instead.\n\nFix text: Sendmail is not the default mail transfer agent and is not installed by default. The "sendmail" package can be removed with the following command:\n\n#apt-get purge sendmail\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38674)  log_msg $2 'X Windows must not be enabled unless required.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000290\n\nVulnerability Discussion: Unnecessary services should be disabled to decrease the attack surface of the system.\n\nFix text: Look in /etc/rc2.d/. There are probably links to /etc/init.d/xdm and /etc/init.d/kdm which you haven\047t removed yet.\n\nYou can also edit the file /etc/X11/default-display-manager, which includes the full path to the default display manager Debian is using. If you replace the content of that file with /bin/true, you are probably disabling the start of any login-manager as well.\n\nFor more detials:\http://unix.stackexchange.com/questions/86740/disabling-graphical-login-in-debian-wheezyn\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38676)  log_msg $2 'The xorg-x11-server-common (X Windows) package must not be installed, unless required.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000291\n\nVulnerability Discussion: Unnecessary packages should not be installed to decrease the attack surface of the system.\n\nFix text: You could visit the: http://pc-freak.net/blog/debian-linux-remove-xorg-gnome-gdm-graphical-environment-packages-serverr/\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38681)  log_msg $2 'All GIDs referenced in /etc/passwd must be defined in /etc/group' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000294\n\nVulnerability Discussion: Inconsistency in GIDs between /etc/passwd and /etc/group could lead to a user having unintended rights.\n\nFix text: Add a group to the system for each GID referenced without a corresponding group.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38683)  log_msg $2 'All accounts on the system must have unique user or account names' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000296\n\nVulnerability Discussion: Unique usernames allow for accountability on the system.\n\nFix text: Change usernames, or delete accounts, so each has a unique name.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38693)  log_msg $2 'The system must require passwords to contain no more than three consecutive repeating characters.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000299\n\nVulnerability Discussion: Passwords with excessive repeating characters may be more vulnerable to password-guessing attacks.\n\nFix text: The pam_cracklib module\047s "maxrepeat" parameter controls requirements for consecutive repeating characters. When set to a positive number, it will reject passwords which contain more than that number of consecutive characters. Add "maxrepeat=3" after pam_cracklib.so to prevent a run of (3 + 1) or more identical characters.\n\npassword required pam_cracklib.so maxrepeat=3\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38695)  log_msg $2 'A file integrity tool must be used at least weekly to check for unauthorized file changes, particularly the addition of unauthorized system libraries or binaries, or for unauthorized modification to authorized system libraries or binaries.'
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000302\n\nVulnerability Discussion: By default, AIDE does not install itself for periodic execution. Periodically running AIDE may reveal unexpected changes in installed files.\n\nFix text:  AIDE should be executed on a periodic basis to check for changes. To implement a daily execution of AIDE at 4:05am using cron, add the following line to /etc/crontab:\n\n05 4 * * * root /usr/sbin/aide --check\n\nAIDE can be executed periodically through other means; this is merely one example.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38696)  log_msg $2 'The operating system must employ automated mechanisms, per organization defined frequency, to detect the addition of unauthorized components/devices into the operating system.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000303\n\nVulnerability Discussion: By default, AIDE does not install itself for periodic execution. Periodically running AIDE may reveal unexpected changes in installed files.\n\nFix text:  AIDE should be executed on a periodic basis to check for changes. To implement a daily execution of AIDE at 4:05am using cron, add the following line to /etc/crontab:\n\n05 4 * * * root /usr/sbin/aide --check\n\nAIDE can be executed periodically through other means; this is merely one example.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38698)  log_msg $2 'The operating system must employ automated mechanisms to detect the presence of unauthorized software on organizational information systems and notify designated organizational officials in accordance with the organization defined frequency.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000304\n\nVulnerability Discussion: \n\nFix text:  AIDE should be executed on a periodic basis to check for changes. To implement a daily execution of AIDE at 4:05am using cron, add the following line to /etc/crontab:\n\n05 4 * * * root /usr/sbin/aide --check\n\nAIDE can be executed periodically through other means; this is merely one example.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38675)  log_msg $2 'Process core dumps must be disabled unless needed.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000308\n\nVulnerability Discussion: A core dump includes a memory image taken at the time the operating system terminates an application. The memory image could contain sensitive data and is generally useful only for developers trying to debug problems.\n\nFix text: To disable core dumps for all users, add the following line to "/etc/security/limits.conf": \n\n* hard core 0  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38677)  log_msg $2 'The NFS server must not have the insecure file locking option enabled.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000309\n\nVulnerability Discussion: Allowing insecure file locking could allow for sensitive data to be viewed or edited by an unauthorized user.\n\nFix text: By default the NFS server requires secure file-lock requests, which require credentials from the client in order to lock a file. Most NFS clients send credentials with file lock requests, however, there are a few clients that do not send credentials when requesting a file-lock, allowing the client to only be able to lock world-readable files. To get around this, the "insecure_locks" option can be used so these clients can access the desired export. This poses a security risk by potentially allowing the client access to data for which it does not have authorization. Remove any instances of the "insecure_locks" option from the file "/etc/exports".  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38680)  log_msg $2 'The audit system must identify staff members to receive notifications of audit log storage volume capacity issues.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000313\n\nVulnerability Discussion: Email sent to the root account is typically aliased to the administrators of the system, who can take appropriate action.\n\nFix text: The "auditd" service can be configured to send email to a designated account in certain situations. Add or correct the following line in "/etc/audit/auditd.conf" to ensure that administrators are notified via email for those situations:\n\naction_mail_acct = root  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38682)  log_msg $2 'The Bluetooth kernel module must be disabled.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000315\n\nVulnerability Discussion: If Bluetooth functionality must be disabled, preventing the kernel from loading the kernel module provides an additional safeguard against its activation.\n\nFix text: The kernel\047s module loading system can be configured to prevent loading of the Bluetooth module. Add the following to the appropriate "/etc/modprobe.d" configuration file to prevent the loading of the Bluetooth module:\n\ninstall net-pf-31 /bin/true\ninstall bluetooth /bin/true\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38684)  log_msg $2 'The system must limit users to 10 simultaneous system logins, or a site-defined number, in accordance with operational requirements.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000319\n\nVulnerability Discussion: Limiting simultaneous user logins can insulate the system from denial of service problems caused by excessive logins. Automated login processes operating improperly or maliciously may result in an exceptional number of simultaneous login sessions.\n\nFix text: Limiting the number of allowed users and sessions per user can limit risks related to denial of service attacks. This addresses concurrent sessions for a single account and does not address concurrent sessions by a single user via multiple accounts. To set the number of concurrent sessions per user add the following line in "/etc/security/limits.conf":\n* hard maxlogins 10 A documented site-defined number may be substituted for 10 in the above.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38686)  log_msg $2 'The systems local firewall must implement a deny-all, allow-by-exception policy for forwarded packets.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000320\n\nVulnerability Discussion: In "iptables" the default policy is applied only after all the applicable rules in the table are examined for a match. Setting the default policy to "DROP" implements proper design for a firewall, i.e., any packets which are not explicitly permitted should not be accepted.\n\nFix text: To set the default policy to DROP (instead of ACCEPT) for the built-in FORWARD chain which processes packets that will be forwarded from one interface to another, could use following command:\n\n#iptables -P INPUT DROP\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38691)  log_msg $2 'The Bluetooth service must be disabled.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000331\n\nVulnerability Discussion: Disabling the "bluetooth" service prevents the system from attempting connections to Bluetooth devices, which entails some security risk. Nevertheless, variation in this risk decision may be expected due to the utility of Bluetooth connectivity and its limited range.\n\nFix text: The "bluetooth" service can be disabled with the following command:\n\nupdate-rc.d bluetooth remove\n#service bluetooth stop\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38692)  log_msg $2 'Accounts must be locked upon 35 days of inactivity.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000334\n\nVulnerability Discussion: Disabling inactive accounts ensures that accounts which may not have been responsibly removed are not available to attackers who may have compromised their credentials.\n\nFix text:  To specify the number of days after a password expires (which signifies inactivity) until an account is permanently disabled, add or correct the following lines in "/etc/default/useradd", substituting " [NUM_DAYS]" appropriately: INACTIVE=[NUM_DAYS]A value of 35 is recommended. If a password is currently on the verge of expiration, then 35 days remain until the account is automatically disabled. However, if the password will not expire for another 60 days, then 95 days could elapse until the account would be automatically disabled. See the "useradd" man page for more information. Determining the inactivity timeout must be done with careful consideration of the length of a "normal" period of inactivity for users in the particular environment. Setting the timeout too low incurs support costs and also has the potential to impact availability of the system to legitimate users.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38694)  log_msg $2 'The operating system must manage information system identifiers for users and devices by disabling the user identifier after an organization defined time period of inactivity.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000335\n\nVulnerability Discussion: Disabling inactive accounts ensures that accounts which may not have been responsibly removed are not available to attackers who may have compromised their credentials.\n\nFix text:  To specify the number of days after a password expires (which signifies inactivity) until an account is permanently disabled, add or correct the following lines in "/etc/default/useradd", substituting " [NUM_DAYS]" appropriately: INACTIVE=[NUM_DAYS]A value of 35 is recommended. If a password is currently on the verge of expiration, then 35 days remain until the account is automatically disabled. However, if the password will not expire for another 60 days, then 95 days could elapse until the account would be automatically disabled. See the "useradd" man page for more information. Determining the inactivity timeout must be done with careful consideration of the length of a "normal" period of inactivity for users in the particular environment. Setting the timeout too low incurs support costs and also has the potential to impact availability of the system to legitimate users.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38697)  log_msg $2 'The sticky bit must be set on all public directories.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000336\n\nVulnerability Discussion: Failing to set the sticky bit on public directories allows unauthorized users to delete files in the directory structure.\n\nThe only authorized public directories are those temporary directories supplied with the system, or those designed to be temporary file repositories. The setting is normally reserved for directories used by the system, and by users for temporary file storage - such as /tmp - and for directories requiring global read/write access.\n\nFix text: When the so-called \047sticky bit\047 is set on a directory, only the owner of a given file may remove that file from the directory. Without the sticky bit, any user with write access to a directory may remove any file in the directory. Setting the sticky bit prevents users from removing each other\047s files. In cases where there is no reason for a directory to be world-writable, a better solution is to remove that permission rather than to set the sticky bit. However, if a directory is used by a particular application, consult that application\047s documentation instead of blindly changing modes. \nTo set the sticky bit on a world-writable directory [DIR], run the following command:\n\n# chmod +t [DIR]  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38699)  log_msg $2 'All public directories must be owned by a system account.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000337\n\nVulnerability Discussion: Allowing a user account to own a world-writable directory is undesirable because it allows the owner of that directory to remove or replace any files that may be placed in the directory by other users.\n\nFix text: All directories in local partitions which are world-writable should be owned by root or another system account. If any world-writable directories are not owned by a system account, this should beinvestigated. Following this, the files should be deleted or assigned to an appropriate group.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38701)  log_msg $2 'The TFTP daemon must operate in secure mode which provides access only to a single directory on the host file system.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000338\n\nVulnerability Discussion: Using the "-s" option causes the TFTP service to only serve files from the given directory. Serving files from an intentionally specified directory reduces the risk of sharing files which should remain private.\n\nFix text: If running the "tftp" service is necessary, it should be configured to change its root directory at startup. To do so, ensure "/etc/inetd.conf" includes "-s" as a command line argument, as shown in the following example (which is also the default):\n\ntftp	dgram	udp   wait   root	/etc/tftpd   tftpd -s /tftpboot\n\nAnd manually create the directory /tftpboot\n\nFor more detials could visit:http://osr507doc.sco.com/en/man/html.ADMN/tftpd.ADMN.html\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38702)  log_msg $2 'The FTP daemon must be configured for logging or verbose mode.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000339\n\nVulnerability Discussion: To trace malicious activity facilitated by the FTP service, it must be configured to ensure that all commands sent to the ftp server are logged using the verbose vsftpd log format. The default vsftpd log file is /var/log/vsftpd.log.\n\nFix text: Add or correct the following configuration options within the "vsftpd" configuration file, located at"/etc/vsftpd/vsftpd.conf".\n\nxferlog_enable=YES\nxferlog_std_format=NO\nlog_ftp_protocol=YES\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38645)  log_msg $2 'The system default umask in /etc/login.defs must be 077.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000345\n\nVulnerability Discussion: The umask value influences the permissions assigned to files when they are created. A misconfigured umask value could result in files with excessive permissions that can be read and/or written to by unauthorized users.\n\nFix text: To ensure the default umask controlled by "/etc/login.defs" is set properly, add or correct the "umask" setting in "/etc/login.defs" to read as follows: \n\nUMASK 077\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38642)  log_msg $2 'The system default umask for daemons must be 027 or 022.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000346\n\nVulnerability Discussion: The umask influences the permissions assigned to files created by a process at run time. An unnecessarily permissive umask could result in files being created with insecure permissions.\n\nFix text: In Debian the file "/etc/init.d/rc" includes initialization parameters for most or all daemons started at boot time. The default umask of 022 prevents creation of group- or world-writable files. To set the default umask for daemons, edit the following line, inserting 022 or 027 for [UMASK] appropriately: \n\numask [UMASK]\n\nSetting the umask to too restrictive a setting can cause serious errors at runtime. Many daemons on the system already individually restrict themselves to a umask of 077 in their own init scripts.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38619)  log_msg $2 'There must be no .netrc files on the system.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000347\n\nVulnerability Discussion: Unencrypted passwords for remote FTP servers may be stored in ".netrc" files. DoD policy requires passwords be encrypted in storage and not used in access scripts.\n\nFix text: The ".netrc" files contain logon information used to auto-logon into FTP servers and reside in the user\047s home directory. These files may contain unencrypted passwords to remote FTP servers making them susceptible to access by unauthorized users and should not be used. Any ".netrc" files should be removed.  \ n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38592)  log_msg $2 'The system must require administrator action to unlock an account locked by excessive failed login attempts.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000356\n\nVulnerability Discussion: Locking out user accounts after a number of incorrect attempts prevents direct password guessing attacks. Ensuring that an administrator is involved in unlocking locked accounts draws appropriate attention to such situations.\n\nFix text: To configure the system to lock out accounts after a number of incorrect logon attempts and require an administrator to unlock the account using "pam_tally2.so":\n\nAdd the following lines immediately below the "pam_unix.so" statement in the AUTH section of\n"/etc/pam.d/common-auth" and "/etc/pam.d/common-auth":\n\nauth [default=die] pam_tally2.so authfail deny=3 unlock_time=604800 fail_interval=900\n\nauth required pam_tally2.so authsucc deny=3 unlock_time=604800 fail_interval=900\n\nNote that any updates made to "/etc/pam.d/common-auth" and "/etc/pam.d/common-auth" may be overwritten by the "authconfig" program. The "authconfig" program should not be used.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-51875)  log_msg $2 'The operating system, upon successful logon/access, must display to the user the number of unsuccessful logon/access attempts since the last successful logon/access.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000372\n\nVulnerability Discussion: Users need to be aware of activity that occurs regarding their account. Providing users with information regarding the number of unsuccessful attempts that were made to login to their account allows the user to determine if any unauthorized activity has occurred and gives them an opportunity to notify administrators.\n\nFix text: To configure the system to notify users of last logon/access using "pam_lastlog", add the following line immediately after "session required pam_limits.so":\n\nsession required pam_lastlog.so showfailed  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38498)  log_msg $2 'Audit log files must have mode 0640 or less permissive.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000383\n\nVulnerability Discussion: If users can write to audit logs, audit trails can be modified or destroyed.\n\nFix text: Change the mode of the audit log files with the following command: \n\n# chmod 0640 [audit_file]  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38495)  log_msg $2 'Audit log files must be owned by root.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000384\n\nVulnerability Discussion: If non-privileged users can write to audit logs, audit trails can be modified or destroyed.\n\nFix text: Change the owner of the audit log files with the following command:\n\n# chown root [audit_file]  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38493)  log_msg $2 'Audit log directories must have mode 0755 or less permissive.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000385\n\nVulnerability Discussion: If users can delete audit logs, audit trails can be modified or destroyed.\n\nFix text: Change the mode of the audit log directories with the following command:\n\n# chmod go-w [audit_directory]  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38490)  log_msg $2 'The operating system must enforce requirements for the connection of mobile devices to operating systems.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000503\n\nVulnerability Discussion: USB storage devices such as thumb drives can be used to introduce unauthorized software and other vulnerabilities. Support for these devices should be disabled and the devices themselves should be tightly controlled.\n\nFix text: To prevent USB storage devices from being used, configure the kernel module loading system to prevent automatic loading of the USB storage driver. To configure the system to prevent the "usb-storage"kernel module from being loaded, add the following line to a file in the directory "/etc/modprobe.d": \n\ninstall usb-storage /bin/true\n\nThis will prevent the "modprobe" program from loading the "usb-storage" module, but will not prevent an administrator (or another program) from using the "insmod" program to load the module manually.\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38484)  log_msg $2 'The operating system, upon successful logon, must display to the user the date and time of the last logon or access via ssh.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000507\n\nVulnerability Discussion: Users need to be aware of activity that occurs regarding their account. Providing users with information regarding the date and time of their last successful login allows the user to determine if any unauthorized activity has occurred and gives them an opportunity to notify administrators.\n\nAt ssh login, a user must be presented with the last successful login date and time.\n\nFix text: Update the "PrintLastLog" keyword to "yes" in /etc/ssh/sshd_config: \n\nPrintLastLog yes\n\nWhile it is acceptable to remove the keyword entirely since the default action for the SSH daemon is to print the last logon date and time, it is preferred to have the value explicitly documented.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38471)  log_msg $2 'The system must forward audit records to the syslog service.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000509\n\nVulnerability Discussion: The auditd service does not include the ability to send audit records to a centralized server for  management directly. It does, however, include an audit event multiplexor plugin (audispd) to pass audit records to the local syslog server.\n\nFix text: Set the "active" line in "/etc/audisp/plugins.d/syslog.conf" to "yes". Restart the auditd process.\n\n# service auditd restart  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38468)  log_msg $2 'The audit system must take appropriate action when the audit storage volume is full.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000510\n\nVulnerability Discussion: Taking appropriate action in case of a filled audit storage volume will minimize the possibility of losing audit records.\n\nFix text: The "auditd" service can be configured to take an action when disk space starts to run low. Edit the file "/etc/audit/auditd.conf". Modify the following line, substituting [ACTION] appropriately:\n\ndisk_full_action = [ACTION]\n\nPossible values for [ACTION] are described in the "auditd.conf" man page. These include:\n\n"ignore"\n"syslog"\n"exec"\n"suspend"\n"single"\n"halt"\n\nSet this to "syslog", "exec", "single", or "halt".\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38464)  log_msg $2 'The audit system must take appropriate action when there are disk errors on the audit storage volume.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000511\n\nVulnerability Discussion: Taking appropriate action in case of disk errors will minimize the possibility of losing audit records\n\nFix text: Edit the file "/etc/audit/auditd.conf". Modify the following line, substituting [ACTION] appropriately:\n\ndisk_error_action = [ACTION]\n\nPossible values for [ACTION] are described in the "auditd.conf" man page. These include:\n\n\"ignore\"\n\"syslog\"\n\"exec\"\n"suspend\"\n\"single\"\n\"halt\"Set this to \"syslog\", \"exec", \"single\", or \"halt\".  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38462)  log_msg $2 'The package management tool must cryptographically verify the authenticity of all software packages during installation.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000514\n\nVulnerability Discussion: Ensuring all packages\047 cryptographic signatures are valid prior to installation ensures the provenance of the software and protects against malicious tampering.\n\nFix text: Check the file in /etc/apt/apt.conf.d/ and find the "GPG::Check false" option and remove it\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38460)  log_msg $2 'The NFS server must not have the all_squash option enabled.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000515\n\nVulnerability Discussion: The "all_squash" option maps all client requests to a single anonymous uid/gid on the NFS server, negating the ability to track file access by user ID.\n\nFix text: Remove any instances of the "all_squash" option from the file "/etc/exports". Restart the NFS daemon for the changes to take effect.\n\n# service nfs restart  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38446)  log_msg $2 'The mail system must forward all mail for root to one or more system administrators.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000521\n\nVulnerability Discussion: A number of system services utilize email messages sent to the root user to notify system administrators of active or impending issues. These messages must be forwarded to at least one monitored email address.\n\nFix text: Set up an alias for root that forwards to a monitored email address:\n\n# echo "root: <system.administrator>@mail.mil" >> /etc/aliases\n# newaliases  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38445)  log_msg $2 'Audit log files must be group-owned by root.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000522\n\nVulnerability Discussion: If non-privileged users can write to audit logs, audit trails can be modified or destroyed.\n\nFix text: Change the group owner of the audit log files with the following command:\n\n# chgrp root [audit_file]\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38444)  log_msg $2 'The systems local IPv6 firewall must implement a deny-all, allow-by-exception policy for inboundpackets.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000523\n\nVulnerability Discussion: In "ip6tables" the default policy is applied only after all the applicable rules in the table are examined for a match. Setting the default policy to "DROP" implements proper design for a firewall, i.e., any packets which are not explicitly permitted should not be accepted.\n\nFix text: To set the default policy to DROP (instead of ACCEPT) for the built-in INPUT chain which processes incoming packets, using following command:\n\n#ip6tables -P INPUT DROP\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38438)  log_msg $2 'Auditing must be enabled at boot by setting a kernel parameter.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000525\n\nVulnerability Discussion: Each process on the system carries an "auditable" flag which indicates whether its activities can be audited. Although "auditd" takes care of enabling this for all processes which launch after it does, adding the kernel argument ensures it is set for every process during boot.\n\nFix text: To ensure all processes can be audited, even those which start prior to the audit daemon, add the argument "audit=1" to the kernel line in "/etc/grub.conf", in the manner below:\n\nkernel /vmlinuz-version ro vga=ext root=/dev/VolGroup00/LogVol00 rhgb quiet audit=1\n\nUEFI systems may prepend "/boot" to the "/vmlinuz-version" argument.  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-38437)  log_msg $2 'Automated file system mounting tools must not be enabled unless needed.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000526\n\nVulnerability Discussion: All filesystems that are required for the successful operation of the system should be explicitly listed in "/etc/fstab" by an administrator. New filesystems should not be arbitrarily introduced via the automounter.\n\nThe "autofs" daemon mounts and unmounts filesystems, such as user home directories shared via NFS, on demand. In addition, autofs can be used to handle removable media, and the default configuration provides the cdrom device as "/misc/cd". However, this method of providing access to removable media is not common, so autofs can almost always be disabled if NFS is not in use. Even if NFS is required, it is almost always possible to configure filesystem mounts statically by editing "/etc fstab" rather than relying on the automounter.\n\nFix text: If the "autofs" service is not needed to dynamically mount NFS filesystems or removable media,disable the service by using\n\n#update-rc.d autofs remove\n#service autofs stop\n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-57569)  log_msg $2 'The noexec option must be added to the /tmp partition.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000528\n\nVulnerability Discussion: Allowing users to execute binaries from world-writable directories such as "/tmp" should never be necessary in normal operation and can expose the system to potential compromise.\n\nFix text: The "noexec" mount option can be used to prevent binaries from being executed out of "/tmp". Add the "noexec" option to the fourth column of "/etc/fstab" for the line which controls mounting of "/tmp".  \n\n######################\n\n' >> $LOG
+              fi
+              ;;
+    V-58901)  log_msg $2 'The sudo command must require authentication.' 
+              if [ $2 -ne 0 ];then 
+                  printf '\n######################\n\nSTIG-ID:RHEL-06-000529\n\nVulnerability Discussion: The "sudo" command allows authorized users to run programs (including shells) as other users, system users, and root. The "/etc/sudoers" file is used to configure authorized "sudo" users as well as the programs they are allowed to run. Some configuration options in the "/etc/sudoers" file allow configured users to run programs without re-authenticating. Use of these configuration options makes it easier for one compromised account to be used to compromise other accounts.\n\nFix text: Update the "/etc/sudoers" or other sudo configuration files to remove or comment out lines utilizing the "NOPASSWD" and "!authenticate" options. \n\n# visudo\n# visudo -f [other sudo configuration file]  \n\n######################\n\n' >> $LOG
               fi
               ;;
 

@@ -10,3 +10,18 @@ RHEL-06-000257:The graphical desktop environment must set the idle timeout to no
 RHEL-06-000258:The graphical desktop environment must automatically lock after 15 minutes of inactivity and the system must require user reauthentication to unlock the environment.
 RHEL-06-000259:The graphical desktop environment must have automatic lock enabled.
 RHEL-06-000260:The system must display a publicly-viewable pattern during a graphical desktop environment session lock.
+RHEL-06-000292:The DHCP client must be disabled if not needed.
+RHEL-06-000324:A login banner must be displayed immediately prior to, or as part of, graphical desktop environment login prompts.
+RHEL-06-000527:The login user list must be disabled.
+
+
+RHEL-06-000340:The snmpd service must use only SNMP protocol version 3 or newer.
+RHEL-06-000341:The snmpd service must not use a default password.
+
+
+RHEL-06-000508:The system must allow locking of graphical desktop sessions.
+
+RHEL-06-000516:The system package management tool must verify ownership on all files and directories associated with packages.
+RHEL-06-000517:The system package management tool must verify group-ownership on all files and directories associated with packages.
+RHEL-06-000518:The system package management tool must verify permissions on all files and directories associated with packages.
+RHEL-06-000519:The system package management tool must verify contents of all files associated with packages.

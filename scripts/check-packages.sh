@@ -31,4 +31,14 @@ case $1 in
                         exit 1
                 fi
         ;;
+        sendmail)
+                if dpkg -s sendmail ;then
+                        exit 1
+                fi
+        ;;
+        x11-common)
+                if dpkg -s x11-common ;then
+                        exit 1
+                fi
+        ;;
 esac

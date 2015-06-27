@@ -1,11 +1,16 @@
 #!/bin/bash
 
 case $1 in
-        smb_signing)
+        smb-signing)
                 if dpkg -s samba >/dev/null 2>&1;then
                         if ! sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' -e '/^;/d' /etc/samba/smb.conf | grep "client.*signing.*mandatory";then
                                 exit 1
                         fi
+                fi
+        ;;
+        smb-sec)
+                if [ "$(grep "cifs.*sec=krb5a\|cifs.*sec=ntlmv2i" /etc/mtab /etc/fstab | wc -l)" != "$(grep "cifs" /etc/mtab /etc/fstab | wc -l)" ];then
+                        exit 1
                 fi
         ;;
         libuser)

@@ -47,12 +47,32 @@ case $1 in
                 fi
         ;;
         cron)
-                if service --status-all | grep "+.*cron";then
+                if ! service --status-all | grep "+.*cron";then
                         exit 1
                 fi
         ;;
         ntp)
-                if service --status-all | grep "+.*ntp";then
+                if ! service --status-all | grep "+.*ntp";then
+                        exit 1
+                fi
+        ;;
+        postfix)
+                if ! service --status-all | grep "+.*postfix";then
+                        exit 1
+                fi
+        ;;
+        x11-common)
+                if service --status-all | grep "+.*x11-common";then
+                        exit 1
+                fi
+        ;;
+        bluetooth)
+                if service --status-all | grep "+.*bluetooth";then
+                        exit 1
+                fi
+        ;;
+        autofs)
+                if service --status-all | grep "+.*autofs";then
                         exit 1
                 fi
         ;;

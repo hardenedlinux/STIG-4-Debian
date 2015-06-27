@@ -1573,11 +1573,501 @@ fi
 ##RHEL-06-000272
 ##The system must use SMB client signing for connecting to samba servers using smbclient.
 
-bash scripts/check-depends.sh smb_signing >/dev/null 2>&1 &
+bash scripts/check-depends.sh smb-signing >/dev/null 2>&1 &
 
 spinner $!
 output "V-38656" $?
 ################
+
+##RHEL-06-000273
+##The system must use SMB client signing for connecting to samba servers using mount.cifs.
+
+bash scripts/check-depends.sh smb-sec >/dev/null 2>&1 &
+
+spinner $!
+output "V-38657" $?
+################
+
+##RHEL-06-000274
+##The system must prohibit the reuse of passwords within twenty-four iterations.
+
+grep remember /etc/pam.d/common-auth /etc/pam.d/common-password >/dev/null 2>&1 &
+
+spinner $!
+output "V-38658" $?
+################
+
+##RHEL-06-000275
+##The operating system must employ cryptographic mechanisms to protect information in storage.
+
+dmsetup status | grep -i "crypt" >/dev/null 2>&1 &
+
+spinner $!
+output "V-38659" $?
+################
+
+##RHEL-06-000276
+##The operating system must protect the confidentiality and integrity of data at rest.
+
+dmsetup status | grep -i "crypt" >/dev/null 2>&1 &
+
+spinner $!
+output "V-38661" $?
+################
+
+##RHEL-06-000277
+##The operating system must employ cryptographic mechanisms to prevent unauthorized disclosure of data at rest unless otherwise protected by alternative physical measures.
+
+dmsetup status | grep -i "crypt" >/dev/null 2>&1 &
+
+spinner $!
+output "V-38662" $?
+################
+
+##RHEL-06-000278
+##The system package management tool must verify permissions on all files and directories associated with the audit package.
+
+bash scripts/check-auditd-package.sh permission >/dev/null 2>&1 &
+
+spinner $!
+output "V-38663" $?
+################
+
+##RHEL-06-000279
+##The system package management tool must verify ownership on all files and directories associated with the audit package.
+
+bash scripts/check-auditd-package.sh owner >/dev/null 2>&1 &
+
+spinner $!
+output "V-38664" $?
+################
+
+##RHEL-06-000280
+##The system package management tool must verify group-ownership on all files and directories associated with the audit package.
+
+bash scripts/check-auditd-package.sh group-owner >/dev/null 2>&1 &
+
+spinner $!
+output "V-38665" $?
+################
+
+##RHEL-06-000281
+##The system package management tool must verify group-ownership on all files and directories associated with the audit package.
+
+bash scripts/check-auditd-package.sh file-hashes >/dev/null 2>&1 &
+
+spinner $!
+output "V-38637" $?
+################
+
+##RHEL-06-000282
+##There must be no world-writable files on the system.
+
+bash scripts/check-world-writable.sh >/dev/null 2>&1 &
+
+spinner $!
+output "V-38643" $?
+################
+
+##RHEL-06-000286
+##The x86 Ctrl-Alt-Delete key sequence must be disabled.
+
+bash scripts/check-ctrl-alt-del.sh >/dev/null 2>&1 &
+
+spinner $!
+output "V-38668" $?
+################
+
+##RHEL-06-000287
+##The postfix service must be enabled for mail delivery.
+
+bash scripts/check-services.sh postfix >/dev/null 2>&1 &
+
+spinner $!
+output "V-38669" $?
+################
+
+##RHEL-06-000288
+##The sendmail package must be removed.
+
+bash scripts/check-packages.sh sendmail >/dev/null 2>&1 &
+
+spinner $!
+output "V-38671" $?
+################
+
+##RHEL-06-000290
+##X Windows must not be enabled unless required.
+
+bash scripts/check-services.sh x11-common >/dev/null 2>&1 &
+
+spinner $!
+output "V-38674" $?
+################
+
+##RHEL-06-000291
+##The xorg-x11-server-common (X Windows) package must not be installed, unless required.
+
+bash scripts/check-packages.sh x11-common >/dev/null 2>&1 &
+
+spinner $!
+output "V-38676" $?
+################
+
+##RHEL-06-000294
+##All GIDs referenced in /etc/passwd must be defined in /etc/group
+
+check scripts/check-gids.sh >/dev/null 2>&1 &
+
+spinner $!
+output "V-38681" $?
+################
+
+##RHEL-06-000296
+##All accounts on the system must have unique user or account names
+
+check scripts/check-uniq-names.sh >/dev/null 2>&1 &
+
+spinner $!
+output "V-38683" $?
+################
+
+##RHEL-06-000299
+##The system must require passwords to contain no more than three consecutive repeating characters.
+
+bash scripts/check-password.sh /etc/pam.d/common-password pam_cracklib.so maxrepeat lt 3 > /dev/null 2>&1 &
+
+spinner $!
+output "V-38693" $?
+################
+
+##RHEL-06-000302
+##A file integrity tool must be used at least weekly to check for unauthorized file changes, particularly the addition of unauthorized system libraries or binaries, or for unauthorized modification to authorized system libraries or binaries.
+
+bash scripts/check-aide-cron.sh > /dev/null 2>&1 &
+
+spinner $!
+output "V-38695" $?
+################
+
+##RHEL-06-000308
+##Process core dumps must be disabled unless needed.
+
+bash scripts/check-limits.sh core-dumps > /dev/null 2>&1 &
+
+spinner $!
+output "V-38675" $?
+################
+
+##RHEL-06-000309
+##The NFS server must not have the insecure file locking option enabled.
+
+bash scripts/check-nfs-insecure.sh > /dev/null 2>&1 &
+
+spinner $!
+output "V-38677" $?
+################
+
+##RHEL-06-000313
+##The audit system must identify staff members to receive notifications of audit log storage volume capacity issues.  
+
+bash scripts/check-auditd.sh action_mail_acct > /dev/null 2>&1 &
+
+spinner $!
+output "V-38680" $?
+################
+
+##RHEL-06-000315
+##The Bluetooth kernel module must be disabled.
+
+bash scripts/check-bluetooth.sh > /dev/null 2>&1 &
+
+spinner $!
+output "V-38682" $?
+################
+
+##RHEL-06-000319
+##The system must limit users to 10 simultaneous system logins, or a site-defined number, in accordance with operational requirements.
+
+bash scripts/check-limits.sh maxlogins > /dev/null 2>&1 &
+
+spinner $!
+output "V-38684" $?
+################
+
+##RHEL-06-000320
+##The systems local firewall must implement a deny-all, allow-by-exception policy for forwarded packets.
+
+iptables -L FORWARD | head -n1 | grep "FORWARD.*DROP" >/dev/null 2>&1 &
+
+spinner $!
+output "V-38686" $?
+################
+
+##RHEL-06-000331
+##The Bluetooth service must be disabled.
+
+bash scripts/check-services.sh bluetooth >/dev/null 2>&1 &
+
+spinner $!
+output "V-38691" $?
+################
+
+##RHEL-06-000334
+##Accounts must be locked upon 35 days of inactivity.
+
+bash scripts/check-inactive.sh >/dev/null 2>&1 &
+
+spinner $!
+output "V-38692" $?
+################
+
+##RHEL-06-000335
+##The operating system must manage information system identifiers for users and devices by disabling the user identifier after an organization defined time period of inactivity.
+
+bash scripts/check-inactive.sh >/dev/null 2>&1 &
+
+spinner $!
+output "V-38694" $?
+################
+
+##RHEL-06-000336
+##The sticky bit must be set on all public directories.
+
+bash scripts/check-sticky-bit.sh >/dev/null 2>&1 &
+
+spinner $!
+output "V-38697" $?
+################
+
+##RHEL-06-000337
+##All public directories must be owned by a system account.
+
+bash scripts/check-public-dir-owned.sh >/dev/null 2>&1 &
+
+spinner $!
+output "V-38699" $?
+################
+
+##RHEL-06-000338
+##The TFTP daemon must operate in secure mode which provides access only to a single directory on the host file system.
+
+sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/inetd.conf | grep "tftp.*\-s" >/dev/null 2>&1 &
+
+spinner $!
+output "V-38701" $?
+################
+
+##RHEL-06-000339
+##The FTP daemon must be configured for logging or verbose mode.
+
+sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/vsftpd.conf | grep -i "xferlog_enable.*YES" >/dev/null 2>&1 &
+
+spinner $!
+output "V-38702" $?
+################
+
+##RHEL-06-000345
+##The system default umask in /etc/login.defs must be 077.
+##For more detial :http://stackoverflow.com/questions/10220531/how-to-set-system-wide-umask
+
+sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/login.defs  | grep -i "umask.*077" >/dev/null 2>&1 &
+
+spinner $!
+output "V-38645" $?
+################
+
+##RHEL-06-000346
+##The system default umask for daemons must be 027 or 022.
+##For more detial :http://unix.stackexchange.com/questions/36220/how-to-set-umask-for-a-system-user
+
+sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/init.d/rc | grep -i "umask.*027\|umask.*022" >/dev/null 2>&1 &
+
+spinner $!
+output "V-38646" $?
+################
+
+##RHEL-06-000347
+##There must be no .netrc files on the system.
+
+bash scripts/check-netrc.sh >/dev/null 2>&1 &
+
+spinner $!
+output "V-38619" $?
+################
+
+##RHEL-06-000356
+##The system must require administrator action to unlock an account locked by excessive failed login attempts.
+
+bash scripts/check-password.sh /etc/pam.d/common-auth pam_tally unlock_time lt 604800 > /dev/null 2>&1 &
+
+spinner $!
+output "V-38592" $?
+################
+
+##RHEL-06-000372
+##The operating system, upon successful logon/access, must display to the user the number of unsuccessful logon/access attempts since the last successful logon/access.
+
+sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/pam.d/common-session | grep -i "pam_lastlog.so.*showfailed" > /dev/null 2>&1 &
+
+spinner $!
+output "V-38501" $?
+################
+
+##RHEL-06-000383
+##Audit log files must have mode 0640 or less permissive.
+
+bash scripts/check-mode.sh `grep "^log_file" /etc/audit/auditd.conf|sed s/^[^\/]*//` 640 > /dev/null 2>&1 &
+
+spinner $!
+output "V-38498" $?
+################
+
+##RHEL-06-000384
+##Audit log files must be owned by root.
+
+grep "^log_file" /etc/audit/auditd.conf|sed s/^[^\/]*//|xargs stat -c %U | grep root > /dev/null 2>&1 &
+
+spinner $!
+output "V-38495" $?
+################
+
+##RHEL-06-000385
+##Audit log directories must have mode 0755 or less permissive.
+
+bash scripts/check-mode.sh `grep "^log_file" /etc/audit/auditd.conf|sed 's/^[^/]*//; s/[^/]*$//'` 755 > /dev/null 2>&1 &
+
+spinner $!
+output "V-38493" $?
+################
+
+##RHEL-06-000503
+##The operating system must enforce requirements for the connection of mobile devices to operating systems.
+
+grep -r usb-storage  /etc/modprobe.d > /dev/null 2>&1 &
+
+spinner $!
+output "V-38490" $?
+################
+
+##RHEL-06-000507
+##The operating system, upon successful logon, must display to the user the date and time of the last logon or access via ssh.
+
+sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/ssh/sshd_config | grep -i "^PrintLastLog.*yes" > /dev/null 2>&1 &
+
+spinner $!
+output "V-38484" $?
+################
+
+##RHEL-06-000509
+##The system must forward audit records to the syslog service.
+
+bash scripts/check-audisp.sh > /dev/null 2>&1 &
+
+spinner $!
+output "V-38471" $?
+################
+
+##RHEL-06-000510
+##The audit system must take appropriate action when the audit storage volume is full.
+
+bash scripts/check-auditd.sh disk_full_action > /dev/null 2>&1 &
+
+spinner $!
+output "V-38468" $?
+################
+
+##RHEL-06-000511
+##The audit system must take appropriate action when there are disk errors on the audit storage volume.
+
+bash scripts/check-auditd.sh disk_error_action > /dev/null 2>&1 &
+
+spinner $!
+output "V-38464" $?
+################
+
+##RHEL-06-000514
+##The package management tool must cryptographically verify the authenticity of all software packages during installation.
+
+bash scripts/check-apt-gpg.sh > /dev/null 2>&1 &
+
+spinner $!
+output "V-38462" $?
+################
+
+##RHEL-06-000515
+##The NFS server must not have the all_squash option enabled.
+
+bash scripts/check-nfs-all-squash.sh > /dev/null 2>&1 &
+
+spinner $!
+output "V-38460" $?
+################
+
+##RHEL-06-000521
+##The mail system must forward all mail for root to one or more system administrators.
+
+postmap -q root `postconf alias_maps | awk -F '=' '{print $2}'` > /dev/null 2>&1 &
+
+spinner $!
+output "V-38446" $?
+################
+
+##RHEL-06-000522
+##Audit log files must be group-owned by root.
+
+grep "^log_file" /etc/audit/auditd.conf|sed s/^[^\/]*//|xargs stat -c %G | grep root > /dev/null 2>&1 &
+
+spinner $!
+output "V-38445" $?
+################
+
+##RHEL-06-000523
+##The systems local IPv6 firewall must implement a deny-all, allow-by-exception policy for inbound packets.
+
+ip6tables -L INPUT | head -n1 | grep "INPUT.*DROP" > /dev/null 2>&1 &
+
+spinner $!
+output "V-38444" $?
+################
+
+##RHEL-06-000525
+##Auditing must be enabled at boot by setting a kernel parameter.
+
+grep "audit=1" /boot/grub/grub.cfg >/dev/null 2>&1 &
+
+spinner $!
+output "V-38438" $?
+################
+
+##RHEL-06-000526
+##Automated file system mounting tools must not be enabled unless needed.
+
+bash scripts/check-services.sh autofs >/dev/null 2>&1 &
+
+spinner $!
+output "V-38437" $?
+################
+
+##RHEL-06-000528
+##The noexec option must be added to the /tmp partition.
+
+sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/fstab | grep "/tmp.*noexec" >/dev/null 2>&1 &
+
+spinner $!
+output "V-57569" $?
+################
+
+##RHEL-06-000529
+##The sudo command must require authentication.
+
+bash scripts/check-sudo.sh >/dev/null 2>&1 &
+
+spinner $!
+output "V-58901" $?
+################
+
+
 
 
 ###################################

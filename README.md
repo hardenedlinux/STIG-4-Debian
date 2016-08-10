@@ -15,6 +15,7 @@ Porting from DISA RHEL 6 STIG V1 R7.
 usage: check.sh [options]
 
   -c    Output Log with catable colors
+  -C    Use Chinese output Log with catable colors
   -s    Perform STIG checking with NORMAL output log
   -v    Show version
   -h 	Show this message
@@ -25,8 +26,6 @@ STIG Check for Debian (v0.1)
 
 Port DISA RHEL 6 STIG V1R7 for Debian
 ```
-##Change language
-Modify variable SETLANG in check.sh.
 
 ##Project Work
 

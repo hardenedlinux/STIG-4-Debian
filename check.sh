@@ -1,11 +1,10 @@
 #!/bin/bash
 
-
 VERSION='0.1'
 DATE=`date +%F`
 LOG=/var/log/STIG-Checking-$DATE.log
 # support en(English) and cn(chinese)
-SETLANG="cn"
+SETLANG="en"
 
 # Script Version
 function version() {
@@ -17,6 +16,7 @@ cat << EOF
 usage: $0 [options]
 
   -c    Output Log with catable colors
+  -C    Use Chinese output Log with catable colors
   -s    Perform STIG checking with NORMAL output log
   -v    Show version
   -h 	Show this message
@@ -41,7 +41,7 @@ elif [ $# -gt 1 ];then
 	exit 1
 fi
 
-while getopts ":csvhq" OPTION; do
+while getopts ":csvhqC" OPTION; do
 	case $OPTION in
 	        c)      CATCOLOR=1
 		        ;;
@@ -54,6 +54,10 @@ while getopts ":csvhq" OPTION; do
 		h)
 			usage
 			exit 0
+			;;
+                C)      
+			CATCOLOR=1
+			SETLANG="CN"
 			;;
 		?)
 			tput setaf 1;echo -e "\033[1mERROR: Invalid Option Provided!\033[0m";tput sgr0

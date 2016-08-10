@@ -25,6 +25,8 @@ STIG Check for Debian (v0.1)
 
 Port DISA RHEL 6 STIG V1R7 for Debian
 ```
+##Change language
+Modify variable SETLANG in check.sh.
 
 ##Project Work
 

@@ -4,6 +4,8 @@
 VERSION='0.1'
 DATE=`date +%F`
 LOG=/var/log/STIG-Checking-$DATE.log
+# support en(English) and cn(chinese)
+SETLANG="cn"
 
 # Script Version
 function version() {
@@ -143,7 +145,7 @@ spinner(){
 mount | grep "on /tmp " >/dev/null 2>&1 &
 
 spinner $!
-output "V-38455" $?
+output "V-38455" $? ${SETLANG}
 ################
 
 ##RHEL-06-000002
@@ -151,7 +153,7 @@ output "V-38455" $?
 mount | grep "on /var " >/dev/null 2>&1 &
 
 spinner $!
-output "V-38456" $?
+output "V-38456" $? ${SETLANG}
 ################
 
 ##RHEL-06-000003
@@ -159,7 +161,7 @@ output "V-38456" $?
 mount | grep "on /var/log " >/dev/null 2>&1 &
 
 spinner $!
-output "V-38463" $?
+output "V-38463" $? ${SETLANG}
 ################
 
 ##RHEL-06-000004
@@ -167,7 +169,7 @@ output "V-38463" $?
 mount | grep "on /var/log/audit " >/dev/null 2>&1 &
 
 spinner $!
-output "V-38467" $?
+output "V-38467" $? ${SETLANG}
 ################
 
 ##RHEL-06-000005
@@ -175,7 +177,7 @@ output "V-38467" $?
 bash scripts/check-auditd.sh space_left_action >/dev/null 2>&1 &
 
 spinner $!
-output "V-38470" $?
+output "V-38470" $? ${SETLANG}
 ################
 
 ##RHEL-06-000007
@@ -183,7 +185,7 @@ output "V-38470" $?
 mount | grep "on /home " >/dev/null 2>&1 &
 
 spinner $!
-output "V-38473" $?
+output "V-38473" $? ${SETLANG}
 ################
 
 ##RHEL-06-000008
@@ -192,7 +194,7 @@ output "V-38473" $?
 bash scripts/check-apt-key.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-38476" $?
+output "V-38476" $? ${SETLANG}
 ################
 
 ##RHEL-06-000011
@@ -201,7 +203,7 @@ output "V-38476" $?
 bash scripts/check-package-up2date.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-38481" $?
+output "V-38481" $? ${SETLANG}
 ################
 
 ##RHEL-06-000013
@@ -209,7 +211,7 @@ output "V-38481" $?
 
 
 #spinner $!
-#output "V-38483" $?
+#output "V-38483" $? ${SETLANG}
 ################
 
 ##RHEL-06-000015
@@ -217,7 +219,7 @@ output "V-38481" $?
 
 
 #spinner $!
-#output "V-38487" $?
+#output "V-38487" $? ${SETLANG}
 ################
 
 ##RHEL-06-000016
@@ -226,7 +228,7 @@ output "V-38481" $?
 dpkg -s aide >/dev/null 2>&1 &
 
 spinner $!
-output "V-38489" $?
+output "V-38489" $? ${SETLANG}
 ################
 
 ##RHEL-06-000017
@@ -235,7 +237,7 @@ output "V-38489" $?
 grep "apparmor=1" /boot/grub/grub.cfg >/dev/null 2>&1 &
 
 spinner $!
-output "V-51337" $?
+output "V-51337" $? ${SETLANG}
 ################
 
 ##RHEL-06-000018
@@ -245,7 +247,7 @@ output "V-51337" $?
 bash scripts/check-aide-baseline.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-51391" $?
+output "V-51391" $? ${SETLANG}
 ################
 
 ##RHEL-06-000019
@@ -254,7 +256,7 @@ output "V-51391" $?
 bash scripts/check-rhosts.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38491" $?
+output "V-38491" $? ${SETLANG}
 ################
 
 ##RHEL-06-000020
@@ -262,7 +264,7 @@ output "V-38491" $?
 
 
 #spinner $!
-#output "V-51363" $?
+#output "V-51363" $? ${SETLANG}
 ################
 
 ##RHEL-06-000023
@@ -270,7 +272,7 @@ output "V-38491" $?
 
 
 #spinner $!
-#output "V-51369" $?
+#output "V-51369" $? ${SETLANG}
 ################
 
 ##RHEL-06-000025
@@ -278,7 +280,7 @@ output "V-38491" $?
 
 
 #spinner $!
-#output "V-51379" $?
+#output "V-51379" $? ${SETLANG}
 ################
 
 ##RHEL-06-000027
@@ -287,7 +289,7 @@ output "V-38491" $?
 bash scripts/check-consoles.sh virtual > /dev/null  2>&1 &
 
 spinner $!
-output "V-38492" $?
+output "V-38492" $? ${SETLANG}
 ################
 
 ##RHEL-06-000028
@@ -296,7 +298,7 @@ output "V-38492" $?
 bash scripts/check-consoles.sh serial > /dev/null  2>&1 &
 
 spinner $!
-output "V-38494" $?
+output "V-38494" $? ${SETLANG}
 ################
 
 ##RHEL-06-000029
@@ -305,7 +307,7 @@ output "V-38494" $?
 bash scripts/check-default-account.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38496" $?
+output "V-38496" $? ${SETLANG}
 ################
 
 ##RHEL-06-000030
@@ -316,7 +318,7 @@ output "V-38496" $?
 grep nullok /etc/pam.d/common-password > /dev/null 2>&1 &
 
 spinner $!
-output "V-38497" $?
+output "V-38497" $? ${SETLANG}
 ################
 
 ##RHEL-06-000031
@@ -325,7 +327,7 @@ output "V-38497" $?
 awk -F: '($2 != "x") {print; err=1} END {exit err}' /etc/passwd > /dev/null 2>&1 &
 
 spinner $!
-output "V-38499" $?
+output "V-38499" $? ${SETLANG}
 ################
 
 ##RHEL-06-000032
@@ -334,7 +336,7 @@ output "V-38499" $?
 bash scripts/check-root-uid.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38500" $?
+output "V-38500" $? ${SETLANG}
 ################
 
 ##RHEL-06-000033
@@ -343,7 +345,7 @@ output "V-38500" $?
 ls -l /etc/shadow | awk '{print $3}' | grep "^root$" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38502" $?
+output "V-38502" $? ${SETLANG}
 ################
 
 ##RHEL-06-000034
@@ -352,7 +354,7 @@ output "V-38502" $?
 ls -l /etc/shadow | awk '{print $4}' | grep "^root$" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38503" $?
+output "V-38503" $? ${SETLANG}
 ################
 
 ##RHEL-06-000035
@@ -361,7 +363,7 @@ output "V-38503" $?
 ls -l /etc/shadow | awk '{print $1}' | grep "^----------$" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38504" $?
+output "V-38504" $? ${SETLANG}
 ################
 
 ##RHEL-06-000036
@@ -370,7 +372,7 @@ output "V-38504" $?
 ls -l /etc/gshadow | awk '{print $3}' | grep "^root$" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38443" $?
+output "V-38443" $? ${SETLANG}
 ################
 
 ##RHEL-06-000037
@@ -379,7 +381,7 @@ output "V-38443" $?
 ls -l /etc/gshadow | awk '{print $4}' | grep "^root$" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38448" $?
+output "V-38448" $? ${SETLANG}
 ################
 
 ##RHEL-06-000038
@@ -388,7 +390,7 @@ output "V-38448" $?
 ls -l /etc/gshadow | awk '{print $1}' | grep "^----------$" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38449" $?
+output "V-38449" $? ${SETLANG}
 ################
 
 ##RHEL-06-000039
@@ -397,7 +399,7 @@ output "V-38449" $?
 ls -l /etc/passwd | awk '{print $3}' | grep "^root$" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38450" $?
+output "V-38450" $? ${SETLANG}
 ################
 
 ##RHEL-06-000040
@@ -406,7 +408,7 @@ output "V-38450" $?
 ls -l /etc/passwd | awk '{print $4}' | grep "^root$" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38451" $?
+output "V-38451" $? ${SETLANG}
 ################
 
 ##RHEL-06-000041
@@ -415,7 +417,7 @@ output "V-38451" $?
 bash scripts/check-mode.sh /etc/passwd 644 > /dev/null 2>&1 &
 
 spinner $!
-output "V-38457" $?
+output "V-38457" $? ${SETLANG}
 ################
 
 ##RHEL-06-000042
@@ -424,7 +426,7 @@ output "V-38457" $?
 ls -l /etc/group | awk '{print $3}' | grep "^root$" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38458" $?
+output "V-38458" $? ${SETLANG}
 ################
 
 ##RHEL-06-000043
@@ -433,7 +435,7 @@ output "V-38458" $?
 ls -l /etc/group | awk '{print $4}' | grep "^root$" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38459" $?
+output "V-38459" $? ${SETLANG}
 ################
 
 ##RHEL-06-000044
@@ -442,7 +444,7 @@ output "V-38459" $?
 bash scripts/check-mode.sh "/etc/group" 644 > /dev/null 2>&1 &
 
 spinner $!
-output "V-38461" $?
+output "V-38461" $? ${SETLANG}
 ################
 
 ##RHEL-06-000045
@@ -451,7 +453,7 @@ output "V-38461" $?
 bash scripts/check-libs-mode.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38465" $?
+output "V-38465" $? ${SETLANG}
 ################
 
 ##RHEL-06-000046
@@ -460,7 +462,7 @@ output "V-38465" $?
 bash scripts/check-libs-owner.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38466" $?
+output "V-38466" $? ${SETLANG}
 ################
 
 ##RHEL-06-000047
@@ -469,7 +471,7 @@ output "V-38466" $?
 bash scripts/check-cmd-mode.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38469" $?
+output "V-38469" $? ${SETLANG}
 ################
 
 ##RHEL-06-000048
@@ -478,7 +480,7 @@ output "V-38469" $?
 bash scripts/check-cmd-owner.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38472" $?
+output "V-38472" $? ${SETLANG}
 ################
 
 ##RHEL-06-000050
@@ -487,7 +489,7 @@ output "V-38472" $?
 bash scripts/check-password-min-len.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38475" $?
+output "V-38475" $? ${SETLANG}
 ################
 
 ##RHEL-06-000051
@@ -496,7 +498,7 @@ output "V-38475" $?
 bash scripts/check-password-min-day.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38477" $?
+output "V-38477" $? ${SETLANG}
 ################
 
 ##RHEL-06-000053
@@ -505,7 +507,7 @@ output "V-38477" $?
 bash scripts/check-password-max-day.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38479" $?
+output "V-38479" $? ${SETLANG}
 ################
 
 ##RHEL-06-000054
@@ -514,7 +516,7 @@ output "V-38479" $?
 bash scripts/check-password-warn-age.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38480" $?
+output "V-38480" $? ${SETLANG}
 ################
 
 ##RHEL-06-000056
@@ -523,7 +525,7 @@ output "V-38480" $?
 bash scripts/check-password.sh /etc/pam.d/common-password pam_cracklib.so dcredit gt -1 > /dev/null 2>&1 &
 
 spinner $!
-output "V-38482" $?
+output "V-38482" $? ${SETLANG}
 ################
 
 ##RHEL-06-000057
@@ -532,7 +534,7 @@ output "V-38482" $?
 bash scripts/check-password.sh /etc/pam.d/common-password pam_cracklib.so ucredit gt -1 > /dev/null 2>&1 &
 
 spinner $!
-output "V-38569" $?
+output "V-38569" $? ${SETLANG}
 ################
 
 ##RHEL-06-000058
@@ -541,7 +543,7 @@ output "V-38569" $?
 bash scripts/check-password.sh /etc/pam.d/common-password pam_cracklib.so ocredit gt -1 > /dev/null 2>&1 &
 
 spinner $!
-output "V-38570" $?
+output "V-38570" $? ${SETLANG}
 ################
 
 ##RHEL-06-000059
@@ -550,7 +552,7 @@ output "V-38570" $?
 bash scripts/check-password.sh /etc/pam.d/common-password pam_cracklib.so lcredit gt -1 > /dev/null 2>&1 &
 
 spinner $!
-output "V-38571" $?
+output "V-38571" $? ${SETLANG}
 ################
 
 ##RHEL-06-000060
@@ -559,7 +561,7 @@ output "V-38571" $?
 bash scripts/check-password.sh /etc/pam.d/common-password pam_cracklib.so difok lt 4 > /dev/null 2>&1 &
 
 spinner $!
-output "V-38572" $?
+output "V-38572" $? ${SETLANG}
 ################
 
 ##RHEL-06-000061
@@ -568,7 +570,7 @@ output "V-38572" $?
 bash scripts/check-password.sh /etc/pam.d/common-auth pam_tally deny gt 3 > /dev/null 2>&1 &
 
 spinner $!
-output "V-38573" $?
+output "V-38573" $? ${SETLANG}
 ################
 
 ##RHEL-06-000062
@@ -577,7 +579,7 @@ output "V-38573" $?
 sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/pam.d/* | grep password | grep pam_unix.so | grep sha512 > /dev/null 2>&1 &
 
 spinner $!
-output "V-38574" $?
+output "V-38574" $? ${SETLANG}
 ################
 
 ##RHEL-06-000063
@@ -586,7 +588,7 @@ output "V-38574" $?
 sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/login.defs | grep "ENCRYPT_METHOD.*SHA512" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38576" $?
+output "V-38576" $? ${SETLANG}
 ################
 
 ##RHEL-06-000064
@@ -595,7 +597,7 @@ output "V-38576" $?
 bash scripts/check-depends.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38577" $?
+output "V-38577" $? ${SETLANG}
 ################
 
 ##RHEL-06-000065
@@ -604,7 +606,7 @@ output "V-38577" $?
 ls -l /boot/grub/grub.cfg | awk '{print $3}' | grep "^root$" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38579" $?
+output "V-38579" $? ${SETLANG}
 ################
 
 ##RHEL-06-000066
@@ -613,7 +615,7 @@ output "V-38579" $?
 ls -l /boot/grub/grub.cfg | awk '{print $4}' | grep "^root$" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38581" $?
+output "V-38581" $? ${SETLANG}
 ################
 
 ##RHEL-06-000067
@@ -622,7 +624,7 @@ output "V-38581" $?
 bash scripts/check-grub-mode.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38583" $?
+output "V-38583" $? ${SETLANG}
 ################
 
 ##RHEL-06-000068
@@ -631,7 +633,7 @@ output "V-38583" $?
 sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /boot/grub/grub.cfg | grep "password.*sha512" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38585" $?
+output "V-38585" $? ${SETLANG}
 ################
 
 ##RHEL-06-000071
@@ -640,7 +642,7 @@ output "V-38585" $?
 dpkg -s screen >/dev/null 2>&1 &
 
 spinner $!
-output "V-38590" $?
+output "V-38590" $? ${SETLANG}
 ################
 
 ##RHEL-06-000078
@@ -649,7 +651,7 @@ output "V-38590" $?
 bash scripts/check-sysctl.sh kernel.randomize_va_space ne 2 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38596" $?
+output "V-38596" $? ${SETLANG}
 ################
 
 ##RHEL-06-000080
@@ -658,7 +660,7 @@ output "V-38596" $?
 bash scripts/check-sysctl.sh net.ipv4.conf.default.send_redirects ne 0 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38600" $?
+output "V-38600" $? ${SETLANG}
 ################
 
 ##RHEL-06-000081
@@ -667,7 +669,7 @@ output "V-38600" $?
 bash scripts/check-sysctl.sh net.ipv4.conf.all.send_redirects  ne 0 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38601" $?
+output "V-38601" $? ${SETLANG}
 ################
 
 ##RHEL-06-000082
@@ -676,7 +678,7 @@ output "V-38601" $?
 bash scripts/check-sysctl.sh net.ipv4.ip_forward  ne 0 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38511" $?
+output "V-38511" $? ${SETLANG}
 ################
 
 ##RHEL-06-000083
@@ -685,7 +687,7 @@ output "V-38511" $?
 bash scripts/check-sysctl.sh net.ipv4.conf.all.accept_source_route ne 0 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38523" $?
+output "V-38523" $? ${SETLANG}
 ################
 
 ##RHEL-06-000084
@@ -694,7 +696,7 @@ output "V-38523" $?
 bash scripts/check-sysctl.sh net.ipv4.conf.all.accept_redirects ne 0 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38524" $?
+output "V-38524" $? ${SETLANG}
 ################
 
 ##RHEL-06-000086
@@ -703,7 +705,7 @@ output "V-38524" $?
 bash scripts/check-sysctl.sh net.ipv4.conf.all.secure_redirects ne 0 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38526" $?
+output "V-38526" $? ${SETLANG}
 ################
 
 ##RHEL-06-000088
@@ -712,7 +714,7 @@ output "V-38526" $?
 bash scripts/check-sysctl.sh  net.ipv4.conf.all.log_martians ne 1 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38528" $?
+output "V-38528" $? ${SETLANG}
 ################
 
 ##RHEL-06-000089
@@ -721,7 +723,7 @@ output "V-38528" $?
 bash scripts/check-sysctl.sh  net.ipv4.conf.default.accept_source_route ne 0 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38529" $?
+output "V-38529" $? ${SETLANG}
 ################
 
 ##RHEL-06-000090
@@ -730,7 +732,7 @@ output "V-38529" $?
 bash scripts/check-sysctl.sh  net.ipv4.conf.default.secure_redirects ne 0 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38532" $?
+output "V-38532" $? ${SETLANG}
 ################
 
 ##RHEL-06-000091
@@ -739,7 +741,7 @@ output "V-38532" $?
 bash scripts/check-sysctl.sh  net.ipv4.conf.default.accept_redirects ne 0 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38533" $?
+output "V-38533" $? ${SETLANG}
 ################
 
 ##RHEL-06-000092
@@ -748,7 +750,7 @@ output "V-38533" $?
 bash scripts/check-sysctl.sh  net.ipv4.icmp_echo_ignore_broadcasts ne 1 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38535" $?
+output "V-38535" $? ${SETLANG}
 ################
 
 ##RHEL-06-000093
@@ -757,7 +759,7 @@ output "V-38535" $?
 bash scripts/check-sysctl.sh  net.ipv4.icmp_ignore_bogus_error_responses ne 1 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38537" $?
+output "V-38537" $? ${SETLANG}
 ################
 
 ##RHEL-06-000095
@@ -766,7 +768,7 @@ output "V-38537" $?
 bash scripts/check-sysctl.sh  net.ipv4.tcp_syncookies ne 1 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38539" $?
+output "V-38539" $? ${SETLANG}
 ################
 
 ##RHEL-06-000096
@@ -775,7 +777,7 @@ output "V-38539" $?
 bash scripts/check-sysctl.sh  net.ipv4.conf.all.rp_filter ne 1 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38542" $?
+output "V-38542" $? ${SETLANG}
 ################
 
 ##RHEL-06-000097
@@ -784,7 +786,7 @@ output "V-38542" $?
 bash scripts/check-sysctl.sh  net.ipv4.conf.default.rp_filter ne 1 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38544" $?
+output "V-38544" $? ${SETLANG}
 ################
 
 ##RHEL-06-000098
@@ -793,7 +795,7 @@ output "V-38544" $?
 bash scripts/check-ipv6-enable.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-38546" $?
+output "V-38546" $? ${SETLANG}
 ################
 
 ##RHEL-06-000099
@@ -805,7 +807,7 @@ if [ -a /proc/net/if_inet6 ];then
 bash scripts/check-sysctl.sh  net.ipv6.conf.default.accept_redirects ne 0 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38548" $?
+output "V-38548" $? ${SETLANG}
 fi
 ################
 
@@ -815,7 +817,7 @@ fi
 iptables -L INPUT | head -n1 | grep "INPUT.*DROP" >/dev/null 2>&1 &
 
 spinner $!
-output "V-38513" $?
+output "V-38513" $? ${SETLANG}
 ################
 
 ##RHEL-06-000124
@@ -824,7 +826,7 @@ output "V-38513" $?
 grep -r dccp /etc/modprobe.conf /etc/modprobe.d >/dev/null 2>&1 &
 
 spinner $!
-output "V-38514" $?
+output "V-38514" $? ${SETLANG}
 ################
 
 ##RHEL-06-000125
@@ -833,7 +835,7 @@ output "V-38514" $?
 grep -r sctp /etc/modprobe.conf /etc/modprobe.d >/dev/null 2>&1 &
 
 spinner $!
-output "V-38515" $?
+output "V-38515" $? ${SETLANG}
 ################
 
 ##RHEL-06-000126
@@ -842,7 +844,7 @@ output "V-38515" $?
 grep -r rds /etc/modprobe.conf /etc/modprobe.d >/dev/null 2>&1 &
 
 spinner $!
-output "V-38516" $?
+output "V-38516" $? ${SETLANG}
 ################
 
 ##RHEL-06-000127
@@ -851,7 +853,7 @@ output "V-38516" $?
 grep -r tipc /etc/modprobe.conf /etc/modprobe.d >/dev/null 2>&1 &
 
 spinner $!
-output "V-38517" $?
+output "V-38517" $? ${SETLANG}
 ################
 
 ##RHEL-06-000133
@@ -860,7 +862,7 @@ output "V-38517" $?
 bash scripts/check-rsyslog.sh owned >/dev/null 2>&1 &
 
 spinner $!
-output "V-38518" $?
+output "V-38518" $? ${SETLANG}
 ################
 
 ##RHEL-06-000134
@@ -869,7 +871,7 @@ output "V-38518" $?
 bash scripts/check-rsyslog.sh group-owned >/dev/null 2>&1 &
 
 spinner $!
-output "V-38519" $?
+output "V-38519" $? ${SETLANG}
 ################
 
 ##RHEL-06-000135
@@ -878,7 +880,7 @@ output "V-38519" $?
 bash scripts/check-rsyslog.sh mode >/dev/null 2>&1 &
 
 spinner $!
-output "V-38623" $?
+output "V-38623" $? ${SETLANG}
 ################
 
 ##RHEL-06-000136
@@ -887,7 +889,7 @@ output "V-38623" $?
 sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/rsyslog.conf | grep "\..*@.*:" >/dev/null 2>&1 &
 
 spinner $!
-output "V-38520" $?
+output "V-38520" $? ${SETLANG}
 ################
 
 ##RHEL-06-000137
@@ -896,7 +898,7 @@ output "V-38520" $?
 sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/rsyslog.conf | grep "\..*@.*:" >/dev/null 2>&1 &
 
 spinner $!
-output "V-38521" $?
+output "V-38521" $? ${SETLANG}
 ################
 
 ##RHEL-06-000138
@@ -905,7 +907,7 @@ output "V-38521" $?
 bash scripts/check-logrotate.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-38624" $?
+output "V-38624" $? ${SETLANG}
 ################
 
 ##RHEL-06-000145
@@ -914,7 +916,7 @@ output "V-38624" $?
 service auditd status >/dev/null 2>&1 &
 
 spinner $!
-output "V-38628" $?
+output "V-38628" $? ${SETLANG}
 ################
 
 ##RHEL-06-000148
@@ -923,7 +925,7 @@ output "V-38628" $?
 service auditd status >/dev/null 2>&1 &
 
 spinner $!
-output "V-38631" $?
+output "V-38631" $? ${SETLANG}
 ################
 
 ##RHEL-06-000154
@@ -932,7 +934,7 @@ output "V-38631" $?
 service auditd status >/dev/null 2>&1 &
 
 spinner $!
-output "V-38632" $?
+output "V-38632" $? ${SETLANG}
 ################
 
 ##RHEL-06-000159
@@ -941,7 +943,7 @@ output "V-38632" $?
 bash scripts/check-auditd.sh num_logs lt 5 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38636" $?
+output "V-38636" $? ${SETLANG}
 ################
 
 ##RHEL-06-000160
@@ -950,7 +952,7 @@ output "V-38636" $?
 bash scripts/check-auditd.sh max_log_file lt 6 >/dev/null 2>&1 &
 
 spinner $!
-output "V-38633" $?
+output "V-38633" $? ${SETLANG}
 ################
 
 ##RHEL-06-000161
@@ -959,7 +961,7 @@ output "V-38633" $?
 bash scripts/check-auditd.sh max_log_file_action >/dev/null 2>&1 &
 
 spinner $!
-output "V-38633" $?
+output "V-38633" $? ${SETLANG}
 ################
 
 ##RHEL-06-000163
@@ -968,7 +970,7 @@ output "V-38633" $?
 bash scripts/check-auditd.sh admin_space_left_action >/dev/null 2>&1 &
 
 spinner $!
-output "V-54381" $?
+output "V-54381" $? ${SETLANG}
 ################
 
 ##RHEL-06-000165
@@ -977,7 +979,7 @@ output "V-54381" $?
 grep -w "adjtimex" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38635" $?
+output "V-38635" $? ${SETLANG}
 ################
 
 ##RHEL-06-000167
@@ -986,7 +988,7 @@ output "V-38635" $?
 grep -w "settimeofday" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38522" $?
+output "V-38522" $? ${SETLANG}
 ################
 
 ##RHEL-06-000169
@@ -996,7 +998,7 @@ if [ "$(uname -m)" = "i686" ];then
 grep -w "stime" /etc/audit/audit.rules >/dev/null 2>&1 &
 fi
 spinner $!
-output "V-38525" $?
+output "V-38525" $? ${SETLANG}
 ################
 
 ##RHEL-06-000171
@@ -1005,7 +1007,7 @@ output "V-38525" $?
 grep -w "clock_settime" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38527" $?
+output "V-38527" $? ${SETLANG}
 ################
 
 ##RHEL-06-000173
@@ -1014,7 +1016,7 @@ output "V-38527" $?
 auditctl -l | grep "watch=/etc/localtime" >/dev/null 2>&1 &
 
 spinner $!
-output "V-38530" $?
+output "V-38530" $? ${SETLANG}
 ################
 
 ##RHEL-06-000174
@@ -1023,7 +1025,7 @@ output "V-38530" $?
 bash scripts/check-auditd.sh account >/dev/null 2>&1 &
 
 spinner $!
-output "V-38531" $?
+output "V-38531" $? ${SETLANG}
 ################
 
 ##RHEL-06-000175
@@ -1032,7 +1034,7 @@ output "V-38531" $?
 bash scripts/check-auditd.sh account >/dev/null 2>&1 &
 
 spinner $!
-output "V-38534" $?
+output "V-38534" $? ${SETLANG}
 ################
 
 ##RHEL-06-000176
@@ -1041,7 +1043,7 @@ output "V-38534" $?
 bash scripts/check-auditd.sh account >/dev/null 2>&1 &
 
 spinner $!
-output "V-38536" $?
+output "V-38536" $? ${SETLANG}
 ################
 
 ##RHEL-06-000177
@@ -1050,7 +1052,7 @@ output "V-38536" $?
 bash scripts/check-auditd.sh account >/dev/null 2>&1 &
 
 spinner $!
-output "V-38538" $?
+output "V-38538" $? ${SETLANG}
 ################
 
 ##RHEL-06-000182
@@ -1059,7 +1061,7 @@ output "V-38538" $?
 bash scripts/check-auditd.sh network >/dev/null 2>&1 &
 
 spinner $!
-output "V-38540" $?
+output "V-38540" $? ${SETLANG}
 ################
 
 ##RHEL-06-000183
@@ -1068,7 +1070,7 @@ output "V-38540" $?
 bash scripts/check-auditd.sh apparmor-config >/dev/null 2>&1 &
 
 spinner $!
-output "V-38541" $?
+output "V-38541" $? ${SETLANG}
 ################
 
 ##RHEL-06-000184
@@ -1077,7 +1079,7 @@ output "V-38541" $?
 grep -w "chmod" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38543" $?
+output "V-38543" $? ${SETLANG}
 ################
 
 ##RHEL-06-000185
@@ -1086,7 +1088,7 @@ output "V-38543" $?
 grep -w "chown" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38545" $?
+output "V-38545" $? ${SETLANG}
 ################
 
 ##RHEL-06-000186
@@ -1095,7 +1097,7 @@ output "V-38545" $?
 grep -w "fchmod" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38547" $?
+output "V-38547" $? ${SETLANG}
 ################
 
 ##RHEL-06-000187
@@ -1104,7 +1106,7 @@ output "V-38547" $?
 grep -w "fchmodat" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38550" $?
+output "V-38550" $? ${SETLANG}
 ################
 
 ##RHEL-06-000188
@@ -1113,7 +1115,7 @@ output "V-38550" $?
 grep -w "fchown" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38552" $?
+output "V-38552" $? ${SETLANG}
 ################
 
 ##RHEL-06-000189
@@ -1122,7 +1124,7 @@ output "V-38552" $?
 grep -w "fchownat" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38554" $?
+output "V-38554" $? ${SETLANG}
 ################
 
 ##RHEL-06-000190
@@ -1131,7 +1133,7 @@ output "V-38554" $?
 grep -w "fremovexattr" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38556" $?
+output "V-38556" $? ${SETLANG}
 ################
 
 ##RHEL-06-000191
@@ -1140,7 +1142,7 @@ output "V-38556" $?
 grep -w "fsetxattr" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38557" $?
+output "V-38557" $? ${SETLANG}
 ################
 
 ##RHEL-06-000192
@@ -1149,7 +1151,7 @@ output "V-38557" $?
 grep -w "lchown" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38558" $?
+output "V-38558" $? ${SETLANG}
 ################
 
 ##RHEL-06-000193
@@ -1158,7 +1160,7 @@ output "V-38558" $?
 grep -w "lremovexattr" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38559" $?
+output "V-38559" $? ${SETLANG}
 ################
 
 ##RHEL-06-000194
@@ -1167,7 +1169,7 @@ output "V-38559" $?
 grep -w "lsetxattr" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38561" $?
+output "V-38561" $? ${SETLANG}
 ################
 
 ##RHEL-06-000195
@@ -1176,7 +1178,7 @@ output "V-38561" $?
 grep -w "removexattr" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38563" $?
+output "V-38563" $? ${SETLANG}
 ################
 
 ##RHEL-06-000196
@@ -1185,7 +1187,7 @@ output "V-38563" $?
 grep -w "setxattr" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38565" $?
+output "V-38565" $? ${SETLANG}
 ################
 
 ##RHEL-06-000197
@@ -1194,7 +1196,7 @@ output "V-38565" $?
 bash scripts/check-auditd.sh failed-access-files-programs >/dev/null 2>&1 &
 
 spinner $!
-output "V-38566" $?
+output "V-38566" $? ${SETLANG}
 ################
 
 ##RHEL-06-000198
@@ -1203,7 +1205,7 @@ output "V-38566" $?
 bash scripts/check-auditd.sh setuid-setgid >/dev/null 2>&1 &
 
 spinner $!
-output "V-38567" $?
+output "V-38567" $? ${SETLANG}
 ################
 
 ##RHEL-06-000199
@@ -1212,7 +1214,7 @@ output "V-38567" $?
 grep -w "mount" /etc/audit/audit.rules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38568" $?
+output "V-38568" $? ${SETLANG}
 ################
 
 ##RHEL-06-000200
@@ -1221,7 +1223,7 @@ output "V-38568" $?
 bash scripts/check-auditd.sh deletions >/dev/null 2>&1 &
 
 spinner $!
-output "V-38575" $?
+output "V-38575" $? ${SETLANG}
 ################
 
 ##RHEL-06-000201
@@ -1230,7 +1232,7 @@ output "V-38575" $?
 auditctl -l | grep "watch=/etc/sudoers" >/dev/null 2>&1 &
 
 spinner $!
-output "V-38578" $?
+output "V-38578" $? ${SETLANG}
 ################
 
 ##RHEL-06-000202
@@ -1239,7 +1241,7 @@ output "V-38578" $?
 bash scripts/check-auditd.sh kernel-modules >/dev/null 2>&1 &
 
 spinner $!
-output "V-38580" $?
+output "V-38580" $? ${SETLANG}
 ################
 
 ##RHEL-06-000203
@@ -1248,7 +1250,7 @@ output "V-38580" $?
 bash scripts/check-services.sh xinetd >/dev/null 2>&1 &
 
 spinner $!
-output "V-38582" $?
+output "V-38582" $? ${SETLANG}
 ################
 
 ##RHEL-06-000204
@@ -1257,7 +1259,7 @@ output "V-38582" $?
 bash scripts/check-packages.sh xinetd >/dev/null 2>&1 &
 
 spinner $!
-output "V-38584" $?
+output "V-38584" $? ${SETLANG}
 ################
 
 ##RHEL-06-000206
@@ -1266,7 +1268,7 @@ output "V-38584" $?
 bash scripts/check-packages.sh telnetd >/dev/null 2>&1 &
 
 spinner $!
-output "V-38587" $?
+output "V-38587" $? ${SETLANG}
 ################
 
 ##RHEL-06-000211
@@ -1275,7 +1277,7 @@ output "V-38587" $?
 bash scripts/check-services.sh telnetd >/dev/null 2>&1 &
 
 spinner $!
-output "V-38589" $?
+output "V-38589" $? ${SETLANG}
 ################
 
 ##RHEL-06-000213
@@ -1284,7 +1286,7 @@ output "V-38589" $?
 bash scripts/check-packages.sh rsh-server >/dev/null 2>&1 &
 
 spinner $!
-output "V-38591" $?
+output "V-38591" $? ${SETLANG}
 ################
 
 ##RHEL-06-000214
@@ -1293,7 +1295,7 @@ output "V-38591" $?
 bash scripts/check-services.sh rshd >/dev/null 2>&1 &
 
 spinner $!
-output "V-38594" $?
+output "V-38594" $? ${SETLANG}
 ################
 
 ##RHEL-06-000216
@@ -1302,7 +1304,7 @@ output "V-38594" $?
 bash scripts/check-services.sh rexecd >/dev/null 2>&1 &
 
 spinner $!
-output "V-38598" $?
+output "V-38598" $? ${SETLANG}
 ################
 
 ##RHEL-06-000218
@@ -1311,7 +1313,7 @@ output "V-38598" $?
 bash scripts/check-services.sh rlogind >/dev/null 2>&1 &
 
 spinner $!
-output "V-38602" $?
+output "V-38602" $? ${SETLANG}
 ################
 
 ##RHEL-06-000220
@@ -1320,7 +1322,7 @@ output "V-38602" $?
 bash scripts/check-packages.sh nis >/dev/null 2>&1 &
 
 spinner $!
-output "V-38603" $?
+output "V-38603" $? ${SETLANG}
 ################
 
 ##RHEL-06-000221
@@ -1329,7 +1331,7 @@ output "V-38603" $?
 bash scripts/check-services.sh nis >/dev/null 2>&1 &
 
 spinner $!
-output "V-38604" $?
+output "V-38604" $? ${SETLANG}
 ################
 
 ##RHEL-06-000222
@@ -1338,7 +1340,7 @@ output "V-38604" $?
 bash scripts/check-packages.sh tftpd >/dev/null 2>&1 &
 
 spinner $!
-output "V-38606" $?
+output "V-38606" $? ${SETLANG}
 ################
 
 ##RHEL-06-000223
@@ -1347,7 +1349,7 @@ output "V-38606" $?
 bash scripts/check-services.sh tftpd >/dev/null 2>&1 &
 
 spinner $!
-output "V-38609" $?
+output "V-38609" $? ${SETLANG}
 ################
 
 ##RHEL-06-000224
@@ -1356,7 +1358,7 @@ output "V-38609" $?
 bash scripts/check-services.sh cron >/dev/null 2>&1 &
 
 spinner $!
-output "V-38605" $?
+output "V-38605" $? ${SETLANG}
 ################
 
 ##RHEL-06-000227
@@ -1365,7 +1367,7 @@ output "V-38605" $?
 bash scripts/check-ssh.sh Protocol >/dev/null 2>&1 &
 
 spinner $!
-output "V-38607" $?
+output "V-38607" $? ${SETLANG}
 ################
 
 ##RHEL-06-000230
@@ -1374,7 +1376,7 @@ output "V-38607" $?
 sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/ssh/sshd_config | grep "ClientAliveInterval" >/dev/null 2>&1 &
 
 spinner $!
-output "V-38608" $?
+output "V-38608" $? ${SETLANG}
 ################
 
 ##RHEL-06-000231
@@ -1383,7 +1385,7 @@ output "V-38608" $?
 sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/ssh/sshd_config | grep "ClientAliveCountMax" >/dev/null 2>&1 &
 
 spinner $!
-output "V-38610" $?
+output "V-38610" $? ${SETLANG}
 ################
 
 ##RHEL-06-000234
@@ -1392,7 +1394,7 @@ output "V-38610" $?
 bash scripts/check-ssh.sh rhosts >/dev/null 2>&1 &
 
 spinner $!
-output "V-38611" $?
+output "V-38611" $? ${SETLANG}
 ################
 
 ##RHEL-06-000236
@@ -1401,7 +1403,7 @@ output "V-38611" $?
 bash scripts/check-ssh.sh hostauth >/dev/null 2>&1 &
 
 spinner $!
-output "V-38612" $?
+output "V-38612" $? ${SETLANG}
 ################
 
 ##RHEL-06-000237
@@ -1410,7 +1412,7 @@ output "V-38612" $?
 bash scripts/check-ssh.sh permitroot >/dev/null 2>&1 &
 
 spinner $!
-output "V-38613" $?
+output "V-38613" $? ${SETLANG}
 ################
 
 ##RHEL-06-000239
@@ -1419,7 +1421,7 @@ output "V-38613" $?
 bash scripts/check-ssh.sh emptypassword >/dev/null 2>&1 &
 
 spinner $!
-output "V-38615" $?
+output "V-38615" $? ${SETLANG}
 ################
 
 ##RHEL-06-000241
@@ -1428,7 +1430,7 @@ output "V-38615" $?
 bash scripts/check-ssh.sh emptypasswordenvironment >/dev/null 2>&1 &
 
 spinner $!
-output "V-38616" $?
+output "V-38616" $? ${SETLANG}
 ################
 
 ##RHEL-06-000243
@@ -1437,7 +1439,7 @@ output "V-38616" $?
 bash scripts/check-ssh-ciphers.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38617" $?
+output "V-38617" $? ${SETLANG}
 ################
 
 ##RHEL-06-000246
@@ -1446,7 +1448,7 @@ output "V-38617" $?
 bash scripts/check-services.sh avahi-daemon >/dev/null 2>&1 &
 
 spinner $!
-output "V-38618" $?
+output "V-38618" $? ${SETLANG}
 ################
 
 ##RHEL-06-000247
@@ -1455,7 +1457,7 @@ output "V-38618" $?
 bash scripts/check-services.sh ntp >/dev/null 2>&1 &
 
 spinner $!
-output "V-38620" $?
+output "V-38620" $? ${SETLANG}
 ################
 
 ##RHEL-06-000248
@@ -1464,7 +1466,7 @@ output "V-38620" $?
 bash scripts/check-ntp-sources.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-38621" $?
+output "V-38621" $? ${SETLANG}
 ################
 
 ##RHEL-06-000249
@@ -1473,7 +1475,7 @@ output "V-38621" $?
 bash scripts/check-postfix.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-38622" $?
+output "V-38622" $? ${SETLANG}
 ################
 
 ##RHEL-06-000252
@@ -1482,7 +1484,7 @@ output "V-38622" $?
 #Waiting to figure out
 
 #spinner $!
-#output "V-38625" $?
+#output "V-38625" $? ${SETLANG}
 ################
 
 ##RHEL-06-000253
@@ -1491,7 +1493,7 @@ output "V-38622" $?
 #Waiting to figure out
 
 #spinner $!
-#output "V-38626" $?
+#output "V-38626" $? ${SETLANG}
 ################
 
 ##RHEL-06-000256
@@ -1500,35 +1502,35 @@ output "V-38622" $?
 bash scripts/check-packages.sh sldap>/dev/null 2>&1 &
 
 spinner $!
-output "V-38627" $?
+output "V-38627" $? ${SETLANG}
 ################
 
 ##RHEL-06-000257
 ##The graphical desktop environment must set the idle timeout to no more than 15 minutes.
 
 #spinner $!
-#output "V-38629" $?
+#output "V-38629" $? ${SETLANG}
 ################
 
 ##RHEL-06-000258
 ##The graphical desktop environment must automatically lock after 15 minutes of inactivity and the system must require user reauthentication to unlock the environment.
 
 #spinner $!
-#output "V-38630" $?
+#output "V-38630" $? ${SETLANG}
 ################
 
 ##RHEL-06-000259
 ##The graphical desktop environment must have automatic lock enabled.
 
 #spinner $!
-#output "V-38638" $?
+#output "V-38638" $? ${SETLANG}
 ################
 
 ##RHEL-06-000260
 ##The system must display a publicly-viewable pattern during a graphical desktop environment session lock.
 
 #spinner $!
-#output "V-38639" $?
+#output "V-38639" $? ${SETLANG}
 ################
 
 ##RHEL-06-000262
@@ -1537,7 +1539,7 @@ output "V-38627" $?
 bash scripts/check-services.sh atd >/dev/null 2>&1 &
 
 spinner $!
-output "V-38641" $?
+output "V-38641" $? ${SETLANG}
 ################
 
 ##RHEL-06-000269
@@ -1546,7 +1548,7 @@ if [ "$(mount | grep nfs | wc -l)" -gt 0 ];then
 bash scripts/check-nfs.sh nodev >/dev/null 2>&1 &
 
 spinner $!
-output "V-38652" $?
+output "V-38652" $? ${SETLANG}
 fi
 ################
 
@@ -1556,7 +1558,7 @@ if [ "$(mount | grep nfs | wc -l)" -gt 0 ];then
 bash scripts/check-nfs.sh nosuid >/dev/null 2>&1 &
 
 spinner $!
-output "V-38654" $?
+output "V-38654" $? ${SETLANG}
 fi
 ################
 
@@ -1566,7 +1568,7 @@ if [ "$(grep -Hv ^0$ /sys/block/*/removable | sed s/removable:.*$/device\\/ueven
 bash scripts/check-removable.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-38655" $?
+output "V-38655" $? ${SETLANG}
 fi
 ################
 
@@ -1576,7 +1578,7 @@ fi
 bash scripts/check-depends.sh smb-signing >/dev/null 2>&1 &
 
 spinner $!
-output "V-38656" $?
+output "V-38656" $? ${SETLANG}
 ################
 
 ##RHEL-06-000273
@@ -1585,7 +1587,7 @@ output "V-38656" $?
 bash scripts/check-depends.sh smb-sec >/dev/null 2>&1 &
 
 spinner $!
-output "V-38657" $?
+output "V-38657" $? ${SETLANG}
 ################
 
 ##RHEL-06-000274
@@ -1594,7 +1596,7 @@ output "V-38657" $?
 grep remember /etc/pam.d/common-auth /etc/pam.d/common-password >/dev/null 2>&1 &
 
 spinner $!
-output "V-38658" $?
+output "V-38658" $? ${SETLANG}
 ################
 
 ##RHEL-06-000275
@@ -1603,7 +1605,7 @@ output "V-38658" $?
 dmsetup status | grep -i "crypt" >/dev/null 2>&1 &
 
 spinner $!
-output "V-38659" $?
+output "V-38659" $? ${SETLANG}
 ################
 
 ##RHEL-06-000276
@@ -1612,7 +1614,7 @@ output "V-38659" $?
 dmsetup status | grep -i "crypt" >/dev/null 2>&1 &
 
 spinner $!
-output "V-38661" $?
+output "V-38661" $? ${SETLANG}
 ################
 
 ##RHEL-06-000277
@@ -1621,7 +1623,7 @@ output "V-38661" $?
 dmsetup status | grep -i "crypt" >/dev/null 2>&1 &
 
 spinner $!
-output "V-38662" $?
+output "V-38662" $? ${SETLANG}
 ################
 
 ##RHEL-06-000278
@@ -1630,7 +1632,7 @@ output "V-38662" $?
 bash scripts/check-auditd-package.sh permission >/dev/null 2>&1 &
 
 spinner $!
-output "V-38663" $?
+output "V-38663" $? ${SETLANG}
 ################
 
 ##RHEL-06-000279
@@ -1639,7 +1641,7 @@ output "V-38663" $?
 bash scripts/check-auditd-package.sh owner >/dev/null 2>&1 &
 
 spinner $!
-output "V-38664" $?
+output "V-38664" $? ${SETLANG}
 ################
 
 ##RHEL-06-000280
@@ -1648,7 +1650,7 @@ output "V-38664" $?
 bash scripts/check-auditd-package.sh group-owner >/dev/null 2>&1 &
 
 spinner $!
-output "V-38665" $?
+output "V-38665" $? ${SETLANG}
 ################
 
 ##RHEL-06-000281
@@ -1657,7 +1659,7 @@ output "V-38665" $?
 bash scripts/check-auditd-package.sh file-hashes >/dev/null 2>&1 &
 
 spinner $!
-output "V-38637" $?
+output "V-38637" $? ${SETLANG}
 ################
 
 ##RHEL-06-000282
@@ -1666,7 +1668,7 @@ output "V-38637" $?
 bash scripts/check-world-writable.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-38643" $?
+output "V-38643" $? ${SETLANG}
 ################
 
 ##RHEL-06-000286
@@ -1675,7 +1677,7 @@ output "V-38643" $?
 bash scripts/check-ctrl-alt-del.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-38668" $?
+output "V-38668" $? ${SETLANG}
 ################
 
 ##RHEL-06-000287
@@ -1684,7 +1686,7 @@ output "V-38668" $?
 bash scripts/check-services.sh postfix >/dev/null 2>&1 &
 
 spinner $!
-output "V-38669" $?
+output "V-38669" $? ${SETLANG}
 ################
 
 ##RHEL-06-000288
@@ -1693,7 +1695,7 @@ output "V-38669" $?
 bash scripts/check-packages.sh sendmail >/dev/null 2>&1 &
 
 spinner $!
-output "V-38671" $?
+output "V-38671" $? ${SETLANG}
 ################
 
 ##RHEL-06-000290
@@ -1702,7 +1704,7 @@ output "V-38671" $?
 bash scripts/check-services.sh x11-common >/dev/null 2>&1 &
 
 spinner $!
-output "V-38674" $?
+output "V-38674" $? ${SETLANG}
 ################
 
 ##RHEL-06-000291
@@ -1711,7 +1713,7 @@ output "V-38674" $?
 bash scripts/check-packages.sh x11-common >/dev/null 2>&1 &
 
 spinner $!
-output "V-38676" $?
+output "V-38676" $? ${SETLANG}
 ################
 
 ##RHEL-06-000294
@@ -1720,7 +1722,7 @@ output "V-38676" $?
 check scripts/check-gids.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-38681" $?
+output "V-38681" $? ${SETLANG}
 ################
 
 ##RHEL-06-000296
@@ -1729,7 +1731,7 @@ output "V-38681" $?
 check scripts/check-uniq-names.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-38683" $?
+output "V-38683" $? ${SETLANG}
 ################
 
 ##RHEL-06-000299
@@ -1738,7 +1740,7 @@ output "V-38683" $?
 bash scripts/check-password.sh /etc/pam.d/common-password pam_cracklib.so maxrepeat lt 3 > /dev/null 2>&1 &
 
 spinner $!
-output "V-38693" $?
+output "V-38693" $? ${SETLANG}
 ################
 
 ##RHEL-06-000302
@@ -1747,7 +1749,7 @@ output "V-38693" $?
 bash scripts/check-aide-cron.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38695" $?
+output "V-38695" $? ${SETLANG}
 ################
 
 ##RHEL-06-000308
@@ -1756,7 +1758,7 @@ output "V-38695" $?
 bash scripts/check-limits.sh core-dumps > /dev/null 2>&1 &
 
 spinner $!
-output "V-38675" $?
+output "V-38675" $? ${SETLANG}
 ################
 
 ##RHEL-06-000309
@@ -1765,7 +1767,7 @@ output "V-38675" $?
 bash scripts/check-nfs-insecure.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38677" $?
+output "V-38677" $? ${SETLANG}
 ################
 
 ##RHEL-06-000313
@@ -1774,7 +1776,7 @@ output "V-38677" $?
 bash scripts/check-auditd.sh action_mail_acct > /dev/null 2>&1 &
 
 spinner $!
-output "V-38680" $?
+output "V-38680" $? ${SETLANG}
 ################
 
 ##RHEL-06-000315
@@ -1783,7 +1785,7 @@ output "V-38680" $?
 bash scripts/check-bluetooth.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38682" $?
+output "V-38682" $? ${SETLANG}
 ################
 
 ##RHEL-06-000319
@@ -1792,7 +1794,7 @@ output "V-38682" $?
 bash scripts/check-limits.sh maxlogins > /dev/null 2>&1 &
 
 spinner $!
-output "V-38684" $?
+output "V-38684" $? ${SETLANG}
 ################
 
 ##RHEL-06-000320
@@ -1801,7 +1803,7 @@ output "V-38684" $?
 iptables -L FORWARD | head -n1 | grep "FORWARD.*DROP" >/dev/null 2>&1 &
 
 spinner $!
-output "V-38686" $?
+output "V-38686" $? ${SETLANG}
 ################
 
 ##RHEL-06-000331
@@ -1810,7 +1812,7 @@ output "V-38686" $?
 bash scripts/check-services.sh bluetooth >/dev/null 2>&1 &
 
 spinner $!
-output "V-38691" $?
+output "V-38691" $? ${SETLANG}
 ################
 
 ##RHEL-06-000334
@@ -1819,7 +1821,7 @@ output "V-38691" $?
 bash scripts/check-inactive.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-38692" $?
+output "V-38692" $? ${SETLANG}
 ################
 
 ##RHEL-06-000335
@@ -1828,7 +1830,7 @@ output "V-38692" $?
 bash scripts/check-inactive.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-38694" $?
+output "V-38694" $? ${SETLANG}
 ################
 
 ##RHEL-06-000336
@@ -1837,7 +1839,7 @@ output "V-38694" $?
 bash scripts/check-sticky-bit.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-38697" $?
+output "V-38697" $? ${SETLANG}
 ################
 
 ##RHEL-06-000337
@@ -1846,7 +1848,7 @@ output "V-38697" $?
 bash scripts/check-public-dir-owned.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-38699" $?
+output "V-38699" $? ${SETLANG}
 ################
 
 ##RHEL-06-000338
@@ -1855,7 +1857,7 @@ output "V-38699" $?
 sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/inetd.conf | grep "tftp.*\-s" >/dev/null 2>&1 &
 
 spinner $!
-output "V-38701" $?
+output "V-38701" $? ${SETLANG}
 ################
 
 ##RHEL-06-000339
@@ -1864,7 +1866,7 @@ output "V-38701" $?
 sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/vsftpd.conf | grep -i "xferlog_enable.*YES" >/dev/null 2>&1 &
 
 spinner $!
-output "V-38702" $?
+output "V-38702" $? ${SETLANG}
 ################
 
 ##RHEL-06-000345
@@ -1874,7 +1876,7 @@ output "V-38702" $?
 sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/login.defs  | grep -i "umask.*077" >/dev/null 2>&1 &
 
 spinner $!
-output "V-38645" $?
+output "V-38645" $? ${SETLANG}
 ################
 
 ##RHEL-06-000346
@@ -1884,7 +1886,7 @@ output "V-38645" $?
 sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/init.d/rc | grep -i "umask.*027\|umask.*022" >/dev/null 2>&1 &
 
 spinner $!
-output "V-38646" $?
+output "V-38646" $? ${SETLANG}
 ################
 
 ##RHEL-06-000347
@@ -1893,7 +1895,7 @@ output "V-38646" $?
 bash scripts/check-netrc.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-38619" $?
+output "V-38619" $? ${SETLANG}
 ################
 
 ##RHEL-06-000356
@@ -1902,7 +1904,7 @@ output "V-38619" $?
 bash scripts/check-password.sh /etc/pam.d/common-auth pam_tally unlock_time lt 604800 > /dev/null 2>&1 &
 
 spinner $!
-output "V-38592" $?
+output "V-38592" $? ${SETLANG}
 ################
 
 ##RHEL-06-000372
@@ -1911,7 +1913,7 @@ output "V-38592" $?
 sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/pam.d/common-session | grep -i "pam_lastlog.so.*showfailed" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38501" $?
+output "V-38501" $? ${SETLANG}
 ################
 
 ##RHEL-06-000383
@@ -1920,7 +1922,7 @@ output "V-38501" $?
 bash scripts/check-mode.sh `grep "^log_file" /etc/audit/auditd.conf|sed s/^[^\/]*//` 640 > /dev/null 2>&1 &
 
 spinner $!
-output "V-38498" $?
+output "V-38498" $? ${SETLANG}
 ################
 
 ##RHEL-06-000384
@@ -1929,7 +1931,7 @@ output "V-38498" $?
 grep "^log_file" /etc/audit/auditd.conf|sed s/^[^\/]*//|xargs stat -c %U | grep root > /dev/null 2>&1 &
 
 spinner $!
-output "V-38495" $?
+output "V-38495" $? ${SETLANG}
 ################
 
 ##RHEL-06-000385
@@ -1938,7 +1940,7 @@ output "V-38495" $?
 bash scripts/check-mode.sh `grep "^log_file" /etc/audit/auditd.conf|sed 's/^[^/]*//; s/[^/]*$//'` 755 > /dev/null 2>&1 &
 
 spinner $!
-output "V-38493" $?
+output "V-38493" $? ${SETLANG}
 ################
 
 ##RHEL-06-000503
@@ -1947,7 +1949,7 @@ output "V-38493" $?
 grep -r usb-storage  /etc/modprobe.d > /dev/null 2>&1 &
 
 spinner $!
-output "V-38490" $?
+output "V-38490" $? ${SETLANG}
 ################
 
 ##RHEL-06-000507
@@ -1956,7 +1958,7 @@ output "V-38490" $?
 sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/ssh/sshd_config | grep -i "^PrintLastLog.*yes" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38484" $?
+output "V-38484" $? ${SETLANG}
 ################
 
 ##RHEL-06-000509
@@ -1965,7 +1967,7 @@ output "V-38484" $?
 bash scripts/check-audisp.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38471" $?
+output "V-38471" $? ${SETLANG}
 ################
 
 ##RHEL-06-000510
@@ -1974,7 +1976,7 @@ output "V-38471" $?
 bash scripts/check-auditd.sh disk_full_action > /dev/null 2>&1 &
 
 spinner $!
-output "V-38468" $?
+output "V-38468" $? ${SETLANG}
 ################
 
 ##RHEL-06-000511
@@ -1983,7 +1985,7 @@ output "V-38468" $?
 bash scripts/check-auditd.sh disk_error_action > /dev/null 2>&1 &
 
 spinner $!
-output "V-38464" $?
+output "V-38464" $? ${SETLANG}
 ################
 
 ##RHEL-06-000514
@@ -1992,7 +1994,7 @@ output "V-38464" $?
 bash scripts/check-apt-gpg.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38462" $?
+output "V-38462" $? ${SETLANG}
 ################
 
 ##RHEL-06-000515
@@ -2001,7 +2003,7 @@ output "V-38462" $?
 bash scripts/check-nfs-all-squash.sh > /dev/null 2>&1 &
 
 spinner $!
-output "V-38460" $?
+output "V-38460" $? ${SETLANG}
 ################
 
 ##RHEL-06-000521
@@ -2010,7 +2012,7 @@ output "V-38460" $?
 postmap -q root `postconf alias_maps | awk -F '=' '{print $2}'` > /dev/null 2>&1 &
 
 spinner $!
-output "V-38446" $?
+output "V-38446" $? ${SETLANG}
 ################
 
 ##RHEL-06-000522
@@ -2019,7 +2021,7 @@ output "V-38446" $?
 grep "^log_file" /etc/audit/auditd.conf|sed s/^[^\/]*//|xargs stat -c %G | grep root > /dev/null 2>&1 &
 
 spinner $!
-output "V-38445" $?
+output "V-38445" $? ${SETLANG}
 ################
 
 ##RHEL-06-000523
@@ -2028,7 +2030,7 @@ output "V-38445" $?
 ip6tables -L INPUT | head -n1 | grep "INPUT.*DROP" > /dev/null 2>&1 &
 
 spinner $!
-output "V-38444" $?
+output "V-38444" $? ${SETLANG}
 ################
 
 ##RHEL-06-000525
@@ -2037,7 +2039,7 @@ output "V-38444" $?
 grep "audit=1" /boot/grub/grub.cfg >/dev/null 2>&1 &
 
 spinner $!
-output "V-38438" $?
+output "V-38438" $? ${SETLANG}
 ################
 
 ##RHEL-06-000526
@@ -2046,7 +2048,7 @@ output "V-38438" $?
 bash scripts/check-services.sh autofs >/dev/null 2>&1 &
 
 spinner $!
-output "V-38437" $?
+output "V-38437" $? ${SETLANG}
 ################
 
 ##RHEL-06-000528
@@ -2055,7 +2057,7 @@ output "V-38437" $?
 sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/fstab | grep "/tmp.*noexec" >/dev/null 2>&1 &
 
 spinner $!
-output "V-57569" $?
+output "V-57569" $? ${SETLANG}
 ################
 
 ##RHEL-06-000529
@@ -2064,7 +2066,7 @@ output "V-57569" $?
 bash scripts/check-sudo.sh >/dev/null 2>&1 &
 
 spinner $!
-output "V-58901" $?
+output "V-58901" $? ${SETLANG}
 ################
 
 

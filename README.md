@@ -1,33 +1,67 @@
-# STIG-4-Debian
+###STIG for Debian
 
-##About
+#####About
 
-This scrpit is use check DISA STIG(Security Technical Implementation Guides) for Debian 8
-Porting from DISA RHEL 6 STIG V1 R7.
+This scrpit is use check DISA STIG(Security Technical Implementation Guides) for Debian 9
+Porting from DISA RHEL 7 STIG V1 R1
+Benchmark Date: 27 Feb 2017
 
-[DISA RHEL 6 STIG V1 R7](http://iase.disa.mil/stigs/os/unix-linux/Pages/red-hat.aspx)
+#####Upgrade
+
+It has been a long time since we update STIG for Debian's framework. I think it's time to upgrade for the comming of Debian 9 stable release.
+
+####HTML report output supported
+
+For easy to read, we decide to output the html for primary option. And only option (for now)
 
 
-##Usage
+Thanks the author zavoloklom(https://github.com/zavoloklom) for the html table template
+
+####Usage
 
 ```
-#bash check.sh
-usage: check.sh [options]
+# bash stig-4-debian.sh -h
 
-  -c    Output Log with catable colors
-  -C    Use Chinese output Log with catable colors
-  -s    Perform STIG checking with NORMAL output log
-  -v    Show version
-  -h 	Show this message
+usage: stig-4-debian.sh [options]
 
-Default log file location at /var/log/STIG-Checking-*.log
+  -s    Start checking and output repot in html format.
+  -v    Display version
+  -h    Display help
 
-STIG Check for Debian (v0.1)
+Default report is output in current directory(STIG-for-Debian-*.html)
 
-Port DISA RHEL 6 STIG V1R7 for Debian
+STIG for Debian Compliance Checking Tools (v2.0)
+
+Ported from DISA RHEL 7 STIG
+
 ```
 
-##Project Work
 
-* First version of "walk-through" is done, but there is something should working on.
-* More detial in "script/porting_log"
+####How to get involved
+
+This time is only new framework release only. Not much check rule has been port from DISA RHEL 7 STIG for now.
+
+We( and you) will fill it up soon.
+
+Example:
+
+```
+bash scripts/check-nullok.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86561r1_rule" $?
+```
+
+This code snippet, we using a script name `check-nullok.sh` to check nullok in system-auth-ac and using exit status to determine the result of checking.
+
+`spinner $!` is a small function for administrator to feel this script is running ;)
+
+`output "SV-86561r1_rule" $?` using `output` function to output.
+
+When the script is porting, the original text is from DISA RHEL 7 STIG and if some rule is RHEL 7 specific and you should using responding checking method in debian and update the textfile `stig-debian-9.txt`
+
+If you encounter some rule that you cannot easily write a small script to check. You can put this rule in `manual.txt`
+
+
+####Addition
+
+In `statics` directory `xml2text.sh` is a script that can extract the information we need from offcial STIG xml file, such as 'U_Red_Hat_Enterprise_Linux_7_STIG_V1R1_Manual-xccdf.xml'. The original text file `stig-debian-9.txt` is copy from `stig-rhel-7.txt`. How to easily update STIG for Debian textfile when the offcial RHEL 7 STIG is under discussion.

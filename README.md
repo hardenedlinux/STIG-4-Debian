@@ -1,23 +1,23 @@
-###STIG for Debian
+### STIG for Debian
 
-#####About
+##### About
 
 This scrpit is use check DISA STIG(Security Technical Implementation Guides) for Debian 9
 Porting from DISA RHEL 7 STIG V1 R1
 Benchmark Date: 27 Feb 2017
 
-#####Upgrade
+##### Upgrade
 
 It has been a long time since we update STIG for Debian's framework. I think it's time to upgrade for the comming of Debian 9 stable release.
 
-####HTML report output supported
+#### HTML report output supported
 
 For easy to read, we decide to output the html for primary option. And only option (for now)
 
 
 Thanks the author zavoloklom(https://github.com/zavoloklom) for the html table template
 
-####Usage
+#### Usage
 
 ```
 # bash stig-4-debian.sh -h
@@ -37,7 +37,7 @@ Ported from DISA RHEL 7 STIG
 ```
 
 
-####How to get involved
+#### How to get involved
 
 This time is only new framework release only. Not much check rule has been port from DISA RHEL 7 STIG for now.
 
@@ -62,6 +62,6 @@ When the script is porting, the original text is from DISA RHEL 7 STIG and if so
 If you encounter some rule that you cannot easily write a small script to check. You can put this rule in `manual.txt`
 
 
-####Addition
+#### Addition
 
 In `statics` directory `xml2text.sh` is a script that can extract the information we need from offcial STIG xml file, such as 'U_Red_Hat_Enterprise_Linux_7_STIG_V1R1_Manual-xccdf.xml'. The original text file `stig-debian-9.txt` is copy from `stig-rhel-7.txt`. How to easily update STIG for Debian textfile when the offcial RHEL 7 STIG is under discussion.

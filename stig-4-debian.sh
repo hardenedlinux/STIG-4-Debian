@@ -225,9 +225,154 @@ fi
 ######CAT I
 
 
+bash scripts/check-session-lock.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86515r2_rule" $?
+
+
+bash scripts/check-screensaver-idle-delay.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86517r2_rule" $?
+
+
+dpkg -s screen >/dev/null 2>&1 &
+spinner $!
+output "SV-86521r1_rule" $?
+
+
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so ucredit gt 1 >/dev/null 2>&1 &
+spinner $!
+output "SV-86527r2_rule" $?
+
+
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so lcredit gt 1 >/dev/null 2>&1 &
+spinner $!
+output "SV-86529r2_rule" $?
+
+
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so dcredit gt 1 >/dev/null 2>&1 &
+spinner $!
+output "SV-86531r2_rule" $?
+
+
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so ocredit gt 1 >/dev/null 2>&1 &
+spinner $!
+output "SV-86533r1_rule" $?
+
+
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so difok ge 8 >/dev/null 2>&1 &
+spinner $!
+output "SV-86535r1_rule" $?
+
+
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so minclass ge 4 >/dev/null 2>&1 &
+spinner $!
+output "SV-86537r1_rule" $?
+
+
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so maxrepeat le 2 >/dev/null 2>&1 &
+spinner $!
+output "SV-86539r1_rule" $?
+
+
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so maxclassrepeat le 4 >/dev/null 2>&1 &
+spinner $!
+output "SV-86541r1_rule" $?
+
+
+sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/pam.d/* | grep password | grep pam_unix.so | grep sha512 > /dev/null 2>&1 &
+spinner $!
+output "SV-86543r1_rule" $?
+
+
+grep -i encrypt /etc/login.defs | grep -v '^#' | grep SHA512 >/dev/null 2>&1 &
+spinner $!
+output "SV-86545r1_rule" $?
+
+
+bash scripts/check-password-min-day.sh 1 >/dev/null 2>&1 &
+spinner $!
+output "SV-86551r1_rule" $?
+
+
+bash scripts/check-password-max-day-4-newuser.sh 60 >/dev/null 2>&1 &
+spinner $!
+output "SV-86553r1_rule" $?
+
+
+bash scripts/check-password-max-day-4-newuser.sh 60 >/dev/null 2>&1 &
+spinner $!
+output "SV-86555r1_rule" $?
+
+
+bash scripts/check-password.sh /etc/pam.d/common-password pam_unix.so remember ge 5 >/dev/null 2>&1 &
+spinner $!
+output "SV-86557r1_rule" $?
+
+
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so minlen ge 15 >/dev/null 2>&1 &
+spinner $!
+output "SV-86559r1_rule" $?
+
+
 bash scripts/check-nullok.sh >/dev/null 2>&1 &
 spinner $!
 output "SV-86561r1_rule" $?
+
+
+bash scripts/check-ssh.sh emptypassword >/dev/null 2>&1 &
+spinner $!
+output "SV-86563r2_rule" $?
+
+
+bash scripts/check-inactive.sh 0 >/dev/null 2>&1 &
+spinner $!
+output "SV-86565r1_rule" $?
+
+
+bash scripts/check-inactive.sh 0 >/dev/null 2>&1 &
+spinner $!
+output "SV-86565r1_rule" $?
+
+
+bash scripts/check-deny-and-locktime.sh 0 >/dev/null 2>&1 &
+spinner $!
+output "SV-86567r2_rule" $?
+
+
+bash scripts/check-privilege-escalation.sh sudo >/dev/null 2>&1 &
+spinner $!
+output "SV-86571r1_rule" $?
+
+
+bash scripts/check-privilege-escalation.sh authentication >/dev/null 2>&1 &
+spinner $!
+output "SV-86573r2_rule" $?
+
+
+bash scripts/check-password-fail-delay.sh 4 >/dev/null 2>&1 &
+spinner $!
+output "SV-86575r1_rule" $?
+
+
+bash scripts/scripts/check-ssh.sh emptypasswordenvironment >/dev/null 2>&1 &
+spinner $!
+output "SV-86581r2_rule" $?
+
+
+bash scripts/scripts/check-ssh.sh hostauth >/dev/null 2>&1 &
+spinner $!
+output "SV-86583r2_rule" $?
+
+
+bash scripts/scripts/check-packages.sh rsh-server >/dev/null 2>&1 &
+spinner $!
+output "SV-86591r1_rule" $?
+
+
+bash scripts/scripts/check-packages.sh ypserv >/dev/null 2>&1 &
+spinner $!
+output "SV-86593r1_rule" $?
 
 
 
@@ -238,8 +383,7 @@ output "SV-86561r1_rule" $?
 ##########################################################################
 
 if [ $ENABLE_HTML = "1" ];then
-        html_overview_gen_middle
-        html_detials_gen_middle
+        html_overview_gen_middle        html_detials_gen_middle
 fi
 
 #####Manual checking

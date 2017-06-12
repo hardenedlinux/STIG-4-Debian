@@ -121,42 +121,42 @@ function html_overview_manual_output() {
         echo '<td data-title="ID">'"$LEVEL"'</td></tr>' >>$HTML_OVERVIEW_LOG
 }
 
-HTML_DETIALS_LOG="$LOG"_detials.html
+HTML_DETAILS_LOG="$LOG"_details.html
 
-function html_detials_gen_prologue() {
-        cat html/html_detials_template_head1.html > $HTML_DETIALS_LOG
-        echo "STIG for Debian Compliance Checking  $DATE" >>$HTML_DETIALS_LOG #HTML title
-        cat html/html_detials_template_style.html >> $HTML_DETIALS_LOG
-        cat html/html_detials_template_script.html >> $HTML_DETIALS_LOG
-        cat html/html_detials_template_head2.html >> $HTML_DETIALS_LOG
-        cat html/html_detials_template_body1.html >> $HTML_DETIALS_LOG
-        echo "$DATE" >> $HTML_DETIALS_LOG
-        cat html/html_detials_template_body2.html >> $HTML_DETIALS_LOG
+function html_details_gen_prologue() {
+        cat html/html_details_template_head1.html > $HTML_DETAILS_LOG
+        echo "STIG for Debian Compliance Checking  $DATE" >>$HTML_DETAILS_LOG #HTML title
+        cat html/html_details_template_style.html >> $HTML_DETAILS_LOG
+        cat html/html_details_template_script.html >> $HTML_DETAILS_LOG
+        cat html/html_details_template_head2.html >> $HTML_DETAILS_LOG
+        cat html/html_details_template_body1.html >> $HTML_DETAILS_LOG
+        echo "$DATE" >> $HTML_DETAILS_LOG
+        cat html/html_details_template_body2.html >> $HTML_DETAILS_LOG
 }
 
-function html_detials_gen_middle() {
-        cat html/html_detials_template_middle.html >> $HTML_DETIALS_LOG
+function html_details_gen_middle() {
+        cat html/html_details_template_middle.html >> $HTML_DETAILS_LOG
 }
 
-function html_detials_gen_epilogue() {
-        cat html/html_detials_template_footer.html >> $HTML_DETIALS_LOG
+function html_details_gen_epilogue() {
+        cat html/html_details_template_footer.html >> $HTML_DETAILS_LOG
 }
 
-function html_detials_output() {
-        echo '<section><font style="font-weight:bold;">Rule Title: </font>'"$RULE_TITLE"'<br />' >>$HTML_DETIALS_LOG
-        echo '<font style="font-weight:bold;">Rule ID: </font>'"$RULE_ID"'<br />'>>$HTML_DETIALS_LOG
-        echo '<font style="font-weight:bold;">Status: </font>'"$STATUS"'<br />' >>$HTML_DETIALS_LOG
-        echo '<font style="font-weight:bold;">Description: </font>'"$(echo "$QUESTION_DESC" | sed -e 's/\\n\\n/<br \/>/g' -e 's/\\n/<br \/>/g')"'<br />' >>$HTML_DETIALS_LOG
-        echo '<font style="font-weight:bold;">Check Content: </font>'"$(echo "$CHECK_CONTENT" | sed -e 's/\\n\\n/<br \/>/g' -e 's/\\n/<br \/>/g')"'<br />' >>$HTML_DETIALS_LOG
-        echo '<font style="font-weight:bold;">Fix Method: </font>'"$(echo "$FIX" | sed -e 's/\\n\\n/<br \/>/g' -e 's/\\n/<br \/>/g')"'<br /></section>' >>$HTML_DETIALS_LOG
+function html_details_output() {
+        echo '<section><font style="font-weight:bold;">Rule Title: </font>'"$RULE_TITLE"'<br />' >>$HTML_DETAILS_LOG
+        echo '<font style="font-weight:bold;">Rule ID: </font>'"$RULE_ID"'<br />'>>$HTML_DETAILS_LOG
+        echo '<font style="font-weight:bold;">Status: </font>'"$STATUS"'<br />' >>$HTML_DETAILS_LOG
+        echo '<font style="font-weight:bold;">Description: </font>'"$(echo "$QUESTION_DESC" | sed -e 's/\\n\\n/<br \/>/g' -e 's/\\n/<br \/>/g')"'<br />' >>$HTML_DETAILS_LOG
+        echo '<font style="font-weight:bold;">Check Content: </font>'"$(echo "$CHECK_CONTENT" | sed -e 's/\\n\\n/<br \/>/g' -e 's/\\n/<br \/>/g')"'<br />' >>$HTML_DETAILS_LOG
+        echo '<font style="font-weight:bold;">Fix Method: </font>'"$(echo "$FIX" | sed -e 's/\\n\\n/<br \/>/g' -e 's/\\n/<br \/>/g')"'<br /></section>' >>$HTML_DETAILS_LOG
 }
 
-function html_detials_manual_output() {
-        echo '<section><font style="font-weight:bold;">Rule Title: </font>'"$RULE_TITLE"'<br />' >>$HTML_DETIALS_LOG
-        echo '<font style="font-weight:bold;">Rule ID: </font>'"$RULE_ID"'<br />'>>$HTML_DETIALS_LOG
-        echo '<font style="font-weight:bold;">Description: </font>'"$(echo "$QUESTION_DESC" | sed -e 's/\\n\\n/<br \/>/g' -e 's/\\n/<br \/>/g')"'<br />' >>$HTML_DETIALS_LOG
-        echo '<font style="font-weight:bold;">Check Content: </font>'"$(echo "$CHECK_CONTENT" | sed -e 's/\\n\\n/<br \/>/g' -e 's/\\n/<br \/>/g')"'<br />' >>$HTML_DETIALS_LOG
-        echo '<font style="font-weight:bold;">Fix Method: </font>'"$(echo "$FIX" | sed -e 's/\\n\\n/<br \/>/g' -e 's/\\n/<br \/>/g')"'<br /></section>' >>$HTML_DETIALS_LOG
+function html_details_manual_output() {
+        echo '<section><font style="font-weight:bold;">Rule Title: </font>'"$RULE_TITLE"'<br />' >>$HTML_DETAILS_LOG
+        echo '<font style="font-weight:bold;">Rule ID: </font>'"$RULE_ID"'<br />'>>$HTML_DETAILS_LOG
+        echo '<font style="font-weight:bold;">Description: </font>'"$(echo "$QUESTION_DESC" | sed -e 's/\\n\\n/<br \/>/g' -e 's/\\n/<br \/>/g')"'<br />' >>$HTML_DETAILS_LOG
+        echo '<font style="font-weight:bold;">Check Content: </font>'"$(echo "$CHECK_CONTENT" | sed -e 's/\\n\\n/<br \/>/g' -e 's/\\n/<br \/>/g')"'<br />' >>$HTML_DETAILS_LOG
+        echo '<font style="font-weight:bold;">Fix Method: </font>'"$(echo "$FIX" | sed -e 's/\\n\\n/<br \/>/g' -e 's/\\n/<br \/>/g')"'<br /></section>' >>$HTML_DETAILS_LOG
 }
 
 function output() {
@@ -187,7 +187,7 @@ function output() {
 
         if [ $ENABLE_HTML = "1" ];then
             html_overview_output >> $HTML_OVERVIEW_LOG
-            html_detials_output >> $HTML_DETIALS_LOG
+            html_details_output >> $HTML_DETAILS_LOG
         fi
 }
 
@@ -210,7 +210,7 @@ function manual_output() {
 
         if [ $ENABLE_HTML = "1" ];then
             html_overview_manual_output >> $HTML_OVERVIEW_LOG
-            html_detials_manual_output >> $HTML_DETIALS_LOG
+            html_details_manual_output >> $HTML_DETAILS_LOG
         fi
 }
 
@@ -218,7 +218,7 @@ function manual_output() {
 
 if [ $ENABLE_HTML = "1" ]; then
         html_overview_gen_prologue
-        html_detials_gen_prologue
+        html_details_gen_prologue
 fi
 ##########################################################################
 
@@ -401,7 +401,7 @@ output "V-86701r1_rule" $?
 ##########################################################################
 
 if [ $ENABLE_HTML = "1" ];then
-        html_overview_gen_middle        html_detials_gen_middle
+        html_overview_gen_middle        html_details_gen_middle
 fi
 
 #####Manual checking
@@ -413,7 +413,7 @@ done
 
 if [ $ENABLE_HTML = "1" ];then
         html_overview_gen_epilogue
-        html_detials_gen_epilogue
+        html_details_gen_epilogue
 fi
 
 #####Statistics

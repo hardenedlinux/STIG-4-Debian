@@ -388,9 +388,36 @@ bash scripts/check-ctrl-alt-del.sh >/dev/null 2>&1 &
 spinner $!
 output "SV-86617r1_rule" $?
 
+
+bash scripts/check-gids.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86627r1_rule" $?
+
+
+bash scripts/check-root-uid.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86629r1_rule" $?
+
+
+bash scripts/check-valid-owner.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86631r1_rule" $?
+
+
+bash scripts/check-valid-group-owner.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86633r1_rule" $?
+
+
+bash scripts/check-create-home.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86637r1_rule" $?
+
+
+
 bash scripts/check-packages.sh telnetd >/dev/null 2>&1 &
 spinner $!
-output "V-86701r1_rule" $?
+output "SV-86701r1_rule" $?
 
 
 

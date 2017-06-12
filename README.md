@@ -2,7 +2,7 @@
 
 ##### About
 
-This scrpit is use check DISA STIG(Security Technical Implementation Guides) for Debian 9
+This script is used to check DISA STIG(Security Technical Implementation Guides) for Debian 9
 Porting from DISA RHEL 7 STIG V1 R1
 Benchmark Date: 27 Feb 2017
 
@@ -12,10 +12,10 @@ It has been a long time since we update STIG for Debian's framework. I think it'
 
 #### HTML report output supported
 
-For easy to read, we decide to output the html for primary option. And only option (for now)
+For easy to read reports, we decided to output to HTML for the primary (and for now, only) option.
 
 
-Thanks the author zavoloklom(https://github.com/zavoloklom) for the html table template
+Thanks to the author zavoloklom(https://github.com/zavoloklom) for the html table template
 
 #### Usage
 

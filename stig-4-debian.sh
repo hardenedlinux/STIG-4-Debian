@@ -224,6 +224,10 @@ fi
 
 ######CAT I
 
+bash scripts/check-package-verify.sh 2>&1 &
+spinner $!
+output "SV-86479r2_rule" $?
+
 
 bash scripts/check-session-lock.sh >/dev/null 2>&1 &
 spinner $!
@@ -290,6 +294,11 @@ spinner $!
 output "SV-86545r1_rule" $?
 
 
+bash scripts/check-password-newuser-minday.sh 1 >/dev/null 2>&1 &
+spinner $!
+output "SV-86549r1_rule" $?
+
+
 bash scripts/check-password-min-day.sh 1 >/dev/null 2>&1 &
 spinner $!
 output "SV-86551r1_rule" $?
@@ -300,7 +309,7 @@ spinner $!
 output "SV-86553r1_rule" $?
 
 
-bash scripts/check-password-max-day-4-newuser.sh 60 >/dev/null 2>&1 &
+bash scripts/check-password-max-day-4-existing.sh 60 >/dev/null 2>&1 &
 spinner $!
 output "SV-86555r1_rule" $?
 
@@ -355,24 +364,33 @@ spinner $!
 output "SV-86575r1_rule" $?
 
 
-bash scripts/scripts/check-ssh.sh emptypasswordenvironment >/dev/null 2>&1 &
+bash scripts/check-ssh.sh emptypasswordenvironment >/dev/null 2>&1 &
 spinner $!
 output "SV-86581r2_rule" $?
 
 
-bash scripts/scripts/check-ssh.sh hostauth >/dev/null 2>&1 &
+bash scripts/check-ssh.sh hostauth >/dev/null 2>&1 &
 spinner $!
 output "SV-86583r2_rule" $?
 
 
-bash scripts/scripts/check-packages.sh rsh-server >/dev/null 2>&1 &
+bash scripts/check-packages.sh rsh-server >/dev/null 2>&1 &
 spinner $!
 output "SV-86591r1_rule" $?
 
 
-bash scripts/scripts/check-packages.sh ypserv >/dev/null 2>&1 &
+bash scripts/check-packages.sh ypserv >/dev/null 2>&1 &
 spinner $!
 output "SV-86593r1_rule" $?
+
+
+bash scripts/check-ctrl-alt-del.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86617r1_rule" $?
+
+bash scripts/check-packages.sh telnetd >/dev/null 2>&1 &
+spinner $!
+output "V-86701r1_rule" $?
 
 
 

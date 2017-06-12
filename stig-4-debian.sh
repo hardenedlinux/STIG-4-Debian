@@ -417,7 +417,7 @@ output "SV-86637r1_rule" $?
 
 bash scripts/check-packages.sh telnetd >/dev/null 2>&1 &
 spinner $!
-output "V-86701r1_rule" $?
+output "SV-86701r1_rule" $?
 
 
 

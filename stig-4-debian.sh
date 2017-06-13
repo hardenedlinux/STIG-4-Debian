@@ -409,10 +409,59 @@ spinner $!
 output "SV-86633r1_rule" $?
 
 
+bash scripts/check-homedir-assigned.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86635r1_rule" $?
+
+
 bash scripts/check-create-home.sh >/dev/null 2>&1 &
 spinner $!
 output "SV-86637r1_rule" $?
 
+
+bash scripts/check-homedir-exist.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86639r1_rule" $?
+
+
+bash scripts/check-homedir-permissive.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86641r1_rule" $?
+
+
+bash scripts/check-homedir-owner.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86643r2_rule" $?
+
+
+bash scripts/check-homedir-gowner.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86645r2_rule" $?
+
+
+bash scripts/check-homedir-files-owner.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86647r1_rule" $?
+
+
+bash scripts/check-homedir-files-gowner.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86649r1_rule" $?
+
+
+bash scripts/check-homedir-files-permissive.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86651r1_rule" $?
+
+
+bash scripts/check-homedir-initfiles-owner.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86653r1_rule" $?
+
+
+bash scripts/check-homedir-initfiles-gowner.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86655r2_rule" $?
 
 
 bash scripts/check-packages.sh telnetd >/dev/null 2>&1 &

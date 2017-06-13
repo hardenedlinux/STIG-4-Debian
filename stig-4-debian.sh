@@ -469,6 +469,11 @@ spinner $!
 output "SV-86657r1_rule" $?
 
 
+bash scripts/check-homedir-to-exec-path.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86659r2_rule" $?
+
+
 bash scripts/check-packages.sh telnetd >/dev/null 2>&1 &
 spinner $!
 output "SV-86701r1_rule" $?

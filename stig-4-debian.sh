@@ -464,6 +464,11 @@ spinner $!
 output "SV-86655r2_rule" $?
 
 
+bash scripts/check-homedir-initfiles-permissive.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86657r1_rule" $?
+
+
 bash scripts/check-packages.sh telnetd >/dev/null 2>&1 &
 spinner $!
 output "SV-86701r1_rule" $?

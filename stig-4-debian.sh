@@ -474,6 +474,36 @@ spinner $!
 output "SV-86659r2_rule" $?
 
 
+bash scripts/check-homedir-initfiles-world-writable.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86661r1_rule" $?
+
+
+bash scripts/check-mount-option.sh home nosuid >/dev/null 2>&1 &
+spinner $!
+output "SV-86665r2_rule" $?
+
+
+bash scripts/check-mount-option.sh media nosuid >/dev/null 2>&1 &
+spinner $!
+output "SV-86667r1_rule" $?
+
+
+bash scripts/check-mount-option.sh nfs nosuid >/dev/null 2>&1 &
+spinner $!
+output "SV-86669r1_rule" $?
+
+
+bash scripts/check-world-writable-dir-gowner.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86671r1_rule" $?
+
+
+bash scripts/check-homedir-initfiles-umask.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86673r1_rule" $?
+
+
 bash scripts/check-packages.sh telnetd >/dev/null 2>&1 &
 spinner $!
 output "SV-86701r1_rule" $?

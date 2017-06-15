@@ -223,7 +223,6 @@ fi
 ##########################################################################
 
 ######CAT I
-
 bash scripts/check-package-verify.sh 2>&1 &
 spinner $!
 output "SV-86479r2_rule" $?
@@ -504,9 +503,59 @@ spinner $!
 output "SV-86673r1_rule" $?
 
 
+bash bash scripts/check-limits.sh core-dumps >/dev/null 2>&1 &
+spinner $!
+output "SV-86681r1_rule" $?
+
+
+mount | grep "on./home.type" >/dev/null 2>&1 &
+spinner $!
+output "SV-86683r1_rule" $?
+
+
+mount | grep "on./var.type" >/dev/null 2>&1 &
+spinner $!
+output "SV-86685r1_rule" $?
+
+
+mount | grep "on./var/log/audit.type" >/dev/null 2>&1 &
+spinner $!
+output "SV-86687r3_rule" $?
+
+
+mount | grep "on./tmp.type" >/dev/null 2>&1 &
+spinner $!
+output "SV-86689r1_rule" $?
+
+
+bash scripts/check-fips_enabled.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86691r2_rule" $?
+
+
+bash scripts/check-aide.sh acl >/dev/null 2>&1 &
+spinner $!
+output "SV-86693r2_rule" $?
+
+
+bash scripts/check-aide.sh sha512 >/dev/null 2>&1 &
+spinner $!
+output "SV-86697r2_rule" $?
+
+
+bash scripts/check-grub.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86699r1_rule" $?
+
+
 bash scripts/check-packages.sh telnetd >/dev/null 2>&1 &
 spinner $!
 output "SV-86701r1_rule" $?
+
+
+bash scripts/check-auditd.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86703r1_rule" $?
 
 
 

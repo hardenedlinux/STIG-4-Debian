@@ -69,3 +69,5 @@ In `statics` directory `xml2text.sh` is a script that can extract the informatio
 Special Note:
 Selinux related items:
 SV-86663r1_rule
+SV-86695r2_rule
+

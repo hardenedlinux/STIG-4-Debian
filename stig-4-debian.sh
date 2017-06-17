@@ -568,6 +568,124 @@ spinner $!
 output "SV-86707r1_rule" $?
 
 
+bash scripts/check-auditd.sh enable_krb5 >/dev/null 2>&1 &
+spinner $!
+output "SV-86709r1_rule" $?
+
+
+bash scripts/check-auditd.sh disk_full_error_action >/dev/null 2>&1 &
+spinner $!
+output "SV-86711r2_rule" $?
+
+
+bash scripts/check-auditd.sh space_left >/dev/null 2>&1 &
+spinner $!
+output "SV-86713r1_rule" $?
+
+
+bash scripts/check-auditd.sh space_left_action >/dev/null 2>&1 &
+spinner $!
+output "SV-86715r1_rule" $?
+
+
+bash scripts/check-auditd.sh action_mail_acct >/dev/null 2>&1 &
+spinner $!
+output "SV-86717r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh chown >/dev/null 2>&1 &
+spinner $!
+output "SV-86721r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh fchown >/dev/null 2>&1 &
+spinner $!
+output "SV-86723r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh lchown >/dev/null 2>&1 &
+spinner $!
+output "SV-86725r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh fchownat >/dev/null 2>&1 &
+spinner $!
+output "SV-86727r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh chmod >/dev/null 2>&1 &
+spinner $!
+output "SV-86729r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh fchmod >/dev/null 2>&1 &
+spinner $!
+output "SV-86731r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh fchmodat >/dev/null 2>&1 &
+spinner $!
+output "SV-86733r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh setxattr >/dev/null 2>&1 &
+spinner $!
+output "SV-86735r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh fsetxattr >/dev/null 2>&1 &
+spinner $!
+output "SV-86737r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh lsetxattr >/dev/null 2>&1 &
+spinner $!
+output "SV-86739r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh removexattr >/dev/null 2>&1 &
+spinner $!
+output "SV-86741r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh fremovexattr >/dev/null 2>&1 &
+spinner $!
+output "SV-86743r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh lremovexattr >/dev/null 2>&1 &
+spinner $!
+output "SV-86745r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh creat >/dev/null 2>&1 &
+spinner $!
+output "SV-86747r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh open >/dev/null 2>&1 &
+spinner $!
+output "SV-86749r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh openat >/dev/null 2>&1 &
+spinner $!
+output "SV-86751r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh open_by_handle_at >/dev/null 2>&1 &
+spinner $!
+output "SV-86753r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh truncate >/dev/null 2>&1 &
+spinner $!
+output "SV-86755r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh ftruncate >/dev/null 2>&1 &
+spinner $!
+output "SV-86757r2_rule" $?
 
 
 ######CAT II

@@ -70,4 +70,8 @@ Special Note:
 Selinux related items:
 SV-86663r1_rule
 SV-86695r2_rule
+SV-86759r3_rule
+SV-86761r3_rule
+SV-86763r3_rule
+SV-86765r3_rule
 

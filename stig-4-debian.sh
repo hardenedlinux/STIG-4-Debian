@@ -553,9 +553,20 @@ spinner $!
 output "SV-86701r1_rule" $?
 
 
-bash scripts/check-auditd.sh >/dev/null 2>&1 &
+bash scripts/check-auditd.sh  active >/dev/null 2>&1 &
 spinner $!
 output "SV-86703r1_rule" $?
+
+
+bash scripts/check-auditd.sh enableflag >/dev/null 2>&1 &
+spinner $!
+output "SV-86705r1_rule" $?
+
+
+bash scripts/check-auditd.sh remote_server >/dev/null 2>&1 &
+spinner $!
+output "SV-86707r1_rule" $?
+
 
 
 

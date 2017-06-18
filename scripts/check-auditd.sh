@@ -233,4 +233,37 @@ case $1 in
                         exit 1
                 fi
         ;;
+	insmod)
+		COUNT=`auditctl -l | grep /sbin/insmod  | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	rmmod)
+		COUNT=`auditctl -l | grep /sbin/rmmod  | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	modprobe)
+		COUNT=`auditctl -l | grep /sbin/modprobe  | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	f-passwd)
+		COUNT=`auditctl -l | grep /etc/passwd  | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+
 esac

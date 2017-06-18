@@ -1,8 +1,9 @@
 #!/bin/bash
 
 SYSCALLNAME=$1
+COUNT=`auditctl -l | grep "^-a.*-S.*${SYSCALLNAME}" | wc -l`
 
-if grep -i "^-a.*-S.*${SYSCALLNAME}" /etc/audit/audit.rules ;then
+if [ ${COUNT} -gt 0 ];then
 	:
 else
 	exit 1

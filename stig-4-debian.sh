@@ -788,6 +788,57 @@ spinner $!
 output "SV-86811r2_rule" $?
 
 
+bash scripts/check-auditd-syscall.sh delete_module >/dev/null 2>&1 &
+spinner $!
+output "SV-86813r2_rule" $?
+
+
+bash scripts/check-auditd.sh insmod >/dev/null 2>&1 &
+spinner $!
+output "SV-86815r2_rule" $?
+
+
+bash scripts/check-auditd.sh rmmod >/dev/null 2>&1 &
+spinner $!
+output "SV-86817r2_rule" $?
+
+
+bash scripts/check-auditd.sh modprobe >/dev/null 2>&1 &
+spinner $!
+output "SV-86819r2_rule" $?
+
+
+bash scripts/check-auditd.sh f-passwd >/dev/null 2>&1 &
+spinner $!
+output "SV-86821r3_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh rename >/dev/null 2>&1 &
+spinner $!
+output "SV-86823r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh renameat >/dev/null 2>&1 &
+spinner $!
+output "SV-86825r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh rmdir >/dev/null 2>&1 &
+spinner $!
+output "SV-86827r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh unlink >/dev/null 2>&1 &
+spinner $!
+output "SV-86829r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh unlinkat >/dev/null 2>&1 &
+spinner $!
+output "SV-86831r2_rule" $?
+
+
+
 ######CAT II
 
 ######CAT III

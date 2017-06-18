@@ -688,6 +688,106 @@ spinner $!
 output "SV-86757r2_rule" $?
 
 
+bash scripts/check-auditd.sh tallylog >/dev/null 2>&1 &
+spinner $!
+output "SV-86767r2_rule" $?
+
+
+bash scripts/check-auditd.sh faillock >/dev/null 2>&1 &
+spinner $!
+output "SV-86769r2_rule" $?
+
+
+bash scripts/check-auditd.sh lastlog >/dev/null 2>&1 &
+spinner $!
+output "SV-86771r2_rule" $?
+
+
+bash scripts/check-auditd.sh passwd >/dev/null 2>&1 &
+spinner $!
+output "SV-86773r3_rule" $?
+
+
+bash scripts/check-auditd.sh unix_chkpwd >/dev/null 2>&1 &
+spinner $!
+output "SV-86775r3_rule" $?
+
+
+bash scripts/check-auditd.sh gpasswd >/dev/null 2>&1 &
+spinner $!
+output "SV-86777r3_rule" $?
+
+
+bash scripts/check-auditd.sh chage >/dev/null 2>&1 &
+spinner $!
+output "SV-86779r3_rule" $?
+
+
+bash scripts/check-auditd.sh su >/dev/null 2>&1 &
+spinner $!
+output "SV-86783r3_rule" $?
+
+
+bash scripts/check-auditd.sh sudo >/dev/null 2>&1 &
+spinner $!
+output "SV-86785r3_rule" $?
+
+
+bash scripts/check-auditd.sh f-sudoers >/dev/null 2>&1 &
+spinner $!
+output "SV-86787r3_rule" $?
+
+
+bash scripts/check-auditd.sh newgrp >/dev/null 2>&1 &
+spinner $!
+output "SV-86789r3_rule" $?
+
+
+bash scripts/check-auditd.sh chsh >/dev/null 2>&1 &
+spinner $!
+output "SV-86791r3_rule" $?
+
+
+bash scripts/check-auditd.sh sudoedit >/dev/null 2>&1 &
+spinner $!
+output "SV-86793r3_rule" $?
+
+
+bash scripts/check-auditd.sh mount >/dev/null 2>&1 &
+spinner $!
+output "SV-86795r3_rule" $?
+
+
+bash scripts/check-auditd.sh umount >/dev/null 2>&1 &
+spinner $!
+output "SV-86797r3_rule" $?
+
+
+bash scripts/check-auditd.sh postdrop >/dev/null 2>&1 &
+spinner $!
+output "SV-86799r3_rule" $?
+
+
+bash scripts/check-auditd.sh postqueue >/dev/null 2>&1 &
+spinner $!
+output "SV-86801r2_rule" $?
+
+
+bash scripts/check-auditd.sh crontab >/dev/null 2>&1 &
+spinner $!
+output "SV-86807r2_rule" $?
+
+
+bash scripts/check-auditd.sh pam_timestamp_check >/dev/null 2>&1 &
+spinner $!
+output "SV-86809r2_rule" $?
+
+
+bash scripts/check-auditd-syscall.sh init_module >/dev/null 2>&1 &
+spinner $!
+output "SV-86811r2_rule" $?
+
+
 ######CAT II
 
 ######CAT III

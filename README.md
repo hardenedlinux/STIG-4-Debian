@@ -66,12 +66,14 @@ If you encounter some rule that you cannot easily write a small script to check.
 
 In `statics` directory `xml2text.sh` is a script that can extract the information we need from offcial STIG xml file, such as 'U_Red_Hat_Enterprise_Linux_7_STIG_V1R1_Manual-xccdf.xml'. The original text file `stig-debian-9.txt` is copy from `stig-rhel-7.txt`. How to easily update STIG for Debian textfile when the offcial RHEL 7 STIG is under discussion.
 
-Special Note:
+#### Special Note:  
+
 Selinux related items:
-SV-86663r1_rule
-SV-86695r2_rule
-SV-86759r3_rule
-SV-86761r3_rule
-SV-86763r3_rule
-SV-86765r3_rule
+ 
+SV-86663r1_rule  
+SV-86695r2_rule  
+SV-86759r3_rule  
+SV-86761r3_rule  
+SV-86763r3_rule  
+SV-86765r3_rule  
 

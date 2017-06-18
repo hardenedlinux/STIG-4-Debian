@@ -81,4 +81,156 @@ case $1 in
                         exit 1
                 fi
         ;;
+	tallylog)
+		COUNT=`auditctl -l | grep /var/log/tallylog  |  wc -l`
+		if [ ${COUNT} -eq 1 ];then
+			:
+		else
+			exit 1
+		fi
+	;;
+	faillock)
+		COUNT=`auditctl -l | grep /var/run/faillock | wc -l`
+		if [ ${COUNT} -eq 1 ];then
+			:
+		else
+			exit 1
+		fi
+	;;
+	lastlog)
+		COUNT=`auditctl -l | grep /var/log/lastlog | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	passwd)
+		COUNT=`auditctl -l | grep /usr/bin/passwd | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	unix_chkpwd)
+		COUNT=`auditctl -l | grep /sbin/unix_chkpwd | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	gpasswd)
+		COUNT=`auditctl -l | grep /usr/bin/gpasswd | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	chage)
+		COUNT=`auditctl -l | grep /usr/bin/chage | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	su)
+		COUNT=`auditctl -l | grep /bin/su | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	sudo)
+		COUNT=`auditctl -l | grep /usr/bin/sudo | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	f-sudoers)
+		COUNT=`auditctl -l | grep /etc/sudoers | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	newgrp)
+		COUNT=`auditctl -l | grep /usr/bin/newgrp | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	chsh)
+		COUNT=`auditctl -l | grep /usr/bin/chsh | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	sudoedit)
+		COUNT=`auditctl -l | grep /usr/bin/sudoedit | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	mount)
+		COUNT=`auditctl -l | grep /bin/mount | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	umount)
+		COUNT=`auditctl -l | grep /bin/umount | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	postdrop)
+		COUNT=`auditctl -l | grep /usr/sbin/postdrop | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	postqueue)
+		COUNT=`auditctl -l | grep /usr/sbin/postqueue | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	crontab)
+		COUNT=`auditctl -l | grep /usr/bin/crontab | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
+	pam_timestamp_check)
+		COUNT=`auditctl -l | grep /usr/sbin/pam_timestamp_check | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+        ;;
 esac

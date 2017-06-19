@@ -838,6 +838,10 @@ spinner $!
 output "SV-86831r2_rule" $?
 
 
+bash bash scripts/check-limits.sh maxlogins >/dev/null 2>&1 &
+spinner $!
+output "SV-86841r1_rule" $?
+
 
 ######CAT II
 

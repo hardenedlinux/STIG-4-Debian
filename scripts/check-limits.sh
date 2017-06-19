@@ -11,7 +11,7 @@ case $1 in
         ;;
         maxlogins)
                 if sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/security/limits.conf | grep "maxlogins";then
-                        if [ $(sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/security/limits.conf | grep "maxlogins" | awk -F 'maxlogins' '{print $2}' | sed 's/\ *//g') -lt 1 ];then
+                        if [ $(sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/security/limits.conf | grep "maxlogins" | awk -F 'maxlogins' '{print $2}' | sed 's/\ *//g') -lt 10 ];then
                                 exit 1
                         fi
                 else

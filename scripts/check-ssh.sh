@@ -98,4 +98,97 @@ case $1 in
 			exit 1
 		fi
 	;;
+	PrintLastLog)
+		if grep PrintLastLog /etc/ssh/sshd_config | grep -v "^#";then
+			SETVALUE=`grep PrintLastLog /etc/ssh/sshd_config | grep -v "^#" | awk '{printf $2}'`
+			if [ "${SETVALUE}" != "yes" ];then
+				exit 1
+			fi
+		else
+			exit 1
+		fi
+	;;
+	IgnoreUserKnownHosts)
+		if grep IgnoreUserKnownHosts /etc/ssh/sshd_config | grep -v "^#";then
+			SETVALUE=`grep IgnoreUserKnownHosts /etc/ssh/sshd_config | grep -v "^#" | awk '{printf $2}'`
+			if [ "${SETVALUE}" != "yes" ];then
+				exit 1
+			fi
+		else
+			exit 1
+		fi
+	;;
+	macs)
+		if grep -i "MACs.*hmac-sha2-256\|MACs.*hmac-sha2-512"  /etc/ssh/sshd_config;then
+			:
+		else
+			exit 1
+		fi
+	;;
+	pubkeypermissive)
+		COUNT=`find /etc/ssh/ -type f -name "*.pub" -perm  /133  -exec ls -l {} \; | wc -l`
+		if [ ${COUNT} -eq 0 ];then
+			:
+		else
+			exit 1
+		fi
+	;;
+	hostkeypermissive)
+		COUNT=`find /etc/ssh/ -type f -name "*ssh_host*key" -perm  /177  -exec ls -l {} \; | wc -l`
+		if [ ${COUNT} -eq 0 ];then
+			:
+		else
+			exit 1
+		fi
+	;;
+	GSSAPIAuthentication)
+		if grep GSSAPIAuthentication /etc/ssh/sshd_config | grep -v "^#";then
+                        SETVALUE=`grep GSSAPIAuthentication /etc/ssh/sshd_config | grep -v "^#" | awk '{printf $2}'`
+                        if [ "${SETVALUE}" != "no" ];then
+                                exit 1
+                        fi
+                else
+                        exit 1
+                fi
+	;;
+	KerberosAuthentication)
+		if grep KerberosAuthentication /etc/ssh/sshd_config | grep -v "^#";then
+                        SETVALUE=`grep KerberosAuthentication /etc/ssh/sshd_config | grep -v "^#" | awk '{printf $2}'`
+                        if [ "${SETVALUE}" != "no" ];then
+                                exit 1
+                        fi
+                else
+                        exit 1
+                fi
+	;;
+	StrictModes)
+		if grep StrictModes /etc/ssh/sshd_config | grep -v "^#";then
+                        SETVALUE=`grep StrictModes /etc/ssh/sshd_config | grep -v "^#" | awk '{printf $2}'`
+                        if [ "${SETVALUE}" != "yes" ];then
+                                exit 1
+                        fi
+                else
+                        exit 1
+                fi
+	;;
+	UsePrivilegeSeparation)
+		if grep UsePrivilegeSeparation /etc/ssh/sshd_config | grep -v "^#";then
+                        SETVALUE=`grep UsePrivilegeSeparation /etc/ssh/sshd_config | grep -v "^#" | awk '{printf $2}'`
+                        if [ "${SETVALUE}" != "yes" -a "${SETVALUE}" != "sandbox" ];then
+                                exit 1
+                        fi
+                else
+                        exit 1
+                fi
+	;;
+	Compression)
+		if grep Compression /etc/ssh/sshd_config | grep -v "^#";then
+                        SETVALUE=`grep Compression /etc/ssh/sshd_config | grep -v "^#" | awk '{printf $2}'`
+                        if [ "${SETVALUE}" != "no" -a "${SETVALUE}" != "delayed" ];then
+                                exit 1
+                        fi
+                else
+                        exit 1
+                fi
+	;;
 esac

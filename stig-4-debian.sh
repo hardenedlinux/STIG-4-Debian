@@ -888,6 +888,66 @@ spinner $!
 output "SV-86867r2_rule" $?
 
 
+bash scripts/check-ssh.sh PrintLastLog >/dev/null 2>&1 &
+spinner $!
+output "SV-86869r2_rule" $?
+
+
+bash scripts/check-ssh.sh permitroot >/dev/null 2>&1 &
+spinner $!
+output "SV-86871r2_rule" $?
+
+
+bash scripts/check-ssh.sh IgnoreUserKnownHosts >/dev/null 2>&1 &
+spinner $!
+output "SV-86873r2_rule" $?
+
+
+bash scripts/check-ssh.sh Protocol >/dev/null 2>&1 &
+spinner $!
+output "SV-86875r2_rule" $?
+
+
+bash scripts/check-ssh.sh macs >/dev/null 2>&1 &
+spinner $!
+output "SV-86877r2_rule" $?
+
+
+bash scripts/check-ssh.sh pubkeypermissive >/dev/null 2>&1 &
+spinner $!
+output "SV-86879r1_rule" $?
+
+
+bash scripts/check-ssh.sh hostkeypermissive >/dev/null 2>&1 &
+spinner $!
+output "SV-86881r1_rule" $?
+
+
+bash scripts/check-ssh.sh GSSAPIAuthentication >/dev/null 2>&1 &
+spinner $!
+output "SV-86883r2_rule" $?
+
+
+bash scripts/check-ssh.sh KerberosAuthentication >/dev/null 2>&1 &
+spinner $!
+output "SV-86885r2_rule" $?
+
+
+bash scripts/check-ssh.sh StrictModes >/dev/null 2>&1 &
+spinner $!
+output "SV-86887r2_rule" $?
+
+
+bash scripts/check-ssh.sh UsePrivilegeSeparation >/dev/null 2>&1 &
+spinner $!
+output "SV-86889r2_rule" $?
+
+
+bash scripts/check-ssh.sh Compression >/dev/null 2>&1 &
+spinner $!
+output "SV-86891r2_rule" $?
+
+
 ######CAT II
 
 ######CAT III

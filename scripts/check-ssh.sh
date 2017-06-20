@@ -30,4 +30,72 @@ case $1 in
                         exit 1
                 fi
         ;;
+	ciphers)
+		if grep -i "Ciphers.*aes128-ctr\|Ciphers.*aes256-ctr\|Ciphers.*aes192-ctr" /etc/ssh/sshd_config;then
+			:
+		else
+			exit 1 
+		fi
+	;;
+	banner)
+		if grep -i banner /etc/ssh/sshd_config | grep -v "^#";then
+			:
+		else
+			exit 1
+		fi
+	;;
+	installed)
+		if dpkg -s auditd | grep "^Status:.install" | grep installed;then
+			:
+		else
+			exit 1
+		fi	
+	;;
+	sshd_status)
+		if systemctl status sshd | grep "Active:.*(running)";then
+			:
+		else
+			exit 1
+		fi 
+	;;
+	ClientAliveInterval)
+		if grep ClientAliveInterval /etc/ssh/sshd_config | grep -v "^#";then
+			INTERVAL=`grep ClientAliveInterval /etc/ssh/sshd_config | grep -v "^#" | awk '{printf $2}'`
+			if [ ${INTERVAL} -lt 600 ];then
+				exit 1
+			fi
+		else
+			exit 1
+		fi
+	;;
+	RhostsRSAAuthentication)
+		if grep RhostsRSAAuthentication /etc/ssh/sshd_config | grep -v "^#";then
+			SETVALUE=`grep RhostsRSAAuthentication /etc/ssh/sshd_config | grep -v "^#" | awk '{printf $2}'`
+			if [ "${SETVALUE}" == "no" ];then
+				exit 1
+			fi
+		else
+			exit 1
+		fi
+	;;
+	ClientAliveCountMax)
+		if grep ClientAliveCountMax /etc/ssh/sshd_config | grep -v "^#";then
+			SETVALUE=`grep ClientAliveCountMax /etc/ssh/sshd_config | grep -v "^#" | awk '{printf $2}'`
+			if [ ${SETVALUE} -ne 0 ];then
+				exit 1
+			fi
+		else
+			exit 1
+		fi
+	;;
+	IgnoreRhosts)
+		if grep IgnoreRhosts /etc/ssh/sshd_config | grep -v "^#";then
+			SETVALUE=`grep IgnoreRhosts /etc/ssh/sshd_config | grep -v "^#" | awk '{printf $2}'`
+			if [ "${SETVALUE}" == "no" ];then
+				exit 1
+			fi
+		else
+			exit 1
+		fi
+	;;
 esac

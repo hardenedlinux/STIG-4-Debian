@@ -838,9 +838,54 @@ spinner $!
 output "SV-86831r2_rule" $?
 
 
-bash bash scripts/check-limits.sh maxlogins >/dev/null 2>&1 &
+bash scripts/check-limits.sh maxlogins >/dev/null 2>&1 &
 spinner $!
 output "SV-86841r1_rule" $?
+
+
+bash scripts/check-ssh.sh ciphers >/dev/null 2>&1 &
+spinner $!
+output "SV-86845r2_rule" $?
+
+
+bash scripts/check-session-tmout.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86847r2_rule" $?
+
+
+bash scripts/check-ssh.sh banner >/dev/null 2>&1 &
+spinner $!
+output "SV-86849r2_rule" $?
+
+
+bash scripts/check-ssh.sh installed >/dev/null 2>&1 &
+spinner $!
+output "SV-86857r1_rule" $?
+
+
+bash scripts/check-ssh.sh sshd_status >/dev/null 2>&1 &
+spinner $!
+output "SV-86859r2_rule" $?
+
+
+bash scripts/check-ssh.sh ClientAliveInterval >/dev/null 2>&1 &
+spinner $!
+output "SV-86861r2_rule" $?
+
+
+bash scripts/check-ssh.sh RhostsRSAAuthentication >/dev/null 2>&1 &
+spinner $!
+output "SV-86863r2_rule" $?
+
+
+bash scripts/check-ssh.sh ClientAliveCountMax >/dev/null 2>&1 &
+spinner $!
+output "SV-86865r2_rule" $?
+
+
+bash scripts/check-ssh.sh IgnoreRhosts >/dev/null 2>&1 &
+spinner $!
+output "SV-86867r2_rule" $?
 
 
 ######CAT II

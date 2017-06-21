@@ -1382,8 +1382,8 @@ Rule ID: SV-86899r1_rule
 Severity: low
 Rule Title: The system must display the date and time of the last successful account logon upon logon.
 Description: Providing users with feedback on when account accesses last occurred facilitates user recognition and reporting of unauthorized account use.
-Check_content: Verify users are provided with feedback on when account accesses last occurred.\n\nCheck that "pam_lastlog" is used and not silent with the following command:\n\n# grep pam_lastlog /etc/pam.d/postlogin-ac\n\nsession     required      pam_lastlog.so showfailed silent\n\nIf "pam_lastlog" is missing from "/etc/pam.d/postlogin-ac" file, or the silent option is present on the line check for the "PrintLastLog" keyword in the sshd daemon configuration file, this is a finding.
-Fixtext: Configure the operating system to provide users with feedback on when account accesses last occurred by setting the required configuration options in "/etc/pam.d/postlogin-ac". \n\nAdd the following line to the top of "/etc/pam.d/postlogin-ac":\n\nsession     required      pam_lastlog.so showfailed
+Check_content: Verify users are provided with feedback on when account accesses last occurred.\n\nCheck that "pam_lastlog" is used and not silent with the following command:\n\n# grep pam_lastlog /etc/pam.d/login\n\nsession     required      pam_lastlog.so showfailed silent\n\nIf "pam_lastlog" is missing from "/etc/pam.d/login" file, or the silent option is present on the line check for the "PrintLastLog" keyword in the sshd daemon configuration file, this is a finding.
+Fixtext: Configure the operating system to provide users with feedback on when account accesses last occurred by setting the required configuration options in "/etc/pam.d/login". \n\nAdd the following line to the top of "/etc/pam.d/login":\n\nsession     required      pam_lastlog.so showfailed
 
 Rule ID: SV-86901r1_rule
 Severity: high
@@ -1466,15 +1466,15 @@ Rule ID: SV-86923r1_rule
 Severity: high
 Rule Title: A File Transfer Protocol (FTP) server package must not be installed unless needed.
 Description: The FTP service provides an unencrypted remote access that does not provide for the confidentiality and integrity of user passwords or the remote session. If a privileged user were to log on using this service, the privileged user password could be compromised. SSH or other encrypted file transfer methods must be used in place of this service.
-Check_content: Verify a lightweight FTP server has not been installed on the system.\n\nCheck to see if a lightweight FTP server has been installed with the following commands:\n\n# yum list installed lftpd\n lftp-4.4.8-7.el7.x86_64.rpm\n\nIf "lftpd" is installed and is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is a finding.
-Fixtext: Document the "lftpd" package with the ISSO as an operational requirement or remove it from the system with the following command:\n\n# yum remove lftpd
+Check_content: Verify a lightweight FTP server has not been installed on the system.\n\nCheck to see if a lightweight FTP server has been installed with the following commands:\n\n# dpkg -s vsftpd\n\nIf "lftpd" is installed and is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is a finding.
+Fixtext: Document the "vsftpd" package with the ISSO as an operational requirement or remove it from the system with the following command:\n\n# apt-get remove vsftpds
 
 Rule ID: SV-86925r1_rule
 Severity: high
 Rule Title: The Trivial File Transfer Protocol (TFTP) server package must not be installed if not required for operational support.
 Description: If TFTP is required for operational support (such as the transmission of router configurations) its use must be documented with the Information System Security Officer (ISSO), restricted to only authorized personnel, and have access control rules established.
-Check_content: Verify a TFTP server has not been installed on the system.\n\nCheck to see if a TFTP server has been installed with the following command:\n\n# yum list installed tftp-server\ntftp-server-0.49-9.el7.x86_64.rpm\n\nIf TFTP is installed and the requirement for TFTP is not documented with the ISSO, this is a finding.
-Fixtext: Remove the TFTP package from the system with the following command:\n\n# yum remove tftp
+Check_content: Verify a TFTP server has not been installed on the system.\n\nCheck to see if a TFTP server has been installed with the following command:\n\n# dpkg -s tftpd \n\nIf tftpd  is installed and the requirement for tftpd is not documented with the ISSO, this is a finding.
+Fixtext: Remove the TFTP package from the system with the following command:\n\n# apt-get remove tftpd
 
 Rule ID: SV-86927r2_rule
 Severity: high

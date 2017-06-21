@@ -21,6 +21,11 @@ case $1 in
                         exit 1
                 fi
         ;;
+	vsftpd)
+		if dpkg -s vsftpd ;then
+                        exit 1
+                fi
+        ;;
         tftpd)
                 if dpkg -s tftpd ;then
                         exit 1

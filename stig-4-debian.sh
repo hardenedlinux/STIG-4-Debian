@@ -948,6 +948,101 @@ spinner $!
 output "SV-86891r2_rule" $?
 
 
+bash scripts/check-services.sh ntp >/dev/null 2>&1 &
+spinner $!
+output "SV-86893r2_rule" $?
+
+
+bash scripts/check-firewall.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86897r1_rule" $?
+
+
+bash scripts/check-pam-set.sh showfailed >/dev/null 2>&1 &
+spinner $!
+output "SV-86899r1_rule" $?
+
+
+bash scripts/check-file-exist.sh "*.shosts" >/dev/null 2>&1 &
+spinner $!
+output "SV-86901r1_rule" $?
+
+
+bash scripts/check-file-exist.sh "shosts.equiv" >/dev/null 2>&1 &
+spinner $!
+output "SV-86903r1_rule" $?
+
+
+bash scripts/check-dns.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86905r1_rule" $?
+
+
+bash scripts/check-sysctl.sh net.ipv4.conf.all.accept_source_route ne 0 >/dev/null 2>&1 &
+spinner $!
+output "SV-86907r1_rule" $?
+
+
+bash scripts/check-sysctl.sh net.ipv4.conf.default.accept_source_route ne 0 >/dev/null 2>&1 &
+spinner $!
+output "SV-86909r1_rule" $?
+
+
+bash scripts/check-sysctl.sh net.ipv4.icmp_echo_ignore_broadcasts ne 1 >/dev/null 2>&1 &
+spinner $!
+output "SV-86911r1_rule" $?
+
+
+bash scripts/check-sysctl.sh net.ipv4.conf.default.accept_redirects ne 0 >/dev/null 2>&1 &
+spinner $!
+output "SV-86913r2_rule" $?
+
+
+bash scripts/check-sysctl.sh net.ipv4.conf.default.send_redirects ne 0 >/dev/null 2>&1 &
+spinner $!
+output "SV-86915r2_rule" $?
+
+
+bash scripts/check-sysctl.sh net.ipv4.conf.all.send_redirects ne 0 >/dev/null 2>&1 &
+spinner $!
+output "SV-86917r2_rule" $?
+
+
+bash scripts/check-network-interface-mode.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86919r1_rule" $?
+
+
+bash scripts/check-packages.sh vsftpd >/dev/null 2>&1 &
+spinner $!
+output "SV-86923r1_rule" $?
+
+
+bash scripts/check-packages.sh tftpd >/dev/null 2>&1 &
+spinner $!
+output "SV-86925r1_rule" $?
+
+
+bash scripts/check-ssh.sh X11Forwarding  >/dev/null 2>&1 &
+spinner $!
+output "SV-86927r2_rule" $?
+
+
+bash scripts/check-sysctl.sh net.ipv4.ip_forward ne 0 >/dev/null 2>&1 &
+spinner $!
+output "SV-86933r1_rule" $?
+
+
+bash scripts/check-sysctl.sh  net.ipv6.conf.all.accept_source_route ne 0 >/dev/null 2>&1 &
+spinner $!
+output "SV-86943r1_rule" $?
+
+
+
+
+
+
+
 ######CAT II
 
 ######CAT III

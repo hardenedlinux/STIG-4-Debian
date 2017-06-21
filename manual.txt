@@ -27,4 +27,12 @@ SV-86843r1_rule
 SV-86851r2_rule
 SV-86853r2_rule
 SV-86855r2_rule
+SV-86895r1_rule
+SV-86921r2_rule
+SV-86929r1_rule
+SV-86931r2_rule
+SV-86935r3_rule
+SV-86937r1_rule
+SV-86939r1_rule
+SV-86941r1_rule
 

@@ -191,4 +191,15 @@ case $1 in
                         exit 1
                 fi
 	;;
+	X11Forwarding)
+		if grep X11Forwarding /etc/ssh/sshd_config | grep -v "^#";then
+                        SETVALUE=`grep X11Forwarding /etc/ssh/sshd_config | grep -v "^#" | awk '{printf $2}'`
+                        if [ "${SETVALUE}" != "yes" ];then
+                                exit 1
+                        fi
+                else
+                        exit 1
+                fi
+        ;;
+
 esac

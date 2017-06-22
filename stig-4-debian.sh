@@ -1038,9 +1038,67 @@ spinner $!
 output "SV-86943r1_rule" $?
 
 
+bash scripts/check-screensaver-idle-delay.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-87807r2_rule" $?
 
 
+bash scripts/check-screensaver-idle-delay.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-87809r2_rule" $?
 
+
+grep pwquality /etc/pam.d/common-password >/dev/null 2>&1 &
+spinner $!
+output "SV-87811r2_rule" $?
+
+
+if mount | grep ".*type.*nfs";then
+	bash scripts/check-nfs.sh >/dev/null 2>&1 &
+	spinner $!
+	output "SV-87813r1_rule" $?
+fi
+
+
+bash scripts/check-auditd.sh network_failure_action >/dev/null 2>&1 &
+spinner $!
+output "SV-87815r2_rule" $?
+
+
+bash scripts/check-auditd.sh f-group  >/dev/null 2>&1 &
+spinner $!
+output "SV-87817r2_rule" $?
+
+
+bash scripts/check-auditd.sh f-gshadow  >/dev/null 2>&1 &
+spinner $!
+output "SV-87819r2_rule" $?
+
+
+bash scripts/check-auditd.sh f-shadow  >/dev/null 2>&1 &
+spinner $!
+output "SV-87823r2_rule" $?
+
+
+if [ -e /etc/opasswd ];then
+	bash scripts/check-auditd.sh f-opasswd 0 > /dev/null 2>&1 &
+	spinner $!
+	output "SV-87825r2_rule" $?
+elif [ -e /etc/security/opasswd ];then
+	bash scripts/check-auditd.sh f-opasswd 1 > /dev/null 2>&1 &
+	spinner $!
+	output "SV-87825r2_rule" $?
+fi
+
+
+bash scripts/check-sysctl.sh net.ipv4.conf.all.accept_redirects ne 0 >/dev/null 2>&1 &
+spinner $!
+output "SV-87827r2_rule" $?
+
+
+bash cripts/check-wifi.sh>/dev/null 2>&1 &
+spinner $!
+output "SV-87829r1_rule" $?
 
 
 ######CAT II

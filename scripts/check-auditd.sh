@@ -265,5 +265,54 @@ case $1 in
                         exit 1
                 fi
         ;;
-
+	network_failure_action)
+                if grep -i "network_failure_action.*syslog\|network_failure_action.*single\|network_failure_action.*halt" /etc/audisp/audisp-remote.conf;then
+	                :
+                else
+                	exit 1
+                fi
+        ;;
+	f-gshadow)
+		COUNT=`auditctl -l | grep /etc/gshadow  | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+	;;
+	f-group)
+		COUNT=`auditctl -l | grep /etc/group  | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+	;;
+	f-shadow)
+		COUNT=`auditctl -l | grep /etc/shadow  | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+	;;
+	f-opasswd)
+		if [ "$2" -eq 0 ];then
+			COUNT=`auditctl -l | grep /etc/opasswd  | wc -l`
+                	if [ ${COUNT} -eq 1 ];then
+                        	:
+                	else
+                        	exit 1
+                	fi
+		elif [ "$2" -eq 1 ];then
+                        COUNT=`auditctl -l | grep /etc/security/opasswd  | wc -l`
+                        if [ ${COUNT} -eq 1 ];then
+                                :
+                        else
+                                exit 1
+                        fi
+		else
+			exit 1
+		fi
+	;;
 esac

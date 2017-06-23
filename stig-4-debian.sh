@@ -220,6 +220,13 @@ if [ $ENABLE_HTML = "1" ]; then
         html_overview_gen_prologue
         html_details_gen_prologue
 fi
+
+###global env
+GNOMEINSTALL=0
+if dpkg -l gnome;then
+	GNOMEINSTALL=1
+fi
+
 ##########################################################################
 
 ######CAT I
@@ -227,15 +234,16 @@ bash scripts/check-package-verify.sh 2>&1 &
 spinner $!
 output "SV-86479r2_rule" $?
 
+if [ ${GNOMEINSTALL} -eq 1 ];then
+	bash scripts/check-session-lock.sh >/dev/null 2>&1 &
+	spinner $!
+	output "SV-86515r2_rule" $?
 
-bash scripts/check-session-lock.sh >/dev/null 2>&1 &
-spinner $!
-output "SV-86515r2_rule" $?
 
-
-bash scripts/check-screensaver-idle-delay.sh >/dev/null 2>&1 &
-spinner $!
-output "SV-86517r2_rule" $?
+	bash scripts/check-screensaver-idle-delay.sh >/dev/null 2>&1 &
+	spinner $!
+	output "SV-86517r2_rule" $?
+fi
 
 
 dpkg -s screen >/dev/null 2>&1 &
@@ -1037,15 +1045,16 @@ bash scripts/check-sysctl.sh  net.ipv6.conf.all.accept_source_route ne 0 >/dev/n
 spinner $!
 output "SV-86943r1_rule" $?
 
+if [ ${GNOMEINSTALL} -eq 1 ];then
+	bash scripts/check-screensaver-idle-delay.sh >/dev/null 2>&1 &
+	spinner $!
+	output "SV-87807r2_rule" $?
 
-bash scripts/check-screensaver-idle-delay.sh >/dev/null 2>&1 &
-spinner $!
-output "SV-87807r2_rule" $?
 
-
-bash scripts/check-screensaver-idle-delay.sh >/dev/null 2>&1 &
-spinner $!
-output "SV-87809r2_rule" $?
+	bash scripts/check-screensaver-idle-delay.sh >/dev/null 2>&1 &
+	spinner $!
+	output "SV-87809r2_rule" $?
+fi
 
 
 grep pwquality /etc/pam.d/common-password >/dev/null 2>&1 &

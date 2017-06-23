@@ -391,6 +391,16 @@ spinner $!
 output "SV-86593r1_rule" $?
 
 
+bash scripts/check-aide-cron.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86597r1_rule" $?
+
+
+bash scripts/check-apt-unauthenticated.sh 2>&1 &
+spinner $!
+output "SV-86601r1_rule" $?
+
+
 bash scripts/check-ctrl-alt-del.sh >/dev/null 2>&1 &
 spinner $!
 output "SV-86617r1_rule" $?
@@ -1105,9 +1115,11 @@ spinner $!
 output "SV-87827r2_rule" $?
 
 
-bash cripts/check-wifi.sh>/dev/null 2>&1 &
+bash scripts/check-wifi.sh >/dev/null 2>&1 &
 spinner $!
 output "SV-87829r1_rule" $?
+
+
 
 
 ######CAT II

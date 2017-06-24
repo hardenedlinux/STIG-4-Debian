@@ -396,9 +396,19 @@ spinner $!
 output "SV-86597r1_rule" $?
 
 
-bash scripts/check-apt-unauthenticated.sh 2>&1 &
+bash scripts/check-package-install-verification.sh  repository 2>&1 &
 spinner $!
 output "SV-86601r1_rule" $?
+
+
+bash scripts/check-package-install-verification.sh local 2>&1 &
+spinner $!
+output "SV-86603r1_rule" $?
+
+
+bash scripts/check-apt-key.sh 2>&1 &
+spinner $!
+output "SV-86605r1_rule" $?
 
 
 bash scripts/check-ctrl-alt-del.sh >/dev/null 2>&1 &

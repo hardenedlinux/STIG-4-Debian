@@ -222,10 +222,7 @@ if [ $ENABLE_HTML = "1" ]; then
 fi
 
 ###global env
-GNOMEINSTALL=0
-if dpkg -l gnome;then
-	GNOMEINSTALL=1
-fi
+GNOMEINSTALL==$(dpkg -s gnome | grep -i "^Status:.*install.*ok.*installed" | wc -l)
 
 ##########################################################################
 
@@ -421,7 +418,7 @@ spinner $!
 output "SV-86609r1_rule" $?
 
 
-grep -v "^#" | grep -i "apparmor=1" /boot/grub/grub.cfg  >/dev/null 2>&1 &
+grep -v "^#" /boot/grub/grub.cfg | grep -i "apparmor=1" >/dev/null 2>&1 &
 spinner $!
 output "SV-86613r2_rule" $?
 

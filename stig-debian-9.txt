@@ -374,14 +374,14 @@ Severity: low
 Rule Title: The operating system must remove all software components after updated versions have been installed.
 Description: Previous versions of software components that are not removed from the information system after updates have been installed may be exploited by adversaries. Some information technology products may remove older versions of software automatically from the information system.
 Check_content: Verify the operating system removes all software components after updated versions have been installed.\n\nCheck if yum is configured to remove unneeded packages with the following command:\n\n# grep -i clean_requirements_on_remove /etc/yum.conf\nclean_requirements_on_remove=1\n\nIf "clean_requirements_on_remove" is not set to "1", "True", or "yes", or is not set in "/etc/yum.conf", this is a finding.
-Fixtext: Configure the operating system to remove all software components after updated versions have been installed.\n\nSet the "clean_requirements_on_remove" option to "1" in the "/etc/yum.conf" file:\n\nclean_requirements_on_remove=1
+Fixtext: Configure the operating system to remove all software components after updated versions have been installed.\n\nSet the "clean_requirements_on_remove" option to "1" in the "/etc/yum.conf" file:\n\nclean_requirements_on_remove=1.Use autoremove command to do on the GNU/Debian. 
 
 Rule ID: SV-86613r2_rule
 Severity: high
-Rule Title: The operating system must enable SELinux.
+Rule Title: The operating system must enable AppArmor.
 Description: Without verification of the security functions, security functions may not operate correctly and the failure may go unnoticed. Security function is defined as the hardware, software, and/or firmware of the information system responsible for enforcing the system security policy and supporting the isolation of code and data on which the protection is based. Security functionality includes, but is not limited to, establishing system accounts, configuring access authorizations (i.e., permissions, privileges), setting events to be audited, and setting intrusion detection parameters.\n\nThis requirement applies to operating systems performing security function verification/testing and/or systems and environments that require this functionality.
-Check_content: Verify the operating system verifies correct operation of all security functions.\n\nCheck if "SELinux" is active and in "Enforcing" mode with the following command:\n\n# getenforce\nEnforcing\n\nIf "SELinux" is not active and not in "Enforcing" mode, this is a finding.
-Fixtext: Configure the operating system to verify correct operation of all security functions.\n\nSet the "SELinux" status and the "Enforcing" mode by modifying the "/etc/selinux/config" file to have the following line:\n\nSELINUX=enforcing\n\nA reboot is required for the changes to take effect.
+Check_content: Verify the operating system verifies correct operation of all security functions.\n\nCheck if "AppArmor" is active with the following command:\n\n# grep -v "^#" | grep -i "apparmor=1" /boot/grub/grub.cfg\n\nIf output not include apparmor=1, this is a finding.
+Fixtext: Configure the operating system to verify correct operation of all security functions.\n\nSet the "AppArmor" status by modifying the "/boot/grub/grub.cfg" file to have the following line:\n\nlinux	/boot/vmlinuz-4.4.0-53-generic root=UUID=4a404115-8a9b-4c7d-8266-7541f0b8584c ro  quiet splash $vt_handoff init=/sbin/upstar apparmor=1 \n\nA reboot is required for the changes to take effect.
 
 Rule ID: SV-86615r2_rule
 Severity: high
@@ -408,7 +408,7 @@ Rule ID: SV-86621r2_rule
 Severity: high
 Rule Title: The operating system must be a vendor supported release.
 Description: An operating system release is considered "supported" if the vendor continues to provide security patches for the product. With an unsupported release, it will not be possible to resolve security issues discovered in the system software.
-Check_content: Verify the version of the operating system is vendor supported.\n\nCheck the version of the operating system with the following command:\n\n# cat /etc/redhat-release\n\nRed Hat Enterprise Linux Server release 7.2 (Maipo)\n\nCurrent End of Life for RHEL 7.2 is Q4 2020.\n\nCurrent End of Life for RHEL 7.3 is 30 June 2024.\n\nIf the release is not supported by the vendor, this is a finding.
+Check_content: Verify the version of the operating system is vendor supported.\n\nCheck the version of the operating system with the following command:\n\n# # cat /etc/issue\n\nDebian GNU/Linux 9 \n \l\n\n\n\nIf the release is not supported by the vendor, this is a finding.
 Fixtext: Upgrade to a supported version of the operating system.
 
 Rule ID: SV-86623r3_rule

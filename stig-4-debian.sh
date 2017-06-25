@@ -396,24 +396,54 @@ spinner $!
 output "SV-86597r1_rule" $?
 
 
-bash scripts/check-package-install-verification.sh  repository 2>&1 &
+bash scripts/check-package-install-verification.sh  repository  >/dev/null 2>&1 &
 spinner $!
 output "SV-86601r1_rule" $?
 
 
-bash scripts/check-package-install-verification.sh local 2>&1 &
+bash scripts/check-package-install-verification.sh local  >/dev/null 2>&1 &
 spinner $!
 output "SV-86603r1_rule" $?
 
 
-bash scripts/check-apt-key.sh 2>&1 &
+bash scripts/check-apt-key.sh  >/dev/null 2>&1 &
 spinner $!
 output "SV-86605r1_rule" $?
+
+
+bash scripts/check-usb-storage-disable.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86607r1_rule" $?
+
+
+bash scripts/check-autofs.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86609r1_rule" $?
+
+
+grep -v "^#" | grep -i "apparmor=1" /boot/grub/grub.cfg  >/dev/null 2>&1 &
+spinner $!
+output "SV-86613r2_rule" $?
 
 
 bash scripts/check-ctrl-alt-del.sh >/dev/null 2>&1 &
 spinner $!
 output "SV-86617r1_rule" $?
+
+
+sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/login.defs  | grep -i "umask.*077"  >/dev/null 2>&1 &
+spinner $!
+output "SV-86619r1_arule" $?
+
+
+grep "Debian.*GNU/Linux.*9" /etc/issue >/dev/null 2>&1 &
+spinner $!
+output "SV-86621r2_rule" $?
+
+
+bash scripts/check-package-up2date.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86623r3_rule" $?
 
 
 bash scripts/check-gids.sh >/dev/null 2>&1 &

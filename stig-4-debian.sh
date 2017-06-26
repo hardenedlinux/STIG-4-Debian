@@ -222,16 +222,28 @@ if [ $ENABLE_HTML = "1" ]; then
 fi
 
 ###global env
-GNOMEINSTALL==$(dpkg -s gnome | grep -i "^Status:.*install.*ok.*installed" | wc -l)
+GNOMEINSTALL=$(dpkg -s gnome | grep -i "^Status:.*install.*ok.*installed" | wc -l)
 
 ##########################################################################
 
 ######CAT I
+
 bash scripts/check-package-verify.sh 2>&1 &
 spinner $!
 output "SV-86479r2_rule" $?
 
+
 if [ ${GNOMEINSTALL} -eq 1 ];then
+	bash scripts/check-gdm3-conf.sh banner-message-enable 2>&1 &
+	spinner $!
+	output "SV-86483r2_rule" $?
+
+
+	bash scripts/check-gdm3-conf.sh banner-message-text 2>&1 &
+	spinner $!
+	output "SV-86485r2_rule" $?
+
+
 	bash scripts/check-session-lock.sh >/dev/null 2>&1 &
 	spinner $!
 	output "SV-86515r2_rule" $?
@@ -568,6 +580,18 @@ spinner $!
 output "SV-86673r1_rule" $?
 
 
+if [ -e /etc/cron.allow ];then
+	bash scripts/check-cron.sh allowfileown >/dev/null 2>&1 &
+	spinner $!
+	output "SV-86677r1_rule" $?
+
+
+	bash scripts/check-cron.sh allowfilegown >/dev/null 2>&1 &
+	spinner $!
+	output "SV-86679r1_rule" $?
+fi
+
+
 bash bash scripts/check-limits.sh core-dumps >/dev/null 2>&1 &
 spinner $!
 output "SV-86681r1_rule" $?
@@ -827,15 +851,20 @@ bash scripts/check-auditd.sh umount >/dev/null 2>&1 &
 spinner $!
 output "SV-86797r3_rule" $?
 
-
-bash scripts/check-auditd.sh postdrop >/dev/null 2>&1 &
-spinner $!
-output "SV-86799r3_rule" $?
-
+if [ -e /usr/sbin/postdrop ];then
+	bash scripts/check-auditd.sh postdrop >/dev/null 2>&1 &
+	spinner $!
+	output "SV-86799r3_rule" $?
+fi
 
 bash scripts/check-auditd.sh postqueue >/dev/null 2>&1 &
 spinner $!
 output "SV-86801r2_rule" $?
+
+
+bash scripts/check-auditd.sh ssh-keysign >/dev/null 2>&1 &
+spinner $!
+output "SV-86803r2_rule" $?
 
 
 bash scripts/check-auditd.sh crontab >/dev/null 2>&1 &
@@ -921,6 +950,18 @@ output "SV-86847r2_rule" $?
 bash scripts/check-ssh.sh banner >/dev/null 2>&1 &
 spinner $!
 output "SV-86849r2_rule" $?
+
+
+if [ -e /etc/pam_ldap.conf ];then
+	scripts/check-ldap.sh tls_cacertdir >/dev/null 2>&1 &
+	spinner $!
+	output "SV-86853r2_rule" $?
+
+
+	scripts/check-ldap.sh tls_cacertfile >/dev/null 2>&1 &
+	spinner $!
+	output "SV-86855r2_rule" $?
+fi
 
 
 bash scripts/check-ssh.sh installed >/dev/null 2>&1 &

@@ -1,6 +1,4 @@
 SV-86473r2_rule
-SV-86483r2_rule
-SV-86485r2_rule
 SV-86487r1_rule
 SV-86519r3_rule
 SV-86523r1_rule
@@ -10,12 +8,8 @@ SV-86585r1_rule
 SV-86587r1_rule
 SV-86589r1_rule
 SV-86675r1_rule
-SV-86677r1_rule
-SV-86679r1_rule
 SV-86719r2_rule
 SV-86781r3_rule
-SV-86799r3_rule
-SV-86803r2_rule
 SV-86805r2_rule
 SV-86833r1_rule
 SV-86835r1_rule
@@ -23,8 +17,6 @@ SV-86837r1_rule
 SV-86839r1_rule
 SV-86843r1_rule
 SV-86851r2_rule
-SV-86853r2_rule
-SV-86855r2_rule
 SV-86895r1_rule
 SV-86921r2_rule
 SV-86929r1_rule

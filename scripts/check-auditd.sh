@@ -315,4 +315,12 @@ case $1 in
 			exit 1
 		fi
 	;;
+	ssh-keysign)
+		COUNT=`auditctl -l | grep /usr/lib/openssh/ssh-keysign  | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+	;;
 esac

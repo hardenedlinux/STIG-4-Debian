@@ -367,6 +367,16 @@ bash scripts/check-password-fail-delay.sh 4 >/dev/null 2>&1 &
 spinner $!
 output "SV-86575r1_rule" $?
 
+if [ ${GNOMEINSTALL} -eq 1 ];then
+	bash scripts/check-gdm3-conf.sh AutomaticLoginEnable >/dev/null 2>&1 &
+	spinner $!
+	output "SV-86577r1_rule" $?
+
+
+	bash scripts/check-gdm3-conf.sh TimedLoginEnable >/dev/null 2>&1 &
+	spinner $!
+	output "SV-86579r2_rule" $?
+fi
 
 bash scripts/check-ssh.sh emptypasswordenvironment >/dev/null 2>&1 &
 spinner $!

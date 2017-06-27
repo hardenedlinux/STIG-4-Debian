@@ -400,6 +400,16 @@ spinner $!
 output "SV-86583r2_rule" $?
 
 
+bash scripts/check-grub.sh password_pbkdf2 >/dev/null 2>&1 &
+spinner $!
+output "SV-86585r1_rule" $?
+
+
+bash scripts/check-grub.sh password_pbkdf2_efi >/dev/null 2>&1 &
+spinner $!
+output "SV-86587r1_rule" $?
+
+
 bash scripts/check-packages.sh rsh-server >/dev/null 2>&1 &
 spinner $!
 output "SV-86591r1_rule" $?
@@ -632,7 +642,7 @@ spinner $!
 output "SV-86697r2_rule" $?
 
 
-bash scripts/check-grub.sh >/dev/null 2>&1 &
+bash scripts/check-grub.sh  removable >/dev/null 2>&1 &
 spinner $!
 output "SV-86699r1_rule" $?
 

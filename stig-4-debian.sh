@@ -452,7 +452,7 @@ output "SV-86617r1_rule" $?
 
 sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/login.defs  | grep -i "umask.*077"  >/dev/null 2>&1 &
 spinner $!
-output "SV-86619r1_arule" $?
+output "SV-86619r1_rule" $?
 
 
 grep "Debian.*GNU/Linux.*9" /etc/issue >/dev/null 2>&1 &

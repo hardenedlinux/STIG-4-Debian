@@ -5,12 +5,8 @@ SV-86523r1_rule
 SV-86525r1_rule
 SV-86547r2_rule
 SV-86589r1_rule
-SV-86675r1_rule
 SV-86719r2_rule
-SV-86781r3_rule
 SV-86805r2_rule
-SV-86833r1_rule
-SV-86835r1_rule
 SV-86837r1_rule
 SV-86839r1_rule
 SV-86843r1_rule

@@ -590,6 +590,11 @@ spinner $!
 output "SV-86673r1_rule" $?
 
 
+bash scripts/check-cron.sh cronlog >/dev/null 2>&1 &
+spinner $!
+output "SV-86675r1_rule" $?
+
+
 if [ -e /etc/cron.allow ];then
 	bash scripts/check-cron.sh allowfileown >/dev/null 2>&1 &
 	spinner $!
@@ -822,6 +827,13 @@ spinner $!
 output "SV-86779r3_rule" $?
 
 
+if [ ${GNOMEINSTALL} -eq 1 ];then
+	bash scripts/check-auditd.sh gnome-pty-helper >/dev/null 2>&1 &
+	spinner $!
+	output "SV-86781r3_rule" $?
+fi
+
+
 bash scripts/check-auditd.sh su >/dev/null 2>&1 &
 spinner $!
 output "SV-86783r3_rule" $?
@@ -940,6 +952,16 @@ output "SV-86829r2_rule" $?
 bash scripts/check-auditd-syscall.sh unlinkat >/dev/null 2>&1 &
 spinner $!
 output "SV-86831r2_rule" $?
+
+
+bash scripts/check-rsyslog.sh aggregation-server >/dev/null 2>&1 &
+spinner $!
+output "SV-86833r1_rule" $?
+
+
+bash scripts/check-rsyslog.sh imtcp >/dev/null 2>&1 &
+spinner $!
+output "SV-86835r1_rule" $?
 
 
 bash scripts/check-limits.sh maxlogins >/dev/null 2>&1 &

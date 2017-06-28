@@ -323,4 +323,12 @@ case $1 in
                         exit 1
                 fi
 	;;
+	gnome-pty-helper)
+		COUNT=`auditctl -l | grep gnome-pty-helper  | wc -l`
+                if [ ${COUNT} -eq 1 ];then
+                        :
+                else
+                        exit 1
+                fi
+	;;
 esac

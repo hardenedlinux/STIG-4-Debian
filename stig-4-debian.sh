@@ -964,6 +964,16 @@ spinner $!
 output "SV-86835r1_rule" $?
 
 
+bash scripts/check-virus-program.sh virus-scan-program >/dev/null 2>&1 &
+spinner $!
+output "SV-86837r1_rule" $?
+
+
+bash scripts/check-virus-program.sh virus-update >/dev/null 2>&1 &
+spinner $!
+output "SV-86839r1_rule" $?
+
+
 bash scripts/check-limits.sh maxlogins >/dev/null 2>&1 &
 spinner $!
 output "SV-86841r1_rule" $?
@@ -1091,7 +1101,12 @@ spinner $!
 output "SV-86893r2_rule" $?
 
 
-bash scripts/check-firewall.sh >/dev/null 2>&1 &
+bash scripts/check-iptables.sh iptables-dos >/dev/null 2>&1 &
+spinner $!
+output "SV-86895r1_rule" $?
+
+
+bash scripts/check-iptables.sh iptables-ins >/dev/null 2>&1 &
 spinner $!
 output "SV-86897r1_rule" $?
 
@@ -1164,6 +1179,11 @@ output "SV-86925r1_rule" $?
 bash scripts/check-ssh.sh X11Forwarding  >/dev/null 2>&1 &
 spinner $!
 output "SV-86927r2_rule" $?
+
+
+bash scripts/check-x-windows-system.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86931r2_rule" $?
 
 
 bash scripts/check-sysctl.sh net.ipv4.ip_forward ne 0 >/dev/null 2>&1 &

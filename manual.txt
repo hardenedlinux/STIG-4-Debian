@@ -7,14 +7,10 @@ SV-86547r2_rule
 SV-86589r1_rule
 SV-86719r2_rule
 SV-86805r2_rule
-SV-86837r1_rule
-SV-86839r1_rule
 SV-86843r1_rule
 SV-86851r2_rule
-SV-86895r1_rule
 SV-86921r2_rule
 SV-86929r1_rule
-SV-86931r2_rule
 SV-86935r3_rule
 SV-86937r1_rule
 SV-86939r1_rule

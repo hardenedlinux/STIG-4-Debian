@@ -1,9 +1,9 @@
 #!/bin/bash
 
-account_inactivity_lockday=$1
+ACCOUNT_INACTIVITY_LOCKDAY=$1
 
 if sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/default/useradd | grep INACTIVE;then
-        if [ $(sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/default/useradd | grep INACTIVE | awk -F '=' '{printf $2}') -gt ${account_inactivity_lockday} ];then
+        if [ $(sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/default/useradd | grep INACTIVE | awk -F '=' '{printf $2}') -gt ${ACCOUNT_INACTIVITY_LOCKDAY} ];then
                 exit 1
         fi
 else

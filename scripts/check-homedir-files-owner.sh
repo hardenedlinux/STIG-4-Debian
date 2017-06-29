@@ -8,9 +8,9 @@ do
 	if [ ! -e ${line} ];then
 		exit 1
 	else
-		cur_user_uid=`grep "${line}:" /etc/passwd | cut -d: -f3`
-		owner_check_err_count=`find ${line} \! -uid ${cur_user_uid} -exec ls -l {} \; | wc -l `
-		if [ ${owner_check_err_count} -gt 0 ];then
+		CUR_USER_UID=`grep "${line}:" /etc/passwd | cut -d: -f3`
+		OWNER_CHECK_ERR_COUNT=`find ${line} \! -uid ${CUR_USER_UID} -exec ls -l {} \; | wc -l `
+		if [ ${OWNER_CHECK_ERR_COUNT} -gt 0 ];then
 			exit 1
 		fi
 	fi

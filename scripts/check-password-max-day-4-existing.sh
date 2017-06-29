@@ -1,9 +1,10 @@
 #!/bin/bash
-passmaxdays=$1
 
-count_sum=`awk -F: '$5 > "${passmaxdays}" {print $1}' /etc/shadow | wc -l`
+PASSWDMAXDAYS=$1
 
-if [ ${count_sum} -gt 0 ];then
+COUNT_SUM=`awk -F: '$5 > "${PASSWDMAXDAYS}" {print $1}' /etc/shadow | wc -l`
+
+if [ ${COUNT_SUM} -gt 0 ];then
 	exit 1
 fi
 

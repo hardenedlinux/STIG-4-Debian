@@ -260,22 +260,22 @@ spinner $!
 output "SV-86521r1_rule" $?
 
 
-bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so ucredit gt 1 >/dev/null 2>&1 &
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so ucredit gt -1 >/dev/null 2>&1 &
 spinner $!
 output "SV-86527r2_rule" $?
 
 
-bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so lcredit gt 1 >/dev/null 2>&1 &
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so lcredit gt -1 >/dev/null 2>&1 &
 spinner $!
 output "SV-86529r2_rule" $?
 
 
-bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so dcredit gt 1 >/dev/null 2>&1 &
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so dcredit gt -1 >/dev/null 2>&1 &
 spinner $!
 output "SV-86531r2_rule" $?
 
 
-bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so ocredit gt 1 >/dev/null 2>&1 &
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so ocredit gt -1 >/dev/null 2>&1 &
 spinner $!
 output "SV-86533r1_rule" $?
 
@@ -1181,7 +1181,7 @@ spinner $!
 output "SV-86927r2_rule" $?
 
 
-bash scripts/check-x-windows-system.sh >/dev/null 2>&1 &
+bash scripts/check-packages.sh x11-common >/dev/null 2>&1 &
 spinner $!
 output "SV-86931r2_rule" $?
 

@@ -198,8 +198,8 @@ Rule ID: SV-86561r1_rule
 Severity: high
 Rule Title: The system must not have accounts configured with blank or null passwords.
 Description: If an account has an empty password, anyone could log on and run commands with the privileges of that account. Accounts with empty passwords should never be used in operational environments.
-Check_content: To verify that null passwords cannot be used, run the following command: \n\n# grep nullok /etc/pam.d/system-auth-ac\n\nIf this produces any output, it may be possible to log on with accounts with empty passwords.\n\nIf null passwords can be used, this is a finding.
-Fixtext: If an account is configured for password authentication but does not have an assigned password, it may be possible to log on to the account without authenticating.\n\nRemove any instances of the "nullok" option in "/etc/pam.d/system-auth-ac" to prevent logons with empty passwords and run the "authconfig" command.
+Check_content: To verify that null passwords cannot be used, run the following command: \n\n# grep pam_unix /etc/pam.d/common-auth  | grep -v "^#" | grep nullok \n\nIf this produces any output, it may be possible to log on with accounts with empty passwords.\n\nIf null passwords can be used, this is a finding.
+Fixtext: If an account is configured for password authentication but does not have an assigned password, it may be possible to log on to the account without authenticating.\n\nRemove any instances of the "nullok" or "nullok_secure" option in "/etc/pam.d/common-auth".
 
 Rule ID: SV-86563r2_rule
 Severity: high
@@ -1536,8 +1536,8 @@ Rule ID: SV-86931r2_rule
 Severity: medium
 Rule Title: An X Windows display manager must not be installed unless approved.
 Description: Internet services that are not required for system or application processes must not be active to decrease the attack surface of the system. X Windows has a long history of security vulnerabilities and will not be used unless approved and documented.
-Check_content: Verify that if the system has X Windows System installed, it is authorized.\n\nCheck for the X11 package with the following command:\n\n# dpkg -s xorg\n\nAsk the System Administrator if use of the X Windows System is an operational requirement.\n\nIf the use of X Windows on the system is not documented with the Information System Security Officer (ISSO), this is a finding.
-Fixtext: Document the requirement for an X Windows server with the ISSO or remove the related packages with the following commands:\n\n# apt-get autoremove xorg\n\n
+Check_content: Verify that if the system has X Windows System installed, it is authorized.\n\nCheck for the X11 package with the following command:\n\n# dpkg -s x11-common\n\nAsk the System Administrator if use of the X Windows System is an operational requirement.\n\nIf the use of X Windows on the system is not documented with the Information System Security Officer (ISSO), this is a finding.
+Fixtext: Document the requirement for an X Windows server with the ISSO or remove the related packages with the following commands:\n\n# apt-get autoremove x11-common\n\n
 
 Rule ID: SV-86933r1_rule
 Severity: medium

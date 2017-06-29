@@ -1,8 +1,8 @@
 #!/bin/bash
 
-session_lock=`gsettings get org.gnome.desktop.screensaver lock-enabled`
+SESSION_LOCK=`gsettings get org.gnome.desktop.screensaver lock-enabled`
 
-if [ "${session_lock}"="true" ]; then
+if [ "${SESSION_LOCK}"="true" ]; then
 	:
 else
 	exit 1

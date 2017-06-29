@@ -3,7 +3,7 @@
 ##### About
 
 This script is used to check DISA STIG(Security Technical Implementation Guides) for Debian 9
-Porting from DISA RHEL 7 STIG V1 R1
+Porting from DISA RHEL 7 STIG V1 R1(http://iasecontent.disa.mil/stigs/zip/U_Red_Hat_Enterprise_Linux_7_V1R1_STIG.ZIP)  
 Benchmark Date: 27 Feb 2017
 
 ##### Upgrade
@@ -36,15 +36,30 @@ Ported from DISA RHEL 7 STIG
 
 ```
 
-
 #### How to get involved
 
 This time is only new framework release only. Not much check rule has been port from DISA RHEL 7 STIG for now.
 
 We( and you) will fill it up soon.
 
-Example:
+How to add check rule:  
+1).Create new check script file in scripts directory for new check rule, and implementation.
+2).Move new check rule description to stig-debian-9.txt.
+3).Call the check script file in stig-4-debian.sh, as follows:
 
+```
+bash scripts/${new-check-rule-script}.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-id_rule" $?
+```
+
+How to del check rule:
+1).Delete check rule description from stig-debian-9.txt.
+2).Delete the check script file in the scripts directory.
+3).Delete calls the check script line in stig-4-debian.sh.
+
+#### Example
+ 
 ```
 bash scripts/check-nullok.sh >/dev/null 2>&1 &
 spinner $!
@@ -68,7 +83,7 @@ In `statics` directory `xml2text.sh` is a script that can extract the informatio
 
 #### Special Note:  
 
-Selinux related items:
+Selinux related items(not match):
  
 SV-86663r1_rule  
 SV-86695r2_rule  

@@ -355,14 +355,14 @@ spinner $!
 output "SV-86565r1_rule" $?
 
 
-bash scripts/check-inactive.sh 0 >/dev/null 2>&1 &
-spinner $!
-output "SV-86565r1_rule" $?
-
-
-bash scripts/check-deny-and-locktime.sh 0 >/dev/null 2>&1 &
+bash scripts/check-deny-and-locktime.sh >/dev/null 2>&1 &
 spinner $!
 output "SV-86567r2_rule" $?
+
+
+bash scripts/check-deny-and-locktime-4-root.sh >/dev/null 2>&1 &
+spinner $!
+output "SV-86569r1_rule" $?
 
 
 bash scripts/check-privilege-escalation.sh sudo >/dev/null 2>&1 &
@@ -1190,6 +1190,11 @@ bash scripts/check-sysctl.sh net.ipv4.ip_forward ne 0 >/dev/null 2>&1 &
 spinner $!
 output "SV-86933r1_rule" $?
 
+if systemctl status autofs | grep "Active:.*(running)";then
+	bash scripts/check-snmp.sh >/dev/null 2>&1 &
+	spinner $!
+	output "SV-86937r1_rule" $?
+fi
 
 bash scripts/check-sysctl.sh  net.ipv6.conf.all.accept_source_route ne 0 >/dev/null 2>&1 &
 spinner $!

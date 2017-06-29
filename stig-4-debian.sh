@@ -228,18 +228,18 @@ GNOMEINSTALL=$(dpkg -s gnome | grep -i "^Status:.*install.*ok.*installed" | wc -
 
 ######CAT I
 
-bash scripts/check-package-verify.sh 2>&1 &
+bash scripts/check-package-verify.sh >/dev/null 2>&1 &
 spinner $!
 output "SV-86479r2_rule" $?
 
 
 if [ ${GNOMEINSTALL} -eq 1 ];then
-	bash scripts/check-gdm3-conf.sh banner-message-enable 2>&1 &
+	bash scripts/check-gdm3-conf.sh banner-message-enable >/dev/null 2>&1 &
 	spinner $!
 	output "SV-86483r2_rule" $?
 
 
-	bash scripts/check-gdm3-conf.sh banner-message-text 2>&1 &
+	bash scripts/check-gdm3-conf.sh banner-message-text >/dev/null  2>&1 &
 	spinner $!
 	output "SV-86485r2_rule" $?
 

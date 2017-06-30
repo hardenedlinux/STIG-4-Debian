@@ -1,23 +1,22 @@
-### STIG for Debian
+# STIG for Debian
 
-##### About
+## About
 
 This script is used to check DISA STIG(Security Technical Implementation Guides) for Debian 9
 Porting from [DISA RHEL 7 STIG V1 R1](http://iasecontent.disa.mil/stigs/zip/U_Red_Hat_Enterprise_Linux_7_V1R1_STIG.ZIP)  
 Benchmark Date: 27 Feb 2017
 
-##### Upgrade
+## Upgrade
 
 It has been a long time since we update STIG for Debian's framework. I think it's time to upgrade for the comming of Debian 9 stable release.
 
-#### HTML report output supported
+## HTML report output supported
 
 For easy to read reports, we decided to output to HTML for the primary (and for now, only) option.
 
+Thanks to the author [zavoloklom](https://github.com/zavoloklom) for the html table template
 
-Thanks to the author zavoloklom(https://github.com/zavoloklom) for the html table template
-
-#### Usage
+## Usage
 
 ```
 # bash stig-4-debian.sh -h
@@ -36,16 +35,16 @@ Ported from DISA RHEL 7 STIG
 
 ```
 
-#### How to get involved
+## How to get involved
 
 This time is only new framework release only. Not much check rule has been port from DISA RHEL 7 STIG for now.
 
-We( and you) will fill it up soon.
+We(and you) will fill it up soon.
 
-How to add check rule:  
-1).Create new check script file in scripts directory for new check rule, and implementation.  
-2).Move new check rule description to stig-debian-9.txt.  
-3).Call the check script file in stig-4-debian.sh, as follows:  
+### How to add check rule:
+  1. Create new check script file in scripts directory for new check rule, and implementation.
+  1. Move new check rule description to stig-debian-9.txt.
+  1. Call the check script file in stig-4-debian.sh, as follows:
 
 ```
 bash scripts/${new-check-rule-script}.sh >/dev/null 2>&1 &
@@ -53,10 +52,10 @@ spinner $!
 output "SV-id_rule" $?
 ```
 
-How to del check rule:  
-1).Delete check rule description from stig-debian-9.txt.  
-2).Delete the check script file in the scripts directory.  
-3).Delete calls the check script line in stig-4-debian.sh.  
+### How to del check rule:
+  1. Delete check rule description from stig-debian-9.txt.  
+  1. Delete the check script file in the scripts directory.  
+  1. Delete calls the check script line in stig-4-debian.sh.  
 
 #### Example
  
@@ -81,16 +80,16 @@ If you encounter some rule that you cannot easily write a small script to check.
 
 In `statics` directory `xml2text.sh` is a script that can extract the information we need from offcial STIG xml file, such as 'U_Red_Hat_Enterprise_Linux_7_STIG_V1R1_Manual-xccdf.xml'. The original text file `stig-debian-9.txt` is copy from `stig-rhel-7.txt`. How to easily update STIG for Debian textfile when the offcial RHEL 7 STIG is under discussion.
 
-#### Special Note:  
+#### Special Note:
 
 Selinux related items(not match):
  
-SV-86663r1_rule  
-SV-86695r2_rule  
-SV-86759r3_rule  
-SV-86761r3_rule  
-SV-86763r3_rule  
-SV-86765r3_rule  
-SV-86595r1_rule  
-SV-86615r2_rule  
+* SV-86663r1_rule
+* SV-86695r2_rule
+* SV-86759r3_rule
+* SV-86761r3_rule
+* SV-86763r3_rule
+* SV-86765r3_rule
+* SV-86595r1_rule
+* SV-86615r2_rule
 

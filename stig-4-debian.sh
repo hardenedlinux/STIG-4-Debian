@@ -192,7 +192,10 @@ function output() {
 }
 
 function manual_output() {
-
+	
+	if [ -z "$1" ];then
+		return
+	fi
         LOCATION=$(sed -n "/$1/=" $TEXTFILE)
         #output rule id
         RULE_ID=$(sed -n "$LOCATION"p "$TEXTFILE" | sed "s/Rule ID: //" )
@@ -1282,7 +1285,6 @@ fi
 cat manual.txt | while read line;do
         manual_output "$line"
 done
-
 
 if [ $ENABLE_HTML = "1" ];then
         html_overview_gen_epilogue

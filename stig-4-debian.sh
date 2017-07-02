@@ -225,7 +225,12 @@ if [ $ENABLE_HTML = "1" ]; then
 fi
 
 ###global env
-GNOMEINSTALL=$(dpkg -s gnome | grep -i "^Status:.*install.*ok.*installed" | wc -l)
+
+if [ -f /usr/share/doc/gnome/copyright ];then
+        GNOMEINSTALL=1
+else
+        GNOMEINSTALL=0
+fi
 
 ##########################################################################
 

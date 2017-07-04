@@ -68,7 +68,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 RUNTIME=$(date)
-printf "Script Run: $RUNTIME\nStart checking process...\n\n"
+printf "Script Run: %s\nStart checking process...\n\n" "${RUNTIME}"
 
 spinner(){
 
@@ -1298,4 +1298,4 @@ fi
 
 #####Statistics
 
-sed -i -e "s/Pass count/Pass count: $SUCCESS_FLAG/" -e "s/Failed count/Failed count: $FAIL_FLAG/" STIG-for-Debian-$DATE_*.html
+sed -i -e "s/Pass count/Pass count: $SUCCESS_FLAG/" -e "s/Failed count/Failed count: $FAIL_FLAG/" STIG-for-Debian-${DATE}_*.html

@@ -2,7 +2,7 @@
 
 case $1 in
 	aggregation-server)
-		COUNT=`grep "^\*\.\*.*@" /etc/rsyslog.conf | wc -l`
+		COUNT=`grep -c "^\*\.\*.*@" /etc/rsyslog.conf`
 		if [ ${COUNT} -eq 1 ]; then 
 			:
 		else

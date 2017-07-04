@@ -45,7 +45,7 @@ case $1 in
 		fi
 	;;
 	installed)
-		if dpkg -s auditd | grep "^Status:.install" | grep installed;then
+		if dpkg -s auditd | grep -i "Status:.*install.*ok.*installed";then
 			:
 		else
 			exit 1

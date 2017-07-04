@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SYSCALLNAME=$1
-COUNT=`auditctl -l | grep "^-a.*-S.*${SYSCALLNAME}" | wc -l`
+COUNT=`auditctl -l | grep -c "^-a.*-S.*${SYSCALLNAME}"`
 
 if [ ${COUNT} -gt 0 ];then
 	:

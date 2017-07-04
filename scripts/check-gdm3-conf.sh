@@ -2,17 +2,17 @@
 
 case $1 in
  	AutomaticLoginEnable)
-		if [ $(grep -v "^#" /etc/gdm3/ -r | grep -i "automaticloginenable.*=.*true" | wc -l) -eq 1 ]; then
+		if [ $(grep -v "^#" /etc/gdm3/ -r | grep -ic "automaticloginenable.*=.*true") -eq 1 ]; then
 			exit 1
 		fi
 	;;
  	TimedLoginEnable)
-		if [ $(grep -v "^#" /etc/gdm3/ -r | grep -i "TimedLoginEnable.*=.*true" | wc -l) -eq 1 ]; then
+		if [ $(grep -v "^#" /etc/gdm3/ -r | grep -ic "TimedLoginEnable.*=.*true") -eq 1 ]; then
 			exit 1
 		fi
 	;;
  	banner-message-enable)
-		if [ $(grep -v "^#" /etc/gdm3/greeter.dconf-defaults | grep -i "^banner-message-enable=true" | wc -l) -eq 0 ]; then
+		if [ $(grep -v "^#" /etc/gdm3/greeter.dconf-defaults | grep -ic "^banner-message-enable=true") -eq 0 ]; then
 			exit 1
 		fi
 	;;

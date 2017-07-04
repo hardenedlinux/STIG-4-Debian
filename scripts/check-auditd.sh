@@ -2,7 +2,7 @@
 
 case $1 in
         active)
-		ACTIVE=`dpkg -s auditd | grep "^Status:.install" | grep installed | wc -l`
+		ACTIVE=`dpkg -s auditd | grep -ci "Status:.*install.*ok.*installed"`
 		if [ ${ACTIVE} -eq 1 ];then
 			:
 		else
@@ -10,7 +10,7 @@ case $1 in
 		fi
 	;;
 	enableflag)
-		if [  $(auditctl -s | grep enabled | wc -l) -eq 0 ];then
+		if [  $(auditctl -s | grep -c enabled) -eq 0 ];then
 			exit 1
 		else
 			FLAG=`auditctl -s | grep enabled | awk '{printf $2}'`
@@ -23,7 +23,7 @@ case $1 in
 	
 	;;
 	remote_server)
-		ISSET=`grep "^remote_server" /etc/audisp/audisp-remote.conf |  grep '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' | wc -l`
+		ISSET=`grep "^remote_server" /etc/audisp/audisp-remote.conf |  grep -c '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'`
 		if [ ${ISSET} -eq 1 ];then
 			:
 		else
@@ -31,7 +31,7 @@ case $1 in
 		fi
 	;;
 	enable_krb5)
-		ISSET=`grep "^enable_krb5.*=.*no" /etc/audisp/audisp-remote.conf | wc -l`
+		ISSET=`grep -c "^enable_krb5.*=.*no" /etc/audisp/audisp-remote.conf`
 		if [ ${ISSET} -eq 1 ];then
 			:
 		else
@@ -82,7 +82,7 @@ case $1 in
                 fi
         ;;
 	tallylog)
-		COUNT=`auditctl -l | grep /var/log/tallylog  |  wc -l`
+		COUNT=`auditctl -l | grep -c /var/log/tallylog`
 		if [ ${COUNT} -eq 1 ];then
 			:
 		else
@@ -90,7 +90,7 @@ case $1 in
 		fi
 	;;
 	faillock)
-		COUNT=`auditctl -l | grep /var/run/faillock | wc -l`
+		COUNT=`auditctl -l | grep -c /var/run/faillock`
 		if [ ${COUNT} -eq 1 ];then
 			:
 		else
@@ -98,7 +98,7 @@ case $1 in
 		fi
 	;;
 	lastlog)
-		COUNT=`auditctl -l | grep /var/log/lastlog | wc -l`
+		COUNT=`auditctl -l | grep -c /var/log/lastlog`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -106,7 +106,7 @@ case $1 in
                 fi
         ;;
 	passwd)
-		COUNT=`auditctl -l | grep /usr/bin/passwd | wc -l`
+		COUNT=`auditctl -l | grep -c /usr/bin/passwd`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -114,7 +114,7 @@ case $1 in
                 fi
         ;;
 	unix_chkpwd)
-		COUNT=`auditctl -l | grep /sbin/unix_chkpwd | wc -l`
+		COUNT=`auditctl -l | grep -c /sbin/unix_chkpwd`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -122,7 +122,7 @@ case $1 in
                 fi
         ;;
 	gpasswd)
-		COUNT=`auditctl -l | grep /usr/bin/gpasswd | wc -l`
+		COUNT=`auditctl -l | grep -c /usr/bin/gpasswd`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -130,7 +130,7 @@ case $1 in
                 fi
         ;;
 	chage)
-		COUNT=`auditctl -l | grep /usr/bin/chage | wc -l`
+		COUNT=`auditctl -l | grep -c /usr/bin/chage`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -138,7 +138,7 @@ case $1 in
                 fi
         ;;
 	su)
-		COUNT=`auditctl -l | grep /bin/su | wc -l`
+		COUNT=`auditctl -l | grep -c /bin/su`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -146,7 +146,7 @@ case $1 in
                 fi
         ;;
 	sudo)
-		COUNT=`auditctl -l | grep /usr/bin/sudo | wc -l`
+		COUNT=`auditctl -l | grep -c /usr/bin/sudo`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -154,7 +154,7 @@ case $1 in
                 fi
         ;;
 	f-sudoers)
-		COUNT=`auditctl -l | grep /etc/sudoers | wc -l`
+		COUNT=`auditctl -l | grep -c /etc/sudoers`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -162,7 +162,7 @@ case $1 in
                 fi
         ;;
 	newgrp)
-		COUNT=`auditctl -l | grep /usr/bin/newgrp | wc -l`
+		COUNT=`auditctl -l | grep -c /usr/bin/newgrp`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -170,7 +170,7 @@ case $1 in
                 fi
         ;;
 	chsh)
-		COUNT=`auditctl -l | grep /usr/bin/chsh | wc -l`
+		COUNT=`auditctl -l | grep -c /usr/bin/chsh`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -178,7 +178,7 @@ case $1 in
                 fi
         ;;
 	sudoedit)
-		COUNT=`auditctl -l | grep /usr/bin/sudoedit | wc -l`
+		COUNT=`auditctl -l | grep -c /usr/bin/sudoedit`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -186,7 +186,7 @@ case $1 in
                 fi
         ;;
 	mount)
-		COUNT=`auditctl -l | grep /bin/mount | wc -l`
+		COUNT=`auditctl -l | grep -c /bin/mount`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -194,7 +194,7 @@ case $1 in
                 fi
         ;;
 	umount)
-		COUNT=`auditctl -l | grep /bin/umount | wc -l`
+		COUNT=`auditctl -l | grep -c /bin/umount`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -202,7 +202,7 @@ case $1 in
                 fi
         ;;
 	postdrop)
-		COUNT=`auditctl -l | grep /usr/sbin/postdrop | wc -l`
+		COUNT=`auditctl -l | grep -c /usr/sbin/postdrop`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -210,7 +210,7 @@ case $1 in
                 fi
         ;;
 	postqueue)
-		COUNT=`auditctl -l | grep /usr/sbin/postqueue | wc -l`
+		COUNT=`auditctl -l | grep -c /usr/sbin/postqueue`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -218,7 +218,7 @@ case $1 in
                 fi
         ;;
 	crontab)
-		COUNT=`auditctl -l | grep /usr/bin/crontab | wc -l`
+		COUNT=`auditctl -l | grep -c /usr/bin/crontab`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -226,7 +226,7 @@ case $1 in
                 fi
         ;;
 	pam_timestamp_check)
-		COUNT=`auditctl -l | grep /usr/sbin/pam_timestamp_check | wc -l`
+		COUNT=`auditctl -l | grep -c /usr/sbin/pam_timestamp_check`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -234,7 +234,7 @@ case $1 in
                 fi
         ;;
 	insmod)
-		COUNT=`auditctl -l | grep /sbin/insmod  | wc -l`
+		COUNT=`auditctl -l | grep -c /sbin/insmod`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -242,7 +242,7 @@ case $1 in
                 fi
         ;;
 	rmmod)
-		COUNT=`auditctl -l | grep /sbin/rmmod  | wc -l`
+		COUNT=`auditctl -l | grep -c /sbin/rmmod`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -250,7 +250,7 @@ case $1 in
                 fi
         ;;
 	modprobe)
-		COUNT=`auditctl -l | grep /sbin/modprobe  | wc -l`
+		COUNT=`auditctl -l | grep -c /sbin/modprobe`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -258,7 +258,7 @@ case $1 in
                 fi
         ;;
 	f-passwd)
-		COUNT=`auditctl -l | grep /etc/passwd  | wc -l`
+		COUNT=`auditctl -l | grep -c /etc/passwd`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -273,7 +273,7 @@ case $1 in
                 fi
         ;;
 	f-gshadow)
-		COUNT=`auditctl -l | grep /etc/gshadow  | wc -l`
+		COUNT=`auditctl -l | grep -c /etc/gshadow`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -281,7 +281,7 @@ case $1 in
                 fi
 	;;
 	f-group)
-		COUNT=`auditctl -l | grep /etc/group  | wc -l`
+		COUNT=`auditctl -l | grep -c /etc/group`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -289,7 +289,7 @@ case $1 in
                 fi
 	;;
 	f-shadow)
-		COUNT=`auditctl -l | grep /etc/shadow  | wc -l`
+		COUNT=`auditctl -l | grep -c /etc/shadow`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -298,14 +298,14 @@ case $1 in
 	;;
 	f-opasswd)
 		if [ "$2" -eq 0 ];then
-			COUNT=`auditctl -l | grep /etc/opasswd  | wc -l`
+			COUNT=`auditctl -l | grep -c /etc/opasswd`
                 	if [ ${COUNT} -eq 1 ];then
                         	:
                 	else
                         	exit 1
                 	fi
 		elif [ "$2" -eq 1 ];then
-                        COUNT=`auditctl -l | grep /etc/security/opasswd  | wc -l`
+                        COUNT=`auditctl -l | grep -c /etc/security/opasswd`
                         if [ ${COUNT} -eq 1 ];then
                                 :
                         else
@@ -316,7 +316,7 @@ case $1 in
 		fi
 	;;
 	ssh-keysign)
-		COUNT=`auditctl -l | grep /usr/lib/openssh/ssh-keysign  | wc -l`
+		COUNT=`auditctl -l | grep -c /usr/lib/openssh/ssh-keysign`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else
@@ -324,7 +324,7 @@ case $1 in
                 fi
 	;;
 	gnome-pty-helper)
-		COUNT=`auditctl -l | grep gnome-pty-helper  | wc -l`
+		COUNT=`auditctl -l | grep -c gnome-pty-helper`
                 if [ ${COUNT} -eq 1 ];then
                         :
                 else

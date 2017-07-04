@@ -8,7 +8,7 @@ case $1 in
 		fi
 	;;
 	iptables-dos)
-		COUNT=`iptables -S | grep "\-m.*limit" | grep "\-\-limit-burst" | wc -l`
+		COUNT=`iptables -S | grep "\-m.*limit" | grep -c "\-\-limit-burst"`
 
 		if [ ${COUNT} -eq 0 ];then
 			exit 1

@@ -15,7 +15,7 @@ case $1 in
 		INTERVALTIME=$((${NOWTIME}-${VIRUSTIME})) 
 		echo ${INTERVALTIME}
 
-		if [ ${INTERVALTIME} -ge 604800 ];then
+		if [ "${INTERVALTIME}" -ge 604800 ];then
 			exit 1
 		fi
 	;;

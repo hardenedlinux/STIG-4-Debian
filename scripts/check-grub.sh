@@ -2,7 +2,7 @@
 
 case $1 in 
 	removable)
-		COUNT=$(grep "set root" /boot/grub/grub.cfg | grep -v "hd0" | wc -l)
+		COUNT=$(grep -v "hd0" /boot/grub/grub.cfg | grep -c "set root")
 
 		if [ "${COUNT}" -eq 0 ];then
 			:

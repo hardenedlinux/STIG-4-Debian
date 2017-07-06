@@ -10,7 +10,7 @@ else
         exit 1
 fi
 
-if [ $(aptitude search '~U' | wc -l) -gt 0 ];then
+if [ "$(aptitude search '~U' | wc -l)" -gt 0 ];then
         echo Need-to-update
         exit 1
 else 

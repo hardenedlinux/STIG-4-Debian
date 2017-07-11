@@ -35,6 +35,16 @@ Ported from DISA RHEL 7 STIG
 
 ```
 
+### Run on the GNOME desktop environment 
+![stig-4-debian-run-gnome](./image/stig-4-debian-run-gnome.png)
+
+### Details of the report output 
+![details-report](./image/stig-4-debian-report-details.png)
+
+### Overview of the report output  
+![overview-report](./image/stig4-debian-report-overview.png)
+
+
 ## How to get involved
 
 This time is only new framework release only. Not much check rule has been port from DISA RHEL 7 STIG for now.

@@ -1297,8 +1297,8 @@ Rule ID: SV-86863r2_rule
 Severity: medium
 Rule Title: The SSH daemon must not allow authentication using RSA rhosts authentication.
 Description: Configuring this setting for the SSH daemon provides additional assurance that remote logon via SSH will require a password, even in the event of misconfiguration elsewhere.
-Check_content: Verify the SSH daemon does not allow authentication using RSA rhosts authentication.\n\nTo determine how the SSH daemon\'s "RhostsRSAAuthentication" option is set, run the following command:\n\n# grep RhostsRSAAuthentication /etc/ssh/sshd_config\n\nRhostsRSAAuthentication yes\n\nIf the value is returned as "no", the returned line is commented out, or no output is returned, this is a finding.
-Fixtext: Configure the SSH daemon to not allow authentication using RSA rhosts authentication.\n\nAdd the following line in "/etc/ssh/sshd_config", or uncomment the line and set the value to "yes":\n\nRhostsRSAAuthentication yes\n\nThe SSH service must be restarted for changes to take effect.
+Check_content: Verify the SSH daemon does not allow authentication using RSA rhosts authentication.\n\nTo determine how the SSH daemon\'s "RhostsRSAAuthentication" option is set, run the following command:\n\n# grep RhostsRSAAuthentication /etc/ssh/sshd_config\n\nRhostsRSAAuthentication yes\n\nIf the value is returned as "yes", the returned line is commented out, or no output is returned, this is a finding.
+Fixtext: Configure the SSH daemon to not allow authentication using RSA rhosts authentication.\n\nAdd the following line in "/etc/ssh/sshd_config", or uncomment the line and set the value to "no":\n\nRhostsRSAAuthentication no\n\nThe SSH service must be restarted for changes to take effect.
 
 Rule ID: SV-86865r2_rule
 Severity: medium

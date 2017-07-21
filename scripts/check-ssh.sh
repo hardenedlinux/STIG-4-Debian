@@ -71,7 +71,7 @@ case $1 in
 	RhostsRSAAuthentication)
 		if grep RhostsRSAAuthentication /etc/ssh/sshd_config | grep -v "^#";then
 			SETVALUE=`grep RhostsRSAAuthentication /etc/ssh/sshd_config | grep -v "^#" | awk '{printf $2}'`
-			if [ "${SETVALUE}" == "no" ];then
+			if [ "${SETVALUE}" == "yes" ];then
 				exit 1
 			fi
 		else

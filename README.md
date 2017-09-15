@@ -53,7 +53,7 @@ We (and you) will fill it up soon.
 
 ### How to add check rule:
   1. Create a new check script file in the scripts directory for the new check rule and implementation.
-  1. Move new check rule description to stig-debian-9.txt.
+  1. Move new check rule description to stig-debian.txt.
   1. Call the check script file in stig-4-debian.sh, as follows:
 
 ```
@@ -63,7 +63,7 @@ output "SV-id_rule" $?
 ```
 
 ### How to delete a check rule:
-  1. Delete check rule description from stig-debian-9.txt.  
+  1. Delete check rule description from stig-debian.txt.  
   1. Delete the check script file in the scripts directory.  
   1. Delete calls the check script line in stig-4-debian.sh.  
 
@@ -81,14 +81,14 @@ In this code snippet, we using a script name `check-nullok.sh` to check nullok i
 
 `output "SV-86561r1_rule" $?` using `output` function to output.
 
-When the script is ported, note that the original text is from DISA RHEL 7 STIG. If some rule is RHEL 7 specific, you should use a corresponding check method in Debian and update the textfile `stig-debian-9.txt`.
+When the script is ported, note that the original text is from DISA RHEL 7 STIG. If some rule is RHEL 7 specific, you should use a corresponding check method in Debian and update the textfile `stig-debian.txt`.
 
 If you encounter some rule that you cannot easily write a small script to check. You can put this rule in `manual.txt`.
 
 
 #### Addition
 
-In the `statics` directory `xml2text.sh` is a script that can extract the information we need from offcial STIG XML file, such as 'U_Red_Hat_Enterprise_Linux_7_STIG_V1R1_Manual-xccdf.xml'. The original text file `stig-debian-9.txt` is copy of `stig-rhel-7.txt`. How to easily update STIG for Debian textfile when the offcial RHEL 7 STIG changes is under discussion.
+In the `statics` directory `xml2text.sh` is a script that can extract the information we need from offcial STIG XML file, such as 'U_Red_Hat_Enterprise_Linux_7_STIG_V1R1_Manual-xccdf.xml'. The original text file `stig-debian.txt` is copy of `stig-rhel-7.txt`. How to easily update STIG for Debian textfile when the offcial RHEL 7 STIG changes is under discussion.
 
 #### Special Note:
 

@@ -4,7 +4,7 @@ VERSION='2.0'
 DATE=`date +%F`
 LOG=STIG-for-Debian-$DATE
 
-TEXTFILE=stig-debian-9.txt
+TEXTFILE=stig-debian.txt
 export SUCCESS_FLAG=0
 export FAIL_FLAG=0
 

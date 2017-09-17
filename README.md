@@ -103,6 +103,10 @@ SELinux-related items (not matched):
 * SV-86595r1_rule
 * SV-86615r2_rule
 
-## Get deb package
+## Get deb package 
+### Signed package address 
 https://github.com/harbian/stig4debian/tree/master/stig4debian-package/stig4debian_0.1.0-1_all.deb
+
+### Unsigned package address
+https://github.com/harbian/stig4debian/tree/master/stig4debian-unsigned-package 
 

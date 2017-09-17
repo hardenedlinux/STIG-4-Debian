@@ -105,7 +105,7 @@ SELinux-related items (not matched):
 
 ## Get deb package 
 ### Signed package address 
-https://github.com/harbian/stig4debian/tree/master/stig4debian-package/stig4debian_0.1.0-1_all.deb
+https://github.com/harbian/stig4debian/tree/master/stig4debian-package
 
 ### Unsigned package address
 https://github.com/harbian/stig4debian/tree/master/stig4debian-unsigned-package 

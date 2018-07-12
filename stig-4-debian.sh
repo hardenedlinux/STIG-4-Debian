@@ -1,12 +1,19 @@
 #!/bin/bash
 
-VERSION='2.0'
+VERSION='2.1'
 DATE=`date +%F`
 LOG=STIG-for-Debian-$DATE
 
 TEXTFILE=stig-debian.txt
 export SUCCESS_FLAG=0
 export FAIL_FLAG=0
+export ENABLE_HTML=0
+export ASCII=0
+export CATCOLOR=0
+RED=$(tput setaf 1)
+BOLD=$(tput bold)
+GREEN=$(tput setaf 2)
+NORMAL=$(tput sgr0)
 
 function version() {
 	echo "STIG for Debian Compliance Checking Tools(v.$VERSION)"
@@ -16,11 +23,13 @@ function usage() {
 cat << EOF
 usage: $0 [options]
 
-  -s    Start checking and output repot in html format.
+  -H    Start checking and output report in HTML version
+  -A    Start checking and output report in ASCII version
+  -C    Start checking and output report in ASCII version with catable colors
   -v    Display version
   -h    Display help
 
-Default report is output in current directory(STIG-for-Debian-*.html)
+Default report is output in current directory(STIG-for-Debian-*.(html|log))
 
 STIG for Debian Compliance Checking Tools (v$VERSION)
 
@@ -38,11 +47,18 @@ elif [ $# -gt 1 ];then
         exit 1
 fi
 
-while getopts ":csvhqC" OPTION; do
+while getopts ":HCAvh" OPTION; do
         case $OPTION in
-                s)      
+                H)      
 			ENABLE_HTML=1
                         ;;
+		C)
+			CATCOLOR=1
+			;;
+		A)
+		        ASCII=1
+			;;
+
                 v)
                         version
                         exit 0
@@ -159,7 +175,71 @@ function html_details_manual_output() {
         echo '<font style="font-weight:bold;">Fix Method: </font>'"$(echo "$FIX" | sed -e 's/\\n\\n/<br \/>/g' -e 's/\\n/<br \/>/g')"'<br /></section>' >>$HTML_DETAILS_LOG
 }
 
+function ascii_output() {
+	printf "\n---------------------------------------\n"
+	echo "Rule Title: ""$RULE_TITLE"
+	echo "Rule ID: ""$RULE_ID"
+	echo "Status: ""$STATUS"
+	echo "Description: ""$QUESTION_DESC"
+	printf "Check Content: %b\n" "$CHECK_CONTENT" | sed -e 's/\\'/'/g'
+	printf "Fix Method: %b\n" "$FIX" | sed -e 's/\\'/'/g'
+	printf "\n"
+}
+
+function ascii_manual_output() {
+        echo "Rule Title: ""$RULE_TITLE"
+        echo "Rule ID: ""$RULE_ID"
+        echo "Description: ""$QUESTION_DESC"
+        printf "Check Content: %b\n" "$CHECK_CONTENT" | sed -e 's/\\'/'/g'
+        printf "Fix Method: %b\n" "$FIX" | sed -e 's/\\'/'/g'
+        printf "\n"
+}
+
+ASCII_LOG="$LOG"-ascii.log
+
+function catcolor_output() {
+
+        RED=$(tput setaf 1)
+        BOLD=$(tput bold)
+        GREEN=$(tput setaf 2)
+        NORMAL=$(tput sgr0)
+	printf "\n---------------------------------------\n"
+	printf "%s %s\n\n" "$BOLD""RuleTitle:$NORMAL" "$RULE_TITLE"
+        printf "%s %s\n\n" "$BOLD""Rule ID:$NORMAL" "$RULE_ID"
+	printf "%s %s\n\n" "$BOLD""Status:$NORMAL" "$STATUS"
+	printf "%s %s\n\n" "$BOLD""Description:$NORMAL" "$QUESTION_DESC"
+	printf "%s %b\n\n" "$BOLD""Check Content:$NORMAL" "$CHECK_CONTENT" | sed -e 's/\\'/'/g'
+	printf "%s %b\n\n" "$BOLD""Fix Method:$NORMAL" "$FIX" | sed -e 's/\\'/'/g'
+	printf "\n"
+}
+
+function catcolor_manual_output() {
+
+        RED=$(tput setaf 1)
+        BOLD=$(tput bold)
+        GREEN=$(tput setaf 2)
+        NORMAL=$(tput sgr0)
+        printf "\n---------------------------------------\n"
+        printf "%s %s\n\n" "$BOLD""RuleTitle:$NORMAL" "$RULE_TITLE"
+        printf "%s %s\n\n" "$BOLD""Rule ID:$NORMAL" "$RULE_ID"
+        printf "%s %s\n\n" "$BOLD""Description:$NORMAL" "$QUESTION_DESC"
+        printf "%s %b\n\n" "$BOLD""Check Content:$NORMAL" "$CHECK_CONTENT" | sed -e 's/\\'/'/g'
+        printf "%s %b\n\n" "$BOLD""Fix Method:$NORMAL" "$FIX" | sed -e 's/\\'/'/g'
+        printf "\n"
+}
+
+
+function on_screen_output() {
+       printf "Checking %s\n" "$RULE_TITLE"
+}
+
+CATCOLOR_LOG="$LOG"-catcolor.log
+
+
 function output() {
+	RED=$(tput setaf 1)
+	GREEN=$(tput setaf 2)
+        NORMAL=$(tput sgr0)
 
         EXIT_STATUS=$2
         LOCATION=$(sed -n "/$1/=" $TEXTFILE)
@@ -177,18 +257,48 @@ function output() {
         FIX=$(sed -n "$((LOCATION+=5))"p $TEXTFILE | sed "s/Fixtext: //")
         HTML_FIX=$(echo $FIX)
 
-        if [ $EXIT_STATUS -eq 0 ];then
-                STATUS="PASS"
-                ((SUCCESS_FLAG++))
-        else
-                STATUS='<font color="#FE4365">FAILED</font>'
-                ((FAIL_FLAG++))
-        fi
+
 
         if [ $ENABLE_HTML = "1" ];then
+	    #check exit status
+            if [ $EXIT_STATUS -eq 0 ];then
+		printf "%s %s\n"  "$GREEN$BOLD[ PASS ]$NORMAL" "$RULE_TITLE"
+                STATUS="PASS"
+              	((SUCCESS_FLAG++))
+            else
+	        printf "%s %s\n"  "$RED$BOLD[ FAIL ]$NORMAL" "$RULE_TITLE"
+               	STATUS='<font color="#FE4365">FAILED</font>'
+               	((FAIL_FLAG++))
+            fi
             html_overview_output >> $HTML_OVERVIEW_LOG
             html_details_output >> $HTML_DETAILS_LOG
         fi
+
+        if [ $ASCII = "1" ];then
+		if [ $EXIT_STATUS -eq 0 ];then
+			printf "%s %s\n"  "$GREEN$BOLD[ PASS ]$NORMAL" "$RULE_TITLE"
+	        	STATUS="PASS"
+			((SUCCESS_FLAG++))
+		else
+			printf "%s %s\n"  "$RED$BOLD[ FAIL ]$NORMAL" "$RULE_TITLE"
+			STATUS="FAILED"
+			((FAIL_FLAG++))
+		fi
+        	ascii_output >> $ASCII_LOG
+	fi
+
+	if [ $CATCOLOR = "1" ];then
+		if [ $EXIT_STATUS -eq 0 ];then
+			printf "%s %s\n"  "$GREEN$BOLD[ PASS ]$NORMAL" "$RULE_TITLE"
+	        	STATUS="$GREEN$BOLD""PASS""$NORMAL"
+			((SUCCESS_FLAG++))
+		else
+			printf "%s %s\n"  "$RED$BOLD[ FAIL ]$NORMAL" "$RULE_TITLE"
+			STATUS="$RED$BOLD""FAILED""$NORMAL"
+			((FAIL_FLAG++))
+		fi
+        	catcolor_output >> $CATCOLOR_LOG
+	fi
 }
 
 function manual_output() {
@@ -210,13 +320,19 @@ function manual_output() {
         #output fixtext
         FIX=$(sed -n "$((LOCATION+=5))"p $TEXTFILE | sed "s/Fixtext: //")
         HTML_FIX=$(echo $FIX)
-
+        printf "%s: %s\n" "$RULE_ID" "$RULE_TITLE"
         if [ $ENABLE_HTML = "1" ];then
             html_overview_manual_output >> $HTML_OVERVIEW_LOG
             html_details_manual_output >> $HTML_DETAILS_LOG
         fi
-}
 
+	if [ $ASCII = "1" ];then
+		ascii_manual_output >> $ASCII_LOG
+	fi
+	if [ $CATCOLOR = "1" ];then
+		catcolor_manual_output >> $CATCOLOR_LOG
+	fi
+}
 
 
 if [ $ENABLE_HTML = "1" ]; then
@@ -1287,6 +1403,8 @@ fi
 
 #####Manual checking
 
+printf "\n\nManually Checking Part\n\n"
+
 cat manual.txt | while read line;do
         manual_output "$line"
 done
@@ -1296,6 +1414,20 @@ if [ $ENABLE_HTML = "1" ];then
         html_details_gen_epilogue
 fi
 
-#####Statistics
+printf "\n\n%s %s\n" "$GREEN""Pass Count: ""$NORMAL" "$SUCCESS_FLAG"
+printf "%s %s\n" "$RED""Failed Count: ""$NORMAL" "$FAIL_FLAG"
 
-sed -i -e "s/Pass count/Pass count: $SUCCESS_FLAG/" -e "s/Failed count/Failed count: $FAIL_FLAG/" STIG-for-Debian-${DATE}_*.html
+#####Statistics
+if [ $ENABLE_HTML = "1" ];then
+	sed -i -e "s/Pass count/Pass count: $SUCCESS_FLAG/" -e "s/Failed count/Failed count: $FAIL_FLAG/" STIG-for-Debian-${DATE}_*.html
+fi
+
+if [ $ASCII = "1" ];then
+	printf "\n\n%s %s\n" "Pass Count: " "$SUCCESS_FLAG" >> $ASCII_LOG
+	printf "%s %s\n" "Failed Count: " "$FAIL_FLAG" >> $ASCII_LOG
+fi
+
+if [ $CATCOLOR = "1" ];then
+	printf "\n\n%s %s\n" "$GREEN""Pass Count: ""$NORMAL" "$SUCCESS_FLAG" >> $CATCOLOR_LOG
+	printf "%s %s\n" "$RED""Failed Count: ""$NORMAL" "$FAIL_FLAG" >> $CATCOLOR_LOG
+fi

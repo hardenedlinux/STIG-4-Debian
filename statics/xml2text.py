@@ -1,7 +1,15 @@
 import sys
+import os
 from lxml import etree
 ns = {"xmlns": "http://checklists.nist.gov/xccdf/1.1"}
-xml = etree.parse('U_Red_Hat_Enterprise_Linux_7_STIG_V1R1_Manual-xccdf.xml')
+
+filename="U_Red_Hat_Enterprise_Linux_7_STIG_V1R1_Manual-xccdf.xml"
+
+if os.access("/hardenedlinux/STIG-4-Debian/statics/U_Red_Hat_Enterprise_Linux_7_STIG_V1R4_Manual-xccdf.xml", os.F_OK):
+	filename="U_Red_Hat_Enterprise_Linux_7_STIG_V1R4_Manual-xccdf.xml"
+
+#xml = etree.parse('U_Red_Hat_Enterprise_Linux_7_STIG_V1R1_Manual-xccdf.xml')
+xml = etree.parse(filename)
 
 for rules in xml.xpath('//xmlns:Benchmark/xmlns:Group/xmlns:Rule[@id]',namespaces=ns):
     print "Rule ID: %s" % rules.attrib["id"]

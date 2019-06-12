@@ -51,7 +51,7 @@ case $1 in
         ;;
 	space_left)
 		DISKSIZE=`df  -B 1m /var/log/audit/ | grep -v "Filesystem" | awk '{printf $2}'`
-		LEFTSIZE=`bc <<<${DISKSIZE}*0.25`
+		LEFTSIZE=`(bc <<<${DISKSIZE}*0.25) | sed 's/\.[0-9]*$//'`
 		SETSIZE=`grep "^space_left.=.*"  /etc/audit/auditd.conf | awk '{printf $3}'`
 		if [ "${SETSIZE}" -ge "${LEFTSIZE}" ];then
 			:

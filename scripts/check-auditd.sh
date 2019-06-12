@@ -20,7 +20,7 @@ case $1 in
 				exit 1
 			fi
 		fi
-	
+
 	;;
 	remote_server)
 		ISSET=`grep "^remote_server" /etc/audisp/audisp-remote.conf |  grep -c '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'`
@@ -138,7 +138,7 @@ case $1 in
                 fi
         ;;
 	su)
-		COUNT=`auditctl -l | grep -c /bin/su`
+		COUNT=`auditctl -l | grep -c -P "/bin/su\b"`
                 if [ "${COUNT}" -eq 1 ];then
                         :
                 else

@@ -155,7 +155,7 @@ case $1 in
         ;;
 	f-sudoers)
 		COUNT=`auditctl -l | grep -c /etc/sudoers`
-                if [ "${COUNT}" -eq 1 ];then
+                if [ "${COUNT}" -ge 1 ];then
                         :
                 else
                         exit 1

@@ -146,7 +146,7 @@ case $1 in
                 fi
         ;;
 	sudo)
-		COUNT=`auditctl -l | grep -c /usr/bin/sudo`
+		COUNT=`auditctl -l | grep -c -P "/usr/bin/sudo\b"`
                 if [ "${COUNT}" -eq 1 ];then
                         :
                 else

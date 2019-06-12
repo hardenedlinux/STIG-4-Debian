@@ -414,7 +414,7 @@ spinner $!
 output "SV-86537r1_rule" $?
 
 
-bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so maxrepeat le 2 >/dev/null 2>&1 &
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so maxrepeat gt 2 >/dev/null 2>&1 &
 spinner $!
 output "SV-86539r1_rule" $?
 

@@ -6,12 +6,15 @@ case $1 in
                 fi
         ;;
         maxlogins)
-                if sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/security/limits.conf | grep "maxlogins";then
-                        if [ "$(sed -e '/^#/d' -e '/^[ \t][ \t]*#/d' -e 's/#.*$//' -e '/^$/d' /etc/security/limits.conf | grep "maxlogins" | awk -F 'maxlogins' '{print $2}' | sed 's/\ *//g')" -lt 10 ];then
-                                exit 1
-                        fi
-                else
-                        exit 1
+                LIMIT_FOUND=0
+                while read -r line ; do
+                    LIMIT_FOUND=$((LIMIT_FOUND+1))
+                    if [ "$line" -lt 10 ];then
+                      exit 1
+                    fi
+                done < <(grep -P "^\s*\*\s+hard\s+maxlogins\s+\d+\s*$" /etc/security/limits.conf /etc/security/limits.d/*.conf | cut -d' ' -f4)
+                if [ "$LIMIT_FOUND" -le 0 ];then
+                  exit 1
                 fi
         ;;
 esac

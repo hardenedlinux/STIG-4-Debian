@@ -1,6 +1,6 @@
 #!/bin/bash
 
-COUNT=`find / -xdev -perm -002 -type d -fstype ext4  -exec ls -lLdg {} \;  | grep -v "/root" | grep -c "root"`
+COUNT=`find / -xdev -perm -002 -type d -fstype ext4  -exec ls -lLdg {} \;  | grep -v "/root" | grep -cv "root"`
 
 if [ "${COUNT}" -eq 0 ];then
 	:

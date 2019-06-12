@@ -11,16 +11,16 @@ case $1 in
 		fi
 		;;
 	password_pbkdf2)
-		COUNT1=$(grep -ic "^set.*superusers=\"root\"" /boot/grub/grub.cfg)
-		COUNT2=$(grep -ic "^password_pbkdf2.*root.*grub.pbkdf2.sha512.*" /boot/grub/grub.cfg)
+		COUNT1=$(grep -hic "^set.*superusers=\"root\"" /boot/grub/grub.cfg)
+		COUNT2=$(grep -hic "^password_pbkdf2.*root.*grub.pbkdf2.sha512.*" /boot/grub/grub.cfg)
 
 		if [ "${COUNT1}" -lt 1 -o "${COUNT2}" -lt 1 ];then
 			exit 1
 		fi
 	;;
 	password_pbkdf2_efi)
-		COUNT1=$(grep -ic "^set.*superusers=\"root\"" /boot/efi/* -r)
-		COUNT2=$(grep -ic "^password_pbkdf2.*root.*grub.pbkdf2.sha512.*" /boot/efi/* -r)
+		COUNT1=$(grep -hic "^set.*superusers=\"root\"" /boot/efi/* -r)
+		COUNT2=$(grep -hic "^password_pbkdf2.*root.*grub.pbkdf2.sha512.*" /boot/efi/* -r)
 
 		if [ "${COUNT1}" -lt 1 -o "${COUNT2}" -lt 1 ];then
 			exit 1

@@ -414,12 +414,12 @@ spinner $!
 output "SV-86537r1_rule" $?
 
 
-bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so maxrepeat le 2 >/dev/null 2>&1 &
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so maxrepeat gt 2 >/dev/null 2>&1 &
 spinner $!
 output "SV-86539r1_rule" $?
 
 
-bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so maxclassrepeat le 4 >/dev/null 2>&1 &
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so maxclassrepeat gt 4 >/dev/null 2>&1 &
 spinner $!
 output "SV-86541r1_rule" $?
 
@@ -459,7 +459,7 @@ spinner $!
 output "SV-86557r1_rule" $?
 
 
-bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so minlen ge 15 >/dev/null 2>&1 &
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so minlen lt 15 >/dev/null 2>&1 &
 spinner $!
 output "SV-86559r1_rule" $?
 

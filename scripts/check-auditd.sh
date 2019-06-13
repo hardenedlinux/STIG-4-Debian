@@ -20,7 +20,7 @@ case $1 in
 				exit 1
 			fi
 		fi
-	
+
 	;;
 	remote_server)
 		ISSET=`grep "^remote_server" /etc/audisp/audisp-remote.conf |  grep -c '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'`
@@ -51,7 +51,7 @@ case $1 in
         ;;
 	space_left)
 		DISKSIZE=`df  -B 1m /var/log/audit/ | grep -v "Filesystem" | awk '{printf $2}'`
-		LEFTSIZE=`bc <<<${DISKSIZE}*0.25`
+		LEFTSIZE=`(bc <<<${DISKSIZE}*0.25) | sed 's/\.[0-9]*$//'`
 		SETSIZE=`grep "^space_left.=.*"  /etc/audit/auditd.conf | awk '{printf $3}'`
 		if [ "${SETSIZE}" -ge "${LEFTSIZE}" ];then
 			:
@@ -138,7 +138,7 @@ case $1 in
                 fi
         ;;
 	su)
-		COUNT=`auditctl -l | grep -c /bin/su`
+		COUNT=`auditctl -l | grep -c -P "/bin/su\b"`
                 if [ "${COUNT}" -eq 1 ];then
                         :
                 else
@@ -146,7 +146,7 @@ case $1 in
                 fi
         ;;
 	sudo)
-		COUNT=`auditctl -l | grep -c /usr/bin/sudo`
+		COUNT=`auditctl -l | grep -c -P "/usr/bin/sudo\b"`
                 if [ "${COUNT}" -eq 1 ];then
                         :
                 else
@@ -155,7 +155,7 @@ case $1 in
         ;;
 	f-sudoers)
 		COUNT=`auditctl -l | grep -c /etc/sudoers`
-                if [ "${COUNT}" -eq 1 ];then
+                if [ "${COUNT}" -ge 1 ];then
                         :
                 else
                         exit 1

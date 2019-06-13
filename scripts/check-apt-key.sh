@@ -6,7 +6,7 @@ KEY_FINGER_COUNT=`grep -c APTKEYFINGER scripts/apt-key-finger-list.data`
 
 for ((i=1;i<=${KEY_FINGER_COUNT};i++))
 do
-  CHECKKEYFINGER=`grep APTKEYFINGER scripts/apt-key-finger-list.data | sed -n "${i}p" | awk -F '=' '{print $2}'`
+  CHECKKEYFINGER=`grep APTKEYFINGER scripts/apt-key-finger-list.data | sed -n "${i}p" | sed 's/"//g' | awk -F '=' '{print $2}'`
   CHECKTMP=$(apt-key finger | grep -c "$CHECKKEYFINGER")
   if [ "$CHECKTMP" -eq 1 ]; then
      :
@@ -14,5 +14,4 @@ do
     exit 1
   fi
 done
-
 

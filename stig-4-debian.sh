@@ -731,7 +731,7 @@ if [ -e /etc/cron.allow ];then
 fi
 
 
-bash bash scripts/check-limits.sh core-dumps >/dev/null 2>&1 &
+bash scripts/check-limits.sh core-dumps >/dev/null 2>&1 &
 spinner $!
 output "SV-86681r1_rule" $?
 

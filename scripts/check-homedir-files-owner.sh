@@ -9,7 +9,7 @@ do
 		exit 1
 	else
 		CUR_USER_UID=`grep "${line}:" /etc/passwd | cut -d: -f3`
-		OWNER_CHECK_ERR_COUNT=`find "${line}" \! -uid "${CUR_USER_UID}" -exec ls -l {} \; | wc -l `
+		OWNER_CHECK_ERR_COUNT=`find "${line}" \! -uid "${CUR_USER_UID}" -exec ls -l {} \; | wc -l`
 		if [ "${OWNER_CHECK_ERR_COUNT}" -gt 0 ];then
 			exit 1
 		fi

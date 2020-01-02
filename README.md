@@ -3,7 +3,7 @@
 ## About
 
 This script is used to check DISA STIG(Security Technical Implementation Guides) for Debian 9
-Porting from [DISA RHEL 7 STIG V1 R1](http://iasecontent.disa.mil/stigs/zip/U_Red_Hat_Enterprise_Linux_7_V1R1_STIG.ZIP)  
+Porting from [DISA RHEL 7 STIG V1 R1](https://raw.githubusercontent.com/hardenedlinux/STIG-OS-mirror/master/redhat-STIG-DOCs/U_Red_Hat_Enterprise_Linux_7_STIG_V1R1_Manual-xccdf.xml)  
 Benchmark Date: 27 Feb 2017
 
 ## Upgrade

@@ -404,12 +404,12 @@ spinner $!
 output "SV-86533r1_rule" $?
 
 
-bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so difok ge 8 >/dev/null 2>&1 &
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so difok lt 8 >/dev/null 2>&1 &
 spinner $!
 output "SV-86535r1_rule" $?
 
 
-bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so minclass ge 4 >/dev/null 2>&1 &
+bash scripts/check-password.sh /etc/pam.d/common-password pam_pwquality.so minclass lt 4 >/dev/null 2>&1 &
 spinner $!
 output "SV-86537r1_rule" $?
 
